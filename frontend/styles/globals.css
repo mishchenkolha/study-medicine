@@ -1,0 +1,354 @@
+@import 'tailwindcss';
+
+@layer base {
+  /* --- Custom media queries --- */
+  @custom-media --mobile (max-width: 767px);
+  @custom-media --tablet (min-width: 768px) and (max-width: 1279px);
+  @custom-media --desktop (min-width: 1280px);
+
+  /* --- CSS variables --- */
+  :root {
+    --radius: 0.5rem;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --border: 214.3 31.8% 91.4%;
+
+    --btn-bg: #1e3a8a;
+    --btn-text: white;
+    --btn-hover: #1e40af;
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  /* --- Typography base styles --- */
+  h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
+    font-weight: 493; /* normalMedium */
+  }
+
+  h6, .h6 {
+    font-weight: 700; /* bold */
+  }
+
+  .label {
+    font-weight: 587; /* semibold */
+    line-height: 114.286%;
+  }
+
+  .pLarge {
+    font-weight: 493;
+    letter-spacing: 0;
+  }
+
+  .pNormal {
+    font-weight: 493;
+    letter-spacing: 0;
+  }
+
+  .pSmall {
+    font-weight: 400;
+  }
+
+  .pBoldLink {
+    font-weight: 587;
+    line-height: 100%;
+  }
+
+  /* --- Responsive typography and classes --- */
+
+  /* h0 */
+  .h0 {
+    font-weight: 587; /* semibold */
+    letter-spacing: -0.1875rem;
+  }
+  @media (--desktop) {
+    .h0 {
+      line-height: 116.667%;
+      font-size: 7.5rem; /* 14xl - 7.5rem */
+    }
+  }
+  @media (--tablet) {
+    .h0 {
+      letter-spacing: -0.125rem;
+      line-height: 120%;
+      font-size: 5rem; /* 11xl - 5rem */
+    }
+  }
+  @media (--mobile) {
+    .h0 {
+      line-height: 115.385%;
+      font-size: 3rem; /* 6_5xl - 3rem approx */
+    }
+  }
+
+  /* h1 */
+  h1, .h1 {
+    line-height: 90%;
+  }
+  @media (--desktop) {
+    h1, .h1 {
+      letter-spacing: -0.15rem;
+      font-size: 6rem; /* 12xl - 6rem */
+    }
+  }
+  @media (--tablet) {
+    h1, .h1 {
+      letter-spacing: -0.125rem;
+      font-size: 5rem; /* 11xl - 5rem */
+    }
+  }
+  @media (--mobile) {
+    h1, .h1 {
+      line-height: 91.667%;
+      letter-spacing: -0.075rem;
+      font-size: 3rem; /* 6xl - 3rem */
+    }
+  }
+
+  /* h2 */
+  h2, .h2 {
+    line-height: 100%;
+  }
+  @media (--desktop) {
+    h2, .h2 {
+      letter-spacing: -0.1125rem;
+      font-size: 4.5rem; /* 10xl - 4.5rem */
+    }
+  }
+  @media (--tablet) {
+    h2, .h2 {
+      letter-spacing: -0.09375rem;
+      font-size: 3.75rem; /* 7xl - 3.75rem */
+    }
+  }
+  @media (--mobile) {
+    h2, .h2 {
+      letter-spacing: -0.0625rem;
+      font-size: 2.5rem; /* 5xl - 2.5rem */
+    }
+  }
+
+  /* h3 */
+  h3, .h3 {
+  }
+  @media (--desktop) {
+    h3, .h3 {
+      letter-spacing: -0.075rem;
+      line-height: 108%;
+      font-size: 3rem; /* 6xl - 3rem */
+    }
+  }
+  @media (--tablet) {
+    h3, .h3 {
+      letter-spacing: -0.06875rem;
+      line-height: 118.182%;
+      font-size: 2.75rem; /* 5_5xl approx 2.75rem */
+    }
+  }
+  @media (--mobile) {
+    h3, .h3 {
+      letter-spacing: -0.04375rem;
+      line-height: 114.286%;
+      font-size: 1.75rem; /* 3xl - 1.75rem */
+    }
+  }
+
+  /* h4 */
+  h4, .h4 {
+    line-height: 125%;
+  }
+  @media (--desktop) {
+    h4, .h4 {
+      letter-spacing: -0.04rem;
+      font-size: 2rem; /* 4xl - 2rem */
+    }
+  }
+  @media (--tablet) {
+    h4, .h4 {
+      letter-spacing: -0.04rem;
+      font-size: 2rem; /* 4xl - 2rem */
+    }
+  }
+  @media (--mobile) {
+    h4, .h4 {
+      line-height: 133.33%;
+      letter-spacing: -0.03rem;
+      font-size: 1.5rem; /* 2xl - 1.5rem */
+    }
+  }
+
+  /* h5 */
+  h5, .h5 {
+    line-height: 133.33%;
+  }
+  @media (--desktop) {
+    h5, .h5 {
+      letter-spacing: -0.0375rem;
+      font-size: 1.5rem; /* 2xl - 1.5rem */
+    }
+  }
+  @media (--tablet) {
+    h5, .h5 {
+      letter-spacing: -0.0375rem;
+      font-size: 1.5rem; /* 2xl - 1.5rem */
+    }
+  }
+  @media (--mobile) {
+    h5, .h5 {
+      letter-spacing: -0.03125rem;
+      line-height: 140%;
+      font-size: 1.25rem; /* lg - 1.25rem */
+    }
+  }
+
+  /* h6 */
+  h6, .h6 {
+    line-height: 150%;
+    letter-spacing: 0;
+    font-weight: 700; /* bold */
+  }
+  @media (--desktop) {
+    h6, .h6 {
+      font-size: 1.25rem; /* lg - 1.25rem */
+    }
+  }
+  @media (--tablet) {
+    h6, .h6 {
+      font-size: 1.25rem; /* lg - 1.25rem */
+    }
+  }
+  @media (--mobile) {
+    h6, .h6 {
+      line-height: 155.55%;
+      font-size: 1.125rem; /* md - 1.125rem */
+    }
+  }
+
+  /* --- Paragraph styles --- */
+  .pLarge {
+    letter-spacing: 0;
+  }
+  @media (--desktop) {
+    .pLarge {
+      line-height: 150%;
+      font-size: 1.25rem; /* lg */
+    }
+  }
+  @media (--tablet) {
+    .pLarge {
+      line-height: 150%;
+      font-size: 1.25rem; /* lg */
+    }
+  }
+  @media (--mobile) {
+    .pLarge {
+      line-height: 155.556%;
+      font-size: 1.125rem; /* md */
+    }
+  }
+
+  .pNormal {
+    letter-spacing: 0;
+  }
+  @media (--desktop) {
+    .pNormal {
+      line-height: 137.5%;
+      font-size: 1rem; /* base */
+    }
+  }
+  @media (--tablet) {
+    .pNormal {
+      line-height: 137.5%;
+      font-size: 1rem; /* base */
+    }
+  }
+  @media (--mobile) {
+    .pNormal {
+      line-height: 142.857%;
+      font-size: 0.875rem; /* smbase */
+    }
+  }
+
+  .pSmall {
+  }
+  @media (--desktop) {
+    .pSmall {
+      letter-spacing: -0.008rem;
+      line-height: 123.077%;
+      font-size: 0.813rem;
+    }
+  }
+  @media (--tablet) {
+    .pSmall {
+      letter-spacing: -0.008rem;
+      line-height: 123.077%;
+      font-size: 0.813rem;
+    }
+  }
+  @media (--mobile) {
+    .pSmall {
+      letter-spacing: 0;
+      line-height: 116.667%;
+      font-size: 0.75rem;
+    }
+  }
+
+  .pBoldLink {
+    line-height: 100%;
+  }
+  @media (--desktop) {
+    .pBoldLink {
+      letter-spacing: 0;
+      font-size: 1rem; /* base */
+    }
+  }
+  @media (--tablet) {
+    .pBoldLink {
+      letter-spacing: 0;
+      font-size: 1rem; /* base */
+    }
+  }
+  @media (--mobile) {
+    .pBoldLink {
+      letter-spacing: 0.004375rem;
+      font-size: 0.875rem; /* smbase */
+    }
+  }
+
+  /* --- Container --- */
+  .container {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (--mobile) {
+    .container {
+      max-width: 52rem;
+    }
+  }
+
+  @media (--tablet) {
+    .container {
+      max-width: 80rem;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (--desktop) {
+    .container {
+      max-width: 90rem;
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
+  }
+}

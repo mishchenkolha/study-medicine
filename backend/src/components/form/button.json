@@ -1,0 +1,50 @@
+{
+  "collectionName": "components_form_buttons",
+  "info": {
+    "displayName": "button"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "class": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "default": "button",
+      "enum": [
+        "button",
+        "submit",
+        "reset"
+      ]
+    },
+    "color": {
+      "type": "enumeration",
+      "default": "default",
+      "enum": [
+        "primary",
+        "success",
+        "error",
+        "default"
+      ]
+    },
+    "variant": {
+      "type": "enumeration",
+      "default": "default",
+      "enum": [
+        "default",
+        "destructive",
+        "outline",
+        "secondary",
+        "ghost",
+        "link"
+      ]
+    }
+  },
+  "config": {}
+}

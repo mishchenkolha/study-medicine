@@ -1,0 +1,45 @@
+{
+  "kind": "singleType",
+  "collectionName": "homepages",
+  "info": {
+    "singularName": "homepage",
+    "pluralName": "homepages",
+    "displayName": "homepage"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "hero": {
+      "type": "component",
+      "component": "components.cta",
+      "repeatable": false
+    },
+    "benefits": {
+      "type": "component",
+      "component": "llist.faqs",
+      "repeatable": false
+    },
+    "courses": {
+      "type": "component",
+      "component": "llist.cards",
+      "repeatable": false
+    },
+    "articles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::page.page"
+    },
+    "labels": {
+      "type": "component",
+      "component": "components.labels",
+      "repeatable": true
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo",
+      "repeatable": false
+    }
+  }
+}

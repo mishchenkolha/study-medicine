@@ -1,0 +1,81 @@
+import {
+  ICategoriesTree,
+  ICategoryTreeNode,
+  IMenu,
+  IStrapiCategory,
+} from '@/types/navbar';
+
+export const normalizeTree = (
+  data: IStrapiCategory[],
+  slug?: string,
+): ICategoriesTree => {
+  const categories: ICategoriesTree = {};
+  const filteredData = slug
+    ? data.filter((item) => item.parent?.slug === slug)
+    : data.filter((item) => !item.parent);
+
+  filteredData.forEach((item) => {
+    categories[item.slug] = {
+      title: item.title,
+      description: item.description,
+      slug: item.slug,
+      href: item.href,
+      children: normalizeTree(data, item.slug),
+    };
+  });
+
+  return categories;
+};
+
+export const getTreeNode = (
+  tree: ICategoriesTree | null,
+  slug: string,
+): ICategoryTreeNode | null => {
+  let treeNode: ICategoryTreeNode | null = null;
+  if (!tree) {
+    return null;
+  }
+  Object.values(tree).forEach((item) => {
+    if (!treeNode) {
+      if (item.slug === slug) {
+        treeNode = item;
+      } else {
+        treeNode = getTreeNode(item.children, slug);
+      }
+    }
+  });
+  return treeNode;
+};
+
+export const normalizeMenuTree = (
+  categoriesTree: ICategoriesTree | null | undefined,
+): IMenu[] | undefined => {
+  const normalizedData: IMenu[] = [];
+  if (!categoriesTree) {
+    return;
+  }
+  Object.values(categoriesTree).map((item: ICategoryTreeNode) => {
+    normalizedData.push({
+      title: item.title,
+      href: item.href || `/courses/${item.slug}`,
+      children: normalizeMenuTree(item.children),
+      alt: item.description || item.title,
+    });
+  });
+  return normalizedData;
+};
+
+export const normalizeMenu = (
+  menu: IStrapiCategory[],
+  menuTree: ICategoriesTree,
+) => {
+  return menu.map((item) => {
+    const treeNode = getTreeNode(menuTree, item.slug);
+    return {
+      title: item.title,
+      href: item.href || `/courses/${item.slug}`,
+      children: normalizeMenuTree(treeNode?.children),
+      alt: item.description || item.title,
+    };
+  });
+};

@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_llist_cards",
+  "info": {
+    "displayName": "cards"
+  },
+  "options": {},
+  "attributes": {
+    "description": {
+      "type": "richtext"
+    },
+    "title": {
+      "type": "string"
+    },
+    "bg": {
+      "type": "string"
+    },
+    "bg_img": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "cards": {
+      "type": "component",
+      "component": "components.card",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

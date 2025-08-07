@@ -1,2 +1,0 @@
-# study-medicine
-study resource

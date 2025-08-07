@@ -15,10 +15,14 @@
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },
   "dependencies": {
+    "@_sh/strapi-plugin-ckeditor": "^6.0.2",
     "@strapi/plugin-cloud": "5.19.0",
+    "@strapi/plugin-seo": "^2.0.8",
     "@strapi/plugin-users-permissions": "5.19.0",
+    "@strapi/provider-email-nodemailer": "^5.20.0",
     "@strapi/strapi": "5.19.0",
     "better-sqlite3": "11.3.0",
+    "nodemailer": "^7.0.5",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
@@ -28,6 +32,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "prettier": "^3.6.2",
     "typescript": "^5"
   },
   "engines": {

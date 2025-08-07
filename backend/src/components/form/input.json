@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_form_inputs",
+  "info": {
+    "displayName": "input"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "default": "input",
+      "enum": [
+        "input",
+        "radio",
+        "number",
+        "checkbox",
+        "hidden",
+        "file",
+        "email",
+        "password"
+      ]
+    },
+    "label": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    },
+    "placeholder": {
+      "type": "string"
+    },
+    "class": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

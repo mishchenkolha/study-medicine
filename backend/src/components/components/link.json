@@ -1,0 +1,36 @@
+{
+  "collectionName": "components_components_links",
+  "info": {
+    "displayName": "link"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "url": {
+      "type": "string"
+    },
+    "alt": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "use_image": {
+      "type": "boolean"
+    },
+    "class": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_components_labels",
+  "info": {
+    "displayName": "labels"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "customField",
+      "customField": "plugin::ckeditor5.CKEditor",
+      "options": {
+        "preset": "toolbarBalloon"
+      }
+    }
+  },
+  "config": {}
+}

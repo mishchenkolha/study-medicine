@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_components_descriptions",
+  "info": {
+    "displayName": "description"
+  },
+  "options": {},
+  "attributes": {
+    "description": {
+      "type": "customField",
+      "customField": "plugin::ckeditor5.CKEditor",
+      "options": {
+        "preset": "toolbarBalloon"
+      }
+    },
+    "class": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

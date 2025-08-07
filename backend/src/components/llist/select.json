@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_llist_selects",
+  "info": {
+    "displayName": "select"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "options": {
+      "type": "component",
+      "component": "form.option",
+      "repeatable": true,
+      "required": true
+    },
+    "multichoise": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "config": {}
+}

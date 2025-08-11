@@ -1,10 +1,10 @@
 {
   "kind": "singleType",
-  "collectionName": "aunthefications",
+  "collectionName": "dictionaries",
   "info": {
-    "singularName": "aunthefication",
-    "pluralName": "aunthefications",
-    "displayName": "Aunthefication"
+    "singularName": "dictionary",
+    "pluralName": "dictionaries",
+    "displayName": "Dictionary"
   },
   "options": {
     "draftAndPublish": true
@@ -13,7 +13,7 @@
   "attributes": {
     "labels": {
       "type": "component",
-      "component": "components.labels",
+      "component": "components.dictionary-item",
       "repeatable": true
     }
   }

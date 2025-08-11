@@ -4,6 +4,8 @@ import '@/styles/globals.css';
 import Navbar from '@/components/navbar';
 import { getCategoriesTree, getNavbar } from '@/services/navbar.service';
 import { normalizeMenu } from '@/utils/menu';
+import Footer from '@/components/footer';
+import { getDictionary } from '@/services/dictionary.service';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -25,26 +27,22 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const dictionary = await getDictionary();
   const navBarPromise = getNavbar('main_menu');
   const categoriesPromise = getCategoriesTree();
   const navBar = await navBarPromise;
   const categoriesTree = await categoriesPromise;
   const menu = normalizeMenu(navBar, categoriesTree);
-  console.log({ categoriesTree });
 
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar menu={menu} />
+        <Navbar menu={menu} dictionary={dictionary} />
         <main className="container pt-20">
           {children}
-          <footer className="bg-gray-800 text-white py-6">
-            <div className="max-w-6xl mx-auto text-center text-sm">
-              &copy; 2025 Aesthetic Medicine Institute. All rights reserved.
-            </div>
-          </footer>
+          <Footer dictionary={dictionary} />
         </main>
       </body>
     </html>

@@ -2,17 +2,30 @@ import { IMenu } from '@/types/navbar';
 import { Button } from '@/ui/button';
 import MobileMenu from './mobile';
 import Link from 'next/link';
+import Image from 'next/image';
+import { ILabelObj } from '@/types/dictionary';
+import { ROUTES } from '@/utils/routes';
 
-export default function Navbar({ menu }: { menu: IMenu[] }) {
+export default async function Navbar({
+  menu,
+  dictionary,
+}: {
+  menu: IMenu[];
+  dictionary: ILabelObj;
+}) {
   return (
     <header className="bg-white/80 border-b border-gray-200 fixed top-0 left-0 right-0 z-50 backdrop-blur">
       <div className="mx-auto container py-3 flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-brand">
-          Toronto medicine center
-        </h1>
-
+        <Link
+          href="/"
+          title="logo"
+          className="absolute top-0 left-0 z-60 w-13 h-13 xl:w-[70px] xl:h-[70px]"
+        >
+          <Image src="/images/logo.svg" fill alt={'Logo'} />
+        </Link>
+        <div />
         {/* Desktop nav */}
-        <nav className="hidden desktop:flex space-x-6 text-sm font-medium text-gray-600">
+        <nav className="hidden xl:flex space-x-6 text-sm font-medium text-gray-600">
           {menu.map((item) => (
             <div key={item.title} className="relative group">
               <Link
@@ -55,10 +68,12 @@ export default function Navbar({ menu }: { menu: IMenu[] }) {
           ))}
         </nav>
 
-        <Button>Login</Button>
+        <Button className="hidden xl:block" href={ROUTES.LOGIN}>
+          {dictionary.login}
+        </Button>
 
         {/* Burger + mobile menu */}
-        <MobileMenu menu={menu} />
+        <MobileMenu menu={menu} dictionary={dictionary} />
       </div>
     </header>
   );

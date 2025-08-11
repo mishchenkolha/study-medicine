@@ -16,21 +16,16 @@
     },
     "type": {
       "type": "enumeration",
+      "default": "single-choise",
       "enum": [
         "single-choise",
-        "multiple-choise",
-        "order"
+        "multiple-choise"
       ]
     },
     "answers": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::answer.answer"
-    },
-    "correct_answers": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::answer.answer"
+      "type": "component",
+      "component": "components.qa",
+      "repeatable": true
     },
     "difficulty_level": {
       "type": "integer",

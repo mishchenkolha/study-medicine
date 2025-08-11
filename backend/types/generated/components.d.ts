@@ -51,6 +51,19 @@ export interface ComponentsDescription extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsDictionaryItem extends Struct.ComponentSchema {
+  collectionName: 'components_components_dictionary_items';
+  info: {
+    displayName: 'dictionary_item';
+  };
+  attributes: {
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface ComponentsImage extends Struct.ComponentSchema {
   collectionName: 'components_components_images';
   info: {
@@ -105,6 +118,7 @@ export interface ComponentsQa extends Struct.ComponentSchema {
     displayName: 'qa';
   };
   attributes: {
+    correct: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     description: Schema.Attribute.RichText;
     image: Schema.Attribute.Media<'images' | 'files'>;
     title: Schema.Attribute.String;
@@ -283,6 +297,7 @@ declare module '@strapi/strapi' {
       'components.card': ComponentsCard;
       'components.cta': ComponentsCta;
       'components.description': ComponentsDescription;
+      'components.dictionary-item': ComponentsDictionaryItem;
       'components.image': ComponentsImage;
       'components.labels': ComponentsLabels;
       'components.link': ComponentsLink;

@@ -22,8 +22,12 @@ export default function RegisterPage() {
     try {
       await register(form);
       setMessage('Реєстрація успішна! Перевірте пошту для підтвердження.');
-    } catch (error: any) {
-      setMessage(error.message || 'Сталася помилка при реєстрації');
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setMessage(error.message);
+      } else {
+        setMessage('Сталася помилка при реєстрації');
+      }
     } finally {
       setLoading(false);
     }
@@ -31,8 +35,19 @@ export default function RegisterPage() {
 
   return (
     <form onSubmit={handleSubmit} className="max-w-sm mx-auto space-y-4 p-4">
-      <Input name="username" placeholder="Імʼя користувача" onChange={handleChange} required />
-      <Input name="email" type="email" placeholder="Email" onChange={handleChange} required />
+      <Input
+        name="username"
+        placeholder="Імʼя користувача"
+        onChange={handleChange}
+        required
+      />
+      <Input
+        name="email"
+        type="email"
+        placeholder="Email"
+        onChange={handleChange}
+        required
+      />
       <Input
         name="password"
         type="password"

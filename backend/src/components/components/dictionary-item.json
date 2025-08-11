@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_components_dictionary_items",
+  "info": {
+    "displayName": "dictionary_item"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

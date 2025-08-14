@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_courses",
+  "info": {
+    "singularName": "user-course",
+    "pluralName": "user-courses",
+    "displayName": "User course"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "courses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::course.course"
+    }
+  }
+}

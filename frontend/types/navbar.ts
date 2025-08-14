@@ -19,7 +19,8 @@ export interface NavbarResponse {
   data: { categories: IStrapiCategory[] }[];
 }
 
-interface ICategory {
+export interface ICategory {
+  id: number;
   title: string;
   description: string;
   slug: string;

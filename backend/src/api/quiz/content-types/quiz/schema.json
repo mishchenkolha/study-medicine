@@ -21,21 +21,11 @@
         "preset": "toolbarBalloon"
       }
     },
-    "questions": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::question.question"
-    },
     "min_percent_treshold": {
       "type": "integer",
       "default": 0,
       "min": 0,
       "max": 100
-    },
-    "course": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::course.course"
     }
   }
 }

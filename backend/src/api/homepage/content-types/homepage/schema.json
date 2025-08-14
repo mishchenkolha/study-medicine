@@ -31,11 +31,6 @@
       "relation": "oneToMany",
       "target": "api::page.page"
     },
-    "labels": {
-      "type": "component",
-      "component": "components.labels",
-      "repeatable": true
-    },
     "seo": {
       "type": "component",
       "component": "shared.seo",

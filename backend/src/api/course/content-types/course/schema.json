@@ -44,10 +44,15 @@
     "duration_hours": {
       "type": "decimal"
     },
-    "pages": {
+    "category": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::page.page"
+      "relation": "oneToOne",
+      "target": "api::category.category"
+    },
+    "quiz": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::quiz.quiz"
     }
   }
 }

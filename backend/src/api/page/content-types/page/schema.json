@@ -57,7 +57,9 @@
         "form.button",
         "components.image",
         "components.description",
-        "components.cta"
+        "components.cta",
+        "components.card",
+        "components.link"
       ]
     },
     "seo": {

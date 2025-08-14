@@ -16,9 +16,6 @@
         "files"
       ]
     },
-    "description": {
-      "type": "richtext"
-    },
     "correct": {
       "type": "boolean",
       "default": false

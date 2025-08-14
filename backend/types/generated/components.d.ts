@@ -119,7 +119,6 @@ export interface ComponentsQa extends Struct.ComponentSchema {
   };
   attributes: {
     correct: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    description: Schema.Attribute.RichText;
     image: Schema.Attribute.Media<'images' | 'files'>;
     title: Schema.Attribute.String;
   };

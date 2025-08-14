@@ -431,7 +431,6 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
           preset: 'toolbarBalloon';
         }
       >;
-    labels: Schema.Attribute.Component<'components.labels', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::about.about'> &
       Schema.Attribute.Private;
@@ -444,13 +443,12 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
   };
 }
 
-export interface ApiAuntheficationAunthefication
-  extends Struct.SingleTypeSchema {
-  collectionName: 'aunthefications';
+export interface ApiAllCoursesAllCourses extends Struct.SingleTypeSchema {
+  collectionName: 'all_courses_list';
   info: {
-    displayName: 'Aunthefication';
-    pluralName: 'aunthefications';
-    singularName: 'aunthefication';
+    displayName: 'All courses';
+    pluralName: 'all-courses-list';
+    singularName: 'all-courses';
   };
   options: {
     draftAndPublish: true;
@@ -459,14 +457,22 @@ export interface ApiAuntheficationAunthefication
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    labels: Schema.Attribute.Component<'components.labels', true>;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbarBalloon';
+        }
+      >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::aunthefication.aunthefication'
+      'api::all-courses.all-courses'
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -561,7 +567,6 @@ export interface ApiContactContact extends Struct.SingleTypeSchema {
           preset: 'toolbarBalloon';
         }
       >;
-    labels: Schema.Attribute.Component<'components.labels', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -589,6 +594,7 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
   };
   attributes: {
     bg_image: Schema.Attribute.Media<'images' | 'files'>;
+    category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -607,8 +613,8 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
       'api::course.course'
     > &
       Schema.Attribute.Private;
-    pages: Schema.Attribute.Relation<'oneToMany', 'api::page.page'>;
     publishedAt: Schema.Attribute.DateTime;
+    quiz: Schema.Attribute.Relation<'oneToOne', 'api::quiz.quiz'>;
     slug: Schema.Attribute.UID<'title'>;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
@@ -663,7 +669,6 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     hero: Schema.Attribute.Component<'components.cta', false>;
-    labels: Schema.Attribute.Component<'components.labels', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -733,6 +738,8 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'components.image',
         'components.description',
         'components.cta',
+        'components.card',
+        'components.link',
       ]
     >;
     category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
@@ -791,6 +798,7 @@ export interface ApiQuestionQuestion extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    quiz: Schema.Attribute.Relation<'oneToOne', 'api::quiz.quiz'>;
     text: Schema.Attribute.String;
     type: Schema.Attribute.Enumeration<['single-choise', 'multiple-choise']> &
       Schema.Attribute.DefaultTo<'single-choise'>;
@@ -811,7 +819,6 @@ export interface ApiQuizQuiz extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    course: Schema.Attribute.Relation<'oneToOne', 'api::course.course'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -835,7 +842,6 @@ export interface ApiQuizQuiz extends Struct.CollectionTypeSchema {
       > &
       Schema.Attribute.DefaultTo<0>;
     publishedAt: Schema.Attribute.DateTime;
-    questions: Schema.Attribute.Relation<'oneToMany', 'api::question.question'>;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -872,6 +878,38 @@ export interface ApiResultResult extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     users_permissions_user: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface ApiUserCourseUserCourse extends Struct.CollectionTypeSchema {
+  collectionName: 'user_courses';
+  info: {
+    displayName: 'User course';
+    pluralName: 'user-courses';
+    singularName: 'user-course';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    courses: Schema.Attribute.Relation<'oneToMany', 'api::course.course'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-course.user-course'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
       'oneToOne',
       'plugin::users-permissions.user'
     >;
@@ -1338,7 +1376,6 @@ export interface PluginUsersPermissionsUser
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    courses: Schema.Attribute.Relation<'oneToMany', 'api::course.course'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1389,7 +1426,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::about.about': ApiAboutAbout;
-      'api::aunthefication.aunthefication': ApiAuntheficationAunthefication;
+      'api::all-courses.all-courses': ApiAllCoursesAllCourses;
       'api::category.category': ApiCategoryCategory;
       'api::certificate.certificate': ApiCertificateCertificate;
       'api::contact.contact': ApiContactContact;
@@ -1401,6 +1438,7 @@ declare module '@strapi/strapi' {
       'api::question.question': ApiQuestionQuestion;
       'api::quiz.quiz': ApiQuizQuiz;
       'api::result.result': ApiResultResult;
+      'api::user-course.user-course': ApiUserCourseUserCourse;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

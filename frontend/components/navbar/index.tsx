@@ -68,7 +68,7 @@ export default async function Navbar({
           ))}
         </nav>
 
-        <Button className="hidden xl:block" href={ROUTES.LOGIN}>
+        <Button className="!hidden xl:!inline-flex" href={ROUTES.LOGIN}>
           {dictionary.login}
         </Button>
 

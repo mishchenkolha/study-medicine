@@ -21,11 +21,6 @@
         "preset": "toolbarBalloon"
       }
     },
-    "labels": {
-      "type": "component",
-      "component": "components.labels",
-      "repeatable": true
-    },
     "seo": {
       "type": "component",
       "component": "shared.seo",

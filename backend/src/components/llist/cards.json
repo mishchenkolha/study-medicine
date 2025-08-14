@@ -5,11 +5,11 @@
   },
   "options": {},
   "attributes": {
-    "description": {
-      "type": "richtext"
-    },
     "title": {
       "type": "string"
+    },
+    "description": {
+      "type": "richtext"
     },
     "bg": {
       "type": "string"

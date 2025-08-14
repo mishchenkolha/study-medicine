@@ -64,6 +64,7 @@ async function fetchFromStrapi<TResponse, TBody = unknown>(
   const data = await res.json();
 
   if (!res.ok) {
+    console.error({ url, error: data?.error });
     throw new Error(data?.error?.message || 'Strapi API Error');
   }
 

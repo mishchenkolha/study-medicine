@@ -5,11 +5,6 @@
 @custom-variant desktop @media (min-width: 1280px); */
 
 @layer base {
-  /* --- Custom media queries --- */
-  @custom-media --mobile (max-width: 767px);
-  @custom-media --tablet (min-width: 768px) and (max-width: 1279px);
-  @custom-media --desktop (min-width: 1280px);
-
   /* --- CSS variables --- */
   :root {
     --radius: 0.5rem;
@@ -71,20 +66,20 @@
     font-weight: 587; /* semibold */
     letter-spacing: -0.1875rem;
   }
-  @media (--desktop) {
+  @media (min-width: 1280px) {
     .h0 {
       line-height: 116.667%;
       font-size: 7.5rem; /* 14xl - 7.5rem */
     }
   }
-  @media (--tablet) {
+  @media (min-width: 768px) and (max-width: 1279px) {
     .h0 {
       letter-spacing: -0.125rem;
       line-height: 120%;
       font-size: 5rem; /* 11xl - 5rem */
     }
   }
-  @media (--mobile) {
+  @media (max-width: 767px) {
     .h0 {
       line-height: 115.385%;
       font-size: 3rem; /* 6_5xl - 3rem approx */
@@ -95,19 +90,19 @@
   h1, .h1 {
     line-height: 90%;
   }
-  @media (--desktop) {
+  @media (min-width: 1280px) {
     h1, .h1 {
       letter-spacing: -0.15rem;
       font-size: 6rem; /* 12xl - 6rem */
     }
   }
-  @media (--tablet) {
+  @media (min-width: 768px) and (max-width: 1279px) {
     h1, .h1 {
       letter-spacing: -0.125rem;
       font-size: 5rem; /* 11xl - 5rem */
     }
   }
-  @media (--mobile) {
+  @media (max-width: 767px) {
     h1, .h1 {
       line-height: 91.667%;
       letter-spacing: -0.075rem;
@@ -119,19 +114,19 @@
   h2, .h2 {
     line-height: 100%;
   }
-  @media (--desktop) {
+  @media (min-width: 1280px) {
     h2, .h2 {
       letter-spacing: -0.1125rem;
       font-size: 4.5rem; /* 10xl - 4.5rem */
     }
   }
-  @media (--tablet) {
+  @media (min-width: 768px) and (max-width: 1279px) {
     h2, .h2 {
       letter-spacing: -0.09375rem;
       font-size: 3.75rem; /* 7xl - 3.75rem */
     }
   }
-  @media (--mobile) {
+  @media (max-width: 767px) {
     h2, .h2 {
       letter-spacing: -0.0625rem;
       font-size: 2.5rem; /* 5xl - 2.5rem */
@@ -141,21 +136,21 @@
   /* h3 */
   h3, .h3 {
   }
-  @media (--desktop) {
+  @media (min-width: 1280px) {
     h3, .h3 {
       letter-spacing: -0.075rem;
       line-height: 108%;
       font-size: 3rem; /* 6xl - 3rem */
     }
   }
-  @media (--tablet) {
+  @media (min-width: 768px) and (max-width: 1279px) {
     h3, .h3 {
       letter-spacing: -0.06875rem;
       line-height: 118.182%;
       font-size: 2.75rem; /* 5_5xl approx 2.75rem */
     }
   }
-  @media (--mobile) {
+  @media (max-width: 767px) {
     h3, .h3 {
       letter-spacing: -0.04375rem;
       line-height: 114.286%;
@@ -167,19 +162,19 @@
   h4, .h4 {
     line-height: 125%;
   }
-  @media (--desktop) {
+  @media (min-width: 1280px) {
     h4, .h4 {
       letter-spacing: -0.04rem;
       font-size: 2rem; /* 4xl - 2rem */
     }
   }
-  @media (--tablet) {
+  @media (min-width: 768px) and (max-width: 1279px) {
     h4, .h4 {
       letter-spacing: -0.04rem;
       font-size: 2rem; /* 4xl - 2rem */
     }
   }
-  @media (--mobile) {
+  @media (max-width: 767px) {
     h4, .h4 {
       line-height: 133.33%;
       letter-spacing: -0.03rem;
@@ -191,19 +186,19 @@
   h5, .h5 {
     line-height: 133.33%;
   }
-  @media (--desktop) {
+  @media (min-width: 1280px) {
     h5, .h5 {
       letter-spacing: -0.0375rem;
       font-size: 1.5rem; /* 2xl - 1.5rem */
     }
   }
-  @media (--tablet) {
+  @media (min-width: 768px) and (max-width: 1279px) {
     h5, .h5 {
       letter-spacing: -0.0375rem;
       font-size: 1.5rem; /* 2xl - 1.5rem */
     }
   }
-  @media (--mobile) {
+  @media (max-width: 767px) {
     h5, .h5 {
       letter-spacing: -0.03125rem;
       line-height: 140%;
@@ -217,17 +212,17 @@
     letter-spacing: 0;
     font-weight: 700; /* bold */
   }
-  @media (--desktop) {
+  @media (min-width: 1280px) {
     h6, .h6 {
       font-size: 1.25rem; /* lg - 1.25rem */
     }
   }
-  @media (--tablet) {
+  @media (min-width: 768px) and (max-width: 1279px) {
     h6, .h6 {
       font-size: 1.25rem; /* lg - 1.25rem */
     }
   }
-  @media (--mobile) {
+  @media (max-width: 767px) {
     h6, .h6 {
       line-height: 155.55%;
       font-size: 1.125rem; /* md - 1.125rem */
@@ -238,19 +233,19 @@
   .pLarge {
     letter-spacing: 0;
   }
-  @media (--desktop) {
+  @media (min-width: 1280px) {
     .pLarge {
       line-height: 150%;
       font-size: 1.25rem; /* lg */
     }
   }
-  @media (--tablet) {
+  @media (min-width: 768px) and (max-width: 1279px) {
     .pLarge {
       line-height: 150%;
       font-size: 1.25rem; /* lg */
     }
   }
-  @media (--mobile) {
+  @media (max-width: 767px) {
     .pLarge {
       line-height: 155.556%;
       font-size: 1.125rem; /* md */
@@ -260,19 +255,19 @@
   .pNormal {
     letter-spacing: 0;
   }
-  @media (--desktop) {
+  @media (min-width: 1280px) {
     .pNormal {
       line-height: 137.5%;
       font-size: 1rem; /* base */
     }
   }
-  @media (--tablet) {
+  @media (min-width: 768px) and (max-width: 1279px) {
     .pNormal {
       line-height: 137.5%;
       font-size: 1rem; /* base */
     }
   }
-  @media (--mobile) {
+  @media (max-width: 767px) {
     .pNormal {
       line-height: 142.857%;
       font-size: 0.875rem; /* smbase */
@@ -281,21 +276,21 @@
 
   .pSmall {
   }
-  @media (--desktop) {
+  @media (min-width: 1280px) {
     .pSmall {
       letter-spacing: -0.008rem;
       line-height: 123.077%;
       font-size: 0.813rem;
     }
   }
-  @media (--tablet) {
+  @media (min-width: 768px) and (max-width: 1279px) {
     .pSmall {
       letter-spacing: -0.008rem;
       line-height: 123.077%;
       font-size: 0.813rem;
     }
   }
-  @media (--mobile) {
+  @media (max-width: 767px) {
     .pSmall {
       letter-spacing: 0;
       line-height: 116.667%;
@@ -306,19 +301,19 @@
   .pBoldLink {
     line-height: 100%;
   }
-  @media (--desktop) {
+  @media (min-width: 1280px) {
     .pBoldLink {
       letter-spacing: 0;
       font-size: 1rem; /* base */
     }
   }
-  @media (--tablet) {
+  @media (min-width: 768px) and (max-width: 1279px) {
     .pBoldLink {
       letter-spacing: 0;
       font-size: 1rem; /* base */
     }
   }
-  @media (--mobile) {
+  @media (max-width: 767px) {
     .pBoldLink {
       letter-spacing: 0.004375rem;
       font-size: 0.875rem; /* smbase */
@@ -334,13 +329,13 @@
     margin-right: auto;
   }
 
-  @media (--mobile) {
+  @media (max-width: 767px) {
     .container {
       max-width: 52rem;
     }
   }
 
-  @media (--tablet) {
+  @media (min-width: 768px) and (max-width: 1279px) {
     .container {
       max-width: 80rem;
       padding-left: 1.5rem;
@@ -348,7 +343,7 @@
     }
   }
 
-  @media (--desktop) {
+  @media (min-width: 1280px) {
     .container {
       max-width: 90rem;
       padding-left: 4rem;

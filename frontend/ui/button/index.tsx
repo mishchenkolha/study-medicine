@@ -1,3 +1,4 @@
+import { cn } from '@/utils';
 import Link from 'next/link';
 
 type Props = React.ButtonHTMLAttributes<
@@ -15,16 +16,18 @@ export const Button = ({
   href,
   ...rest
 }: Props) => {
-  const base = 'px-4 py-2 rounded font-semibold';
+  const base = 'px-4 py-2 rounded font-semibold cursor-pointer';
   const styles =
-    variant === 'primary' ? 'bg-blue-600 text-white' : 'bg-gray-300 text-black';
+    variant === 'primary'
+      ? 'bg-blue-600 text-white hover:!bg-blue-900'
+      : 'bg-gray-300 text-black hover:!bg-gray-700 hover:text-white';
 
   return (
     <>
       {href ? (
         <Link
           href={href}
-          className={`inline-flex justify-center ${base} ${styles} ${className}`}
+          className={cn('inline-flex justify-center', base, styles, className)}
           {...rest}
         >
           {children}

@@ -1,3 +1,4 @@
+import { ICategoryIds } from '@/types/courses';
 import {
   ICategoriesTree,
   ICategoryTreeNode,
@@ -16,6 +17,7 @@ export const normalizeTree = (
 
   filteredData.forEach((item) => {
     categories[item.slug] = {
+      id: item.id,
       title: item.title,
       description: item.description,
       slug: item.slug,
@@ -78,4 +80,16 @@ export const normalizeMenu = (
       alt: item.description || item.title,
     };
   });
+};
+
+export const getCoursesIds = (catTree: ICategoriesTree): ICategoryIds => {
+  const result: ICategoryIds = {};
+  Object.entries(catTree).forEach(([key, item]) => {
+    if (!result[key]) result[key] = { title: item.title, list: [] };
+    Object.values(item?.children ?? {})?.forEach((item2) =>
+      result[key].list.push(item2.slug),
+    );
+  });
+
+  return result;
 };

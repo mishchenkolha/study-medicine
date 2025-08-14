@@ -27,9 +27,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const dictionary = await getDictionary();
+  const dictionaryPromise = getDictionary();
   const navBarPromise = getNavbar('main_menu');
   const categoriesPromise = getCategoriesTree();
+  const dictionary = await dictionaryPromise;
   const navBar = await navBarPromise;
   const categoriesTree = await categoriesPromise;
   const menu = normalizeMenu(navBar, categoriesTree);
@@ -40,10 +41,10 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Navbar menu={menu} dictionary={dictionary} />
-        <main className="container pt-20">
+        <main className="container pt-20 min-h-[calc(100vh-68px)] flex flex-col">
           {children}
-          <Footer dictionary={dictionary} />
         </main>
+        <Footer dictionary={dictionary} />
       </body>
     </html>
   );

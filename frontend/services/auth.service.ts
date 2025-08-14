@@ -1,10 +1,10 @@
 import {
+  AuthResponse,
   ForgotPasswordBody,
   LoginBody,
   RegisterBody,
   ResetPasswordBody,
 } from '@/types/auth';
-import { AuthResponse } from '@/types/strapi';
 import { strapiService } from '@/utils/strapi_client';
 
 export const register = (data: RegisterBody) =>

@@ -1,10 +1,11 @@
 import { IMenu } from '@/types/navbar';
 import { Button } from '@/ui/button';
 import MobileMenu from './mobile';
-import Link from 'next/link';
-import Image from 'next/image';
+import Link from '@/ui/link';
+import Image from '@/ui/image';
 import { ILabelObj } from '@/types/dictionary';
 import { ROUTES } from '@/utils/routes';
+import { DOMAIN_URL } from '@/utils/constants';
 
 export default async function Navbar({
   menu,
@@ -21,7 +22,7 @@ export default async function Navbar({
           title="logo"
           className="absolute top-0 left-0 z-60 w-13 h-13 xl:w-[70px] xl:h-[70px]"
         >
-          <Image src="/images/logo.svg" fill alt={'Logo'} />
+          <Image src={`${DOMAIN_URL}/images/logo.svg`} fill alt={'Logo'} />
         </Link>
         <div />
         {/* Desktop nav */}

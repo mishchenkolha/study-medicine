@@ -1,8 +1,7 @@
 // example server-side API call (app/api/protected/route.ts)
+import { STRAPI_URL } from '@/utils/constants';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
-
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
 
 export async function GET() {
   const cookieStore = await cookies();
@@ -17,7 +16,10 @@ export async function GET() {
   });
 
   if (!res.ok) {
-    return NextResponse.json({ error: 'Failed to fetch data' }, { status: res.status });
+    return NextResponse.json(
+      { error: 'Failed to fetch data' },
+      { status: res.status },
+    );
   }
 
   const data = await res.json();

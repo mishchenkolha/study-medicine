@@ -1,5 +1,5 @@
 import { cn } from '@/utils';
-import Link from 'next/link';
+import Link from '@/ui/link';
 
 type Props = React.ButtonHTMLAttributes<
   HTMLAnchorElement | HTMLButtonElement
@@ -17,10 +17,7 @@ export const Button = ({
   ...rest
 }: Props) => {
   const base = 'px-4 py-2 rounded font-semibold cursor-pointer';
-  const styles =
-    variant === 'primary'
-      ? 'bg-blue-600 text-white hover:!bg-blue-900'
-      : 'bg-gray-300 text-black hover:!bg-gray-700 hover:text-white';
+  const styles = variant === 'primary' ? 'btn' : 'btn-secondary';
 
   return (
     <>

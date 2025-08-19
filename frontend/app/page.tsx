@@ -5,8 +5,15 @@ import {
   ICourses,
   PopularCourses,
 } from '@/components/homepage/popular-courses';
+import { getMeta } from '@/services/meta.service';
 import { getStaticPage } from '@/services/pages.services';
 import { IPublicPage } from '@/types/pages';
+import { ROUTES } from '@/utils/routes';
+import { Metadata } from 'next';
+
+export async function generateMetadata(): Promise<Metadata> {
+  return getMeta(ROUTES.HOME);
+}
 
 export default async function Home() {
   const populate: string[] = [
@@ -20,7 +27,7 @@ export default async function Home() {
   ];
   const homepagePromise = getStaticPage('homepage', populate);
   const homepage = await homepagePromise;
-  console.log({ homepage });
+
   return (
     <>
       <Hero hero={(homepage as { hero: IHero }).hero} />

@@ -4,6 +4,7 @@ import { getCoursesIds } from '@/utils/menu';
 import CourseGrid from '@/components/courses';
 import { BLOCK } from '@/types/pages';
 import { IPublicCourse } from '@/types/courses';
+import { STRAPI_URL } from '@/utils/constants';
 
 export const AllCourses: React.FC = async () => {
   const categoriesPromise = getCategoriesTree();
@@ -31,9 +32,7 @@ export const AllCourses: React.FC = async () => {
       duration: card?.time ?? '',
       level: card?.level ?? '',
       audience: card?.description ?? '',
-      image: item?.image?.url
-        ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${item.image.url}`
-        : '',
+      image: item?.image?.url ? `${STRAPI_URL}${item.image.url}` : '',
     } as IPublicCourse;
   });
   return <CourseGrid courses={courses} categoryIds={categoryIds} />;

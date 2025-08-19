@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import Image from 'next/image';
+import Link from '@/ui/link';
+import Image from '@/ui/image';
 import { IImage, ILink } from '@/types/strapi';
 import { BLOCK, IBlockLink, IPublicPage } from '@/types/pages';
 import { HTMLBlock } from '@/ui/html-block/html-block';
@@ -32,12 +32,13 @@ export const Article: React.FC<IProps> = async ({ article, even }) => {
           )}
         >
           <div className="space-y-6">
-            <h1 className="text-4xl sm:text-5xl font-bold text-gray-700">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-700">
               {article.title}
-            </h1>
-            <p className="text-lg text-gray-600">
-              <HTMLBlock content={article.description} />
-            </p>
+            </h2>
+            <HTMLBlock
+              content={article.description}
+              className="text-lg text-gray-600"
+            />
             <div>
               {link?.url && (
                 <Link
@@ -53,7 +54,7 @@ export const Article: React.FC<IProps> = async ({ article, even }) => {
           <div className="w-full h-[400px] lg:h-[500px] relative">
             {article.image?.url && (
               <Image
-                src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${article.image?.url}`}
+                src={article.image?.url}
                 alt={article.title}
                 className="object-cover w-full h-full rounded-xl shadow-md"
                 fill

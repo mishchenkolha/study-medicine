@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { IMenu } from '@/types/navbar';
 import { Button } from '@/ui/button';
-import Link from 'next/link';
+import Link from '@/ui/link';
 import { ILabelObj } from '@/types/dictionary';
 import { ROUTES } from '@/utils/routes';
 

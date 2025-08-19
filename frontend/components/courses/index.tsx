@@ -1,10 +1,12 @@
 'use client';
 import React, { useState } from 'react';
-import Image from 'next/image';
+import Image from '@/ui/image';
 import { ICategoryIds, IPublicCourse } from '@/types/courses';
 import { cn } from '@/utils';
 import { Button } from '@/ui/button';
-import Link from 'next/link';
+import Link from '@/ui/link';
+import { Icon } from '@/ui/icons';
+import { IconType } from '@/ui/icons/IconType';
 
 export default function CourseGrid({
   courses,
@@ -79,26 +81,18 @@ export default function CourseGrid({
             </div>
             <div className="p-4 flex flex-col flex-grow">
               <div className="flex items-center gap-4 text-gray-500 text-sm mb-2">
-                <span className="text-gray-400">
-                  <Image
-                    src="/images/icons/clock.svg"
-                    alt="Clock"
-                    width={20}
-                    height={18}
-                  />{' '}
+                <div className="text-gray-400 inline-flex flex-col">
+                  <Icon type={IconType.Clock} width="16px" height="16px" />
                   {course.duration}
-                </span>
-                <span className="text-gray-400">
-                  <Image
-                    src="/images/icons/level.svg"
-                    alt="Level"
-                    width={20}
-                    height={18}
-                  />{' '}
+                </div>
+                <div className="text-gray-400 inline-flex flex-col">
+                  <Icon type={IconType.Level} width="16px" height="16px" />
                   {course.level}
-                </span>
+                </div>
               </div>
-              <h3 className="text-base font-bold flex-grow">{course.title}</h3>
+              <div className="text-base font-bold flex-grow text-gray-700">
+                {course.title}
+              </div>
               <p className="text-sm text-gray-600 mt-2">{course.audience}</p>
             </div>
           </Link>

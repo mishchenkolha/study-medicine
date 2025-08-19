@@ -1,5 +1,5 @@
 import { getAllCategoryPages, getStaticPage } from '@/services/pages.services';
-import { addOpenGraph, getMeta } from '@/services/meta.service';
+import { getMeta } from '@/services/meta.service';
 import { getCategoriesTree } from '@/services/navbar.service';
 import { getCoursesIds } from '@/utils/menu';
 import { ROUTES } from '@/utils/routes';
@@ -7,21 +7,11 @@ import CourseGrid from '@/components/courses';
 import { BLOCK, IStaticPage } from '@/types/pages';
 import { IPublicCourse } from '@/types/courses';
 import { HTMLBlock } from '@/ui/html-block/html-block';
+import { STRAPI_URL } from '@/utils/constants';
+import { Metadata } from 'next';
 
-export async function generateMetadata() {
-  const seo = await getMeta(ROUTES.ALL_COURSES);
-
-  return {
-    title: seo.metaTitle,
-    description: seo.metaDescription,
-    keywords: seo.keywords,
-    openGraph: await addOpenGraph(
-      seo.openGraph,
-      seo.metaTitle,
-      seo.metaDescription,
-      seo.metaImage,
-    ),
-  };
+export async function generateMetadata(): Promise<Metadata> {
+  return getMeta(ROUTES.ALL_COURSES);
 }
 
 export default async function CousesPage() {
@@ -54,9 +44,7 @@ export default async function CousesPage() {
       duration: card?.time ?? '',
       level: card?.level ?? '',
       audience: card?.description ?? '',
-      image: item?.image?.url
-        ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${item.image.url}`
-        : '',
+      image: item?.image?.url ? `${STRAPI_URL}${item.image.url}` : '',
     } as IPublicCourse;
   });
   return (

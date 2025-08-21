@@ -6,7 +6,7 @@ import { getCategoriesTree, getNavbar } from '@/services/navbar.service';
 import { normalizeMenu } from '@/utils/menu';
 import Footer from '@/components/footer';
 import { getDictionary } from '@/services/dictionary.service';
-
+import { ToastContainer } from 'react-toastify';
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -45,6 +45,7 @@ export default async function RootLayout({
           {children}
         </main>
         <Footer dictionary={dictionary} />
+        <ToastContainer />
       </body>
     </html>
   );

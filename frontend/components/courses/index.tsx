@@ -7,13 +7,16 @@ import { Button } from '@/ui/button';
 import Link from '@/ui/link';
 import { Icon } from '@/ui/icons';
 import { IconType } from '@/ui/icons/IconType';
+import { ROUTES } from '@/utils/routes';
 
 export default function CourseGrid({
   courses,
   categoryIds = {},
+  showFilters = true,
 }: {
   courses: IPublicCourse[];
   categoryIds: ICategoryIds;
+  showFilters?: boolean;
 }) {
   const [filter, setFilter] = useState('');
   const filterTabs = [
@@ -39,21 +42,23 @@ export default function CourseGrid({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex gap-2 w-full justify-center flex-wrap">
-        {filterTabs.map((tab) => (
-          <Button
-            key={tab.slug}
-            onClick={onSetFilter(tab.slug)}
-            variant="secondary"
-            className={cn(
-              '!rounded-md whitespace-nowrap',
-              tab.slug === filter && 'bg-gray-700 text-white',
-            )}
-          >
-            {tab.title}
-          </Button>
-        ))}
-      </div>
+      {showFilters && (
+        <div className="flex gap-2 w-full justify-center flex-wrap">
+          {filterTabs.map((tab) => (
+            <Button
+              key={tab.slug}
+              onClick={onSetFilter(tab.slug)}
+              variant="secondary"
+              className={cn(
+                '!rounded-md whitespace-nowrap',
+                tab.slug === filter && 'bg-gray-700 text-white',
+              )}
+            >
+              {tab.title}
+            </Button>
+          ))}
+        </div>
+      )}
       <div
         className="
           grid 
@@ -67,7 +72,7 @@ export default function CourseGrid({
           <Link
             key={course.id}
             className="bg-white rounded-lg shadow overflow-hidden flex flex-col"
-            href={`/courses/${course.slug}`}
+            href={`${ROUTES.COURSES}/${course.slug}`}
           >
             <div className="w-full h-48 relative">
               {course.image && (
@@ -90,9 +95,7 @@ export default function CourseGrid({
                   {course.level}
                 </div>
               </div>
-              <div className="text-base font-bold flex-grow text-gray-700">
-                {course.title}
-              </div>
+              <div className="header6 flex-grow">{course.title}</div>
               <p className="text-sm text-gray-600 mt-2">{course.audience}</p>
             </div>
           </Link>

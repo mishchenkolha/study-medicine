@@ -25,6 +25,8 @@ export const AllCourses: React.FC = async () => {
     const card = item.blocks?.find?.(
       (block) => block.__component === BLOCK.CARD,
     );
+    const cardImage = card?.image ? `${STRAPI_URL}${card.image.url}` : '';
+    const postImage = item?.image?.url ? `${STRAPI_URL}${item.image.url}` : '';
     return {
       id: item.id,
       title: item.title ?? card?.title ?? '',
@@ -32,7 +34,7 @@ export const AllCourses: React.FC = async () => {
       duration: card?.time ?? '',
       level: card?.level ?? '',
       audience: card?.description ?? '',
-      image: item?.image?.url ? `${STRAPI_URL}${item.image.url}` : '',
+      image: cardImage || postImage,
     } as IPublicCourse;
   });
   return <CourseGrid courses={courses} categoryIds={categoryIds} />;

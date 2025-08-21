@@ -5,6 +5,7 @@ import {
   IMenu,
   IStrapiCategory,
 } from '@/types/navbar';
+import { ROUTES } from './routes';
 
 export const normalizeTree = (
   data: IStrapiCategory[],
@@ -51,16 +52,24 @@ export const getTreeNode = (
 
 export const normalizeMenuTree = (
   categoriesTree: ICategoriesTree | null | undefined,
+  courseCatIds: string[],
 ): IMenu[] | undefined => {
   const normalizedData: IMenu[] = [];
   if (!categoriesTree) {
     return;
   }
+
   Object.values(categoriesTree).map((item: ICategoryTreeNode) => {
+    const href =
+      item.href ||
+      (`/${item.slug}` === ROUTES.COURSES && `${ROUTES.COURSES}`) ||
+      (courseCatIds.includes(item.slug)
+        ? `${ROUTES.COURSES}/${item.slug}`
+        : `/${item.slug}`);
     normalizedData.push({
       title: item.title,
-      href: item.href || `/courses/${item.slug}`,
-      children: normalizeMenuTree(item.children),
+      href,
+      children: normalizeMenuTree(item.children, courseCatIds),
       alt: item.description || item.title,
     });
   });
@@ -71,12 +80,31 @@ export const normalizeMenu = (
   menu: IStrapiCategory[],
   menuTree: ICategoriesTree,
 ) => {
+  const coursesTree = Object.values(menuTree).find(
+    (item) => item.slug === 'courses',
+  );
+  let categoryIds: { [key: string]: { title: string; list: string[] } } = {};
+  if (coursesTree?.children) {
+    categoryIds = getCoursesIds(coursesTree.children);
+  }
+  let courseCatIds: string[] = [];
+  Object.values(categoryIds).forEach(
+    (categoryList) => (courseCatIds = [...courseCatIds, ...categoryList.list]),
+  );
+  courseCatIds = [...courseCatIds, ...Object.keys(categoryIds)];
+
   return menu.map((item) => {
     const treeNode = getTreeNode(menuTree, item.slug);
+    const href =
+      item.href ||
+      (`/${item.slug}` === ROUTES.COURSES && `${ROUTES.COURSES}`) ||
+      (courseCatIds.includes(item.slug)
+        ? `${ROUTES.COURSES}/${item.slug}`
+        : `/${item.slug}`);
     return {
       title: item.title,
-      href: item.href || `/courses/${item.slug}`,
-      children: normalizeMenuTree(treeNode?.children),
+      href,
+      children: normalizeMenuTree(treeNode?.children, courseCatIds),
       alt: item.description || item.title,
     };
   });

@@ -3,6 +3,7 @@ import {
   IPublicPage,
   IStaticPage,
   StaticPageResponse,
+  DynamicPageResponse,
 } from '@/types/pages';
 import { strapiService } from '@/utils/strapi_client';
 import { stringify } from 'qs';
@@ -22,7 +23,7 @@ export const getAllCategoryPages = async (
   });
 
   const queryString = stringify({
-    populate: ['category', 'image', 'bg_image', 'blocks'],
+    populate: ['category', 'image', 'bg_image', 'blocks.image'],
     ...(categoryIds?.length && categoryFilters),
     'pagination[limit]': 1000,
   });
@@ -45,4 +46,24 @@ export const getStaticPage = async (
   );
 
   return (pagesData?.data ?? {}) as IStaticPage | unknown;
+};
+
+export const getCoursePage = async (slug: string): Promise<IPublicPage> => {
+  const queryString = stringify({
+    populate: [
+      'category',
+      'image',
+      'bg_image',
+      'blocks.image',
+      'seo.metaImage',
+      'seo.openGraph.ogImage',
+    ],
+    'filters[category][slug][$eqi]': slug,
+    'pagination[limit]': 1,
+  });
+  const pagesData = await strapiService.get<DynamicPageResponse>(
+    `/pages?${queryString}`,
+  );
+
+  return (pagesData?.data?.[0] ?? {}) as IPublicPage;
 };

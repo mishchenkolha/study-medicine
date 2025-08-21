@@ -18,9 +18,7 @@ export const PopularCourses: React.FC<IProps> = async ({ courses }) => {
   return (
     <section className={cn('py-20 rounded-2xl', courses.bg)}>
       <div className="mx-auto px-4">
-        <h2 className="text-3xl font-semibold text-center mb-12 text-gray-700">
-          {courses.title}
-        </h2>
+        <h2 className="header2 text-center mb-12">{courses.title}</h2>
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
           {courses.cards.map((card) => (
             <Link
@@ -29,10 +27,8 @@ export const PopularCourses: React.FC<IProps> = async ({ courses }) => {
               key={card.id}
               className="bg-white p-6 border border-gray-200 rounded-lg shadow-sm h-52 overflow-y-auto custom-middle-scrollbar"
             >
-              <div className="text-xl font-semibold text-brand mb-2 text-gray-700">
-                {card.title}
-              </div>
-              <p className="text-gray-600">{card.description}</p>
+              <div className="header4 text-brand mb-2">{card.title}</div>
+              <div className="text-gray-600">{card.description}</div>
             </Link>
           ))}
         </div>

@@ -6,16 +6,8 @@ export async function POST(request: Request) {
     const { identifier, password } = await request.json();
 
     const result = await login({ identifier, password });
-    console.log({ result });
-    if (!result?.user) {
-      return NextResponse.json(
-        { error: result || 'Login failed' },
-        { status: 400 },
-      );
-    }
     const response = NextResponse.json({ user: result.user });
 
-    // Записуємо JWT у cookie
     response.cookies.set({
       name: 'token',
       value: result.jwt,
@@ -27,10 +19,7 @@ export async function POST(request: Request) {
     });
 
     return response;
-  } catch {
-    return NextResponse.json(
-      { error: 'Internal Server Error' },
-      { status: 500 },
-    );
+  } catch (e: unknown) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }

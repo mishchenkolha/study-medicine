@@ -12,7 +12,11 @@ import {
   STRAPI_URL,
 } from '@/utils/constants';
 
-export const getMeta = async (page: string, query = {}): Promise<Metadata> => {
+export const getMeta = async (
+  page: string,
+  query = {},
+  seoData: IMetaData | null = null,
+): Promise<Metadata> => {
   const header = await headers();
   const queryString = stringify({
     ...query,
@@ -27,7 +31,7 @@ export const getMeta = async (page: string, query = {}): Promise<Metadata> => {
     },
   );
 
-  const seo = responce?.data?.seo ?? ({} as IMetaData);
+  const seo = seoData ?? responce?.data?.seo ?? ({} as IMetaData);
 
   const url = `${DOMAIN_URL}${header.get('pathname') || ''}`;
   const fallbackImage = DOMAIN_URL + '/images/logo.svg';

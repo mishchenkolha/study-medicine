@@ -1,3 +1,4 @@
+import { IMetaData } from './meta';
 import { ICategory } from './navbar';
 import { IImage } from './strapi';
 
@@ -46,6 +47,7 @@ export interface IPublicPage {
   category: ICategory;
   image: IImage | null;
   bg_image: IImage | null;
+  seo: IMetaData | null;
   blocks: TBlock[] | null; // TODO: will add more blocks
 }
 
@@ -61,4 +63,8 @@ export interface PagesResponse {
 
 export interface StaticPageResponse {
   data: IStaticPage;
+}
+
+export interface DynamicPageResponse {
+  data: IPublicPage[];
 }

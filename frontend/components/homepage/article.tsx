@@ -32,9 +32,7 @@ export const Article: React.FC<IProps> = async ({ article, even }) => {
           )}
         >
           <div className="space-y-6">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-700">
-              {article.title}
-            </h2>
+            <h2 className="header1">{article.title}</h2>
             <HTMLBlock
               content={article.description}
               className="text-lg text-gray-600"

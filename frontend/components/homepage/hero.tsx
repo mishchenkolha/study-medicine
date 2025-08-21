@@ -20,9 +20,7 @@ export const Hero: React.FC<IProps> = async ({ hero }: { hero: IHero }) => {
       <div className="mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center min-h-[calc(100vh-80px)]">
           <div className="space-y-6">
-            <h1 className="text-4xl sm:text-5xl font-bold text-gray-700 animate-fade-in-up">
-              {hero.title}
-            </h1>
+            <h1 className="header1 animate-fade-in-up">{hero.title}</h1>
             <p className="text-lg text-gray-600 animate-fade-in-up delay-200">
               {hero.description}
             </p>

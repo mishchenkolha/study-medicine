@@ -16,3 +16,10 @@ export const trimChar = function (str: string, char?: string): string {
   const regex = new RegExp(`^${escapedChar}+|${escapedChar}+$`, 'g');
   return str.replace(regex, '');
 };
+
+export const fetcher = (url: string, method = 'GET', body?: object) =>
+  fetch(url, {
+    method,
+    body: body ? JSON.stringify(body) : undefined,
+    headers: { 'Content-Type': 'application/json' },
+  }).then((res) => res.json());

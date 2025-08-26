@@ -1,13 +1,8 @@
-import { strapiAuthService } from '@/utils/strapi_auth_client';
+import { getUser } from '@/services/auth.service';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const authService = strapiAuthService();
-  const user = await authService.me();
-
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const user = await getUser();
 
   return NextResponse.json({ user });
 }

@@ -1,11 +1,10 @@
 import { IMenu } from '@/types/navbar';
-import { Button } from '@/ui/button';
 import MobileMenu from './mobile';
 import Link from '@/ui/link';
 import Image from '@/ui/image';
 import { ILabelObj } from '@/types/dictionary';
-import { ROUTES } from '@/utils/routes';
 import { DOMAIN_URL } from '@/utils/constants';
+import AuthButtons from '../auth-buttons';
 
 export default async function Navbar({
   menu,
@@ -69,9 +68,7 @@ export default async function Navbar({
           ))}
         </nav>
 
-        <Button className="!hidden xl:!inline-flex" href={ROUTES.LOGIN}>
-          {dictionary.login}
-        </Button>
+        <AuthButtons dictionary={dictionary} />
 
         {/* Burger + mobile menu */}
         <MobileMenu menu={menu} dictionary={dictionary} />

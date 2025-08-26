@@ -17,6 +17,15 @@ export async function POST(request: Request) {
       maxAge: Number(process.env.NEXT_PUBLIC_USER_SESSION_TIME || 60 * 60), // 1 hour
       sameSite: 'lax',
     });
+    response.cookies.set({
+      name: 'user',
+      value: JSON.stringify(result.user),
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      path: '/',
+      maxAge: Number(process.env.NEXT_PUBLIC_USER_SESSION_TIME || 60 * 60), // 1 hour
+      sameSite: 'lax',
+    });
 
     return response;
   } catch (e: unknown) {

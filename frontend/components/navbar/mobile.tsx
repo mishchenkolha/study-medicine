@@ -2,10 +2,9 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { IMenu } from '@/types/navbar';
-import { Button } from '@/ui/button';
 import Link from '@/ui/link';
 import { ILabelObj } from '@/types/dictionary';
-import { ROUTES } from '@/utils/routes';
+import AuthButtons from '../auth-buttons';
 
 export default function MobileMenu({
   menu,
@@ -103,13 +102,7 @@ export default function MobileMenu({
               )}
             </div>
           ))}
-          <Button
-            href={ROUTES.LOGIN}
-            title={dictionary.login}
-            onClick={onClose}
-          >
-            {dictionary.login}
-          </Button>
+          <AuthButtons dictionary={dictionary} />
         </nav>
       </div>
     </>

@@ -1,4 +1,5 @@
 import { DictionaryResponse, ILabelObj } from '@/types/dictionary';
+import { ROUTES } from '@/utils/routes';
 import { strapiService } from '@/utils/strapi_client';
 import { stringify } from 'qs';
 
@@ -10,7 +11,7 @@ export const getDictionary = async (): Promise<ILabelObj> => {
     },
   });
   const responce = await strapiService.get<DictionaryResponse>(
-    `/dictionary?${queryString}`,
+    `${ROUTES.DICTIONARY}?${queryString}`,
     {
       token: process.env.NEXT_PUBLIC_STRAPI_API_TOKEN,
       revalidate: Number(process.env.NEXT_PUBLIC_CACHING_LONG_TIME ?? 0),

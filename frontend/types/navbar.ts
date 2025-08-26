@@ -28,6 +28,7 @@ export interface ICategory {
 }
 
 export interface IStrapiCategory extends ICategory {
+  documentId: string;
   parent: IStrapiCategory | null;
 }
 

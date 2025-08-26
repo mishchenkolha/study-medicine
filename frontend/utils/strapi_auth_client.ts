@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { strapiService } from './strapi_client';
 
+const REVALIDATION_TIME = 60; // 1min
 const ERROR_TEXT = 'Error fetching from Strapi with Auth user:';
 export function strapiAuthService(customToken?: string) {
   return {
@@ -16,7 +17,7 @@ export function strapiAuthService(customToken?: string) {
         return strapiService.get<TResponse>(path, {
           ...options,
           token,
-          cache: 'no-store',
+          revalidate: REVALIDATION_TIME,
         });
       } catch (error) {
         console.error(ERROR_TEXT, error);
@@ -37,7 +38,7 @@ export function strapiAuthService(customToken?: string) {
         return strapiService.post<TResponse, TBody>(path, body, {
           ...options,
           token,
-          cache: 'no-store',
+          revalidate: REVALIDATION_TIME,
         });
       } catch (error) {
         console.error(ERROR_TEXT, error);
@@ -58,7 +59,7 @@ export function strapiAuthService(customToken?: string) {
         return strapiService.put<TResponse, TBody>(path, body, {
           ...options,
           token,
-          cache: 'no-store',
+          revalidate: REVALIDATION_TIME,
         });
       } catch (error) {
         console.error(ERROR_TEXT, error);
@@ -78,7 +79,7 @@ export function strapiAuthService(customToken?: string) {
         return strapiService.delete<TResponse>(path, {
           ...options,
           token,
-          cache: 'no-store',
+          revalidate: REVALIDATION_TIME,
         });
       } catch (error) {
         console.error(ERROR_TEXT, error);
@@ -94,7 +95,7 @@ export function strapiAuthService(customToken?: string) {
       try {
         return strapiService.get<TResponse>('/users/me', {
           token,
-          cache: 'no-store',
+          revalidate: REVALIDATION_TIME,
         });
       } catch (error) {
         console.error(ERROR_TEXT, error);

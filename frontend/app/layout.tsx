@@ -41,7 +41,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Navbar menu={menu} dictionary={dictionary} />
-        <main className="container pt-20 min-h-[calc(100vh-68px)] flex flex-col">
+        <main className="container pt-32 min-h-[calc(100vh-68px)] flex flex-col">
           {children}
         </main>
         <Footer dictionary={dictionary} />

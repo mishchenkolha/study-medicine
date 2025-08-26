@@ -4,14 +4,12 @@ import { useState } from 'react';
 import { Input } from '@/ui/input';
 import { Button } from '@/ui/button';
 import { ILabelObj } from '@/types/dictionary';
-import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/utils/routes';
 import { error, success } from '@/utils/toast';
 
 export default function LoginForm({ dictionary }: { dictionary: ILabelObj }) {
   const [form, setForm] = useState({ identifier: '', password: '' });
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -28,12 +26,11 @@ export default function LoginForm({ dictionary }: { dictionary: ILabelObj }) {
         body: JSON.stringify(form),
       });
       const data = await res.json();
-      console.log({ res, data });
       if (!res.ok) {
         error(data?.error ?? dictionary.login_failed);
       } else {
         success(dictionary.login_success);
-        router.push(ROUTES.COURSES);
+        window.open(ROUTES.COURSES, '_self');
       }
     } catch (e: unknown) {
       error((e as Error).message ?? dictionary.server_error);

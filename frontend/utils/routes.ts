@@ -7,7 +7,9 @@ export const ROUTES = {
   CONTACTS: '/contacts',
   ALL_COURSES: '/all-courses',
   COURSES: '/courses',
+  QUESTIONS: '/questions',
   USER_COURSES: '/user-courses',
+  RESULTS: '/results',
   HOME: '/homepage',
   DICTIONARY: '/dictionary',
 };

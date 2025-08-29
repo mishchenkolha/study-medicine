@@ -1,7 +1,8 @@
 import { toast, ToastPosition } from 'react-toastify';
+export const AUTO_CLOSE_TOAST = 5000;
 const baseSettings = {
   position: 'top-right' as ToastPosition,
-  autoClose: 5000,
+  autoClose: AUTO_CLOSE_TOAST,
   hideProgressBar: true,
   closeOnClick: true,
   pauseOnHover: true,
@@ -12,3 +13,5 @@ const baseSettings = {
 export const success = (msg: string) => toast.success(msg, baseSettings);
 
 export const error = (msg: string) => toast.error(msg, baseSettings);
+
+export const info = (msg: string) => toast.info(msg, baseSettings);

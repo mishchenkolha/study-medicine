@@ -38,18 +38,19 @@ export interface IQuiz {
   title: string;
   description: string;
   min_percent_treshold: number;
+  attempts_count: number;
+  questions_count: number;
 }
 
-export enum IQuestionType {
-  MULTIPLE_CHOICE = 'multiple-choise',
+export enum QuestionType {
   SINGLE_CHOICE = 'single-choise',
-  TRUE_FALSE = 'true-false',
+  MULTIPLE_CHOICE = 'multiple-choise',
 }
 
 export interface IQuestion {
   id: number;
   text: string;
-  type: IQuestionType;
+  type: QuestionType;
   answers: IAnswer[];
   difficulty_level: number;
   quiz: IQuiz;
@@ -69,4 +70,14 @@ export interface IPrivateUserCourse {
 
 export interface UserCoursesResponse {
   data: IPrivateUserCourse[];
+}
+
+export interface IResult {
+  id: number;
+  documentId: string;
+  user: IUser;
+  quiz: IQuiz;
+  score: number;
+  passed: boolean;
+  submittedAt: string;
 }

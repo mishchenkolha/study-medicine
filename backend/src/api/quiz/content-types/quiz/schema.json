@@ -12,7 +12,8 @@
   "pluginOptions": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "description": {
       "type": "customField",
@@ -26,6 +27,18 @@
       "default": 0,
       "min": 0,
       "max": 100
+    },
+    "attempts_count": {
+      "type": "integer",
+      "required": true,
+      "default": 2,
+      "min": 0
+    },
+    "questions_count": {
+      "type": "integer",
+      "required": true,
+      "default": 20,
+      "min": 0
     }
   }
 }

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Image from '@/ui/image';
 import { ICategoryIds, IPublicCourse } from '@/types/courses';
 import { cn } from '@/utils';
-import { Button } from '@/ui/button';
+import { Button, VARIANTS } from '@/ui/button';
 import Link from '@/ui/link';
 import { Icon } from '@/ui/icons';
 import { IconType } from '@/ui/icons/IconType';
@@ -48,7 +48,7 @@ export default function CourseGrid({
             <Button
               key={tab.slug}
               onClick={onSetFilter(tab.slug)}
-              variant="secondary"
+              variant={VARIANTS.SECONDARY}
               className={cn(
                 '!rounded-md whitespace-nowrap',
                 tab.slug === filter && 'bg-gray-700 text-white',

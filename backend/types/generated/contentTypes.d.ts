@@ -819,6 +819,15 @@ export interface ApiQuizQuiz extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    attempts_count: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<2>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -842,7 +851,16 @@ export interface ApiQuizQuiz extends Struct.CollectionTypeSchema {
       > &
       Schema.Attribute.DefaultTo<0>;
     publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String;
+    questions_count: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<20>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -870,6 +888,7 @@ export interface ApiResultResult extends Struct.CollectionTypeSchema {
       'api::result.result'
     > &
       Schema.Attribute.Private;
+    passed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     publishedAt: Schema.Attribute.DateTime;
     quiz: Schema.Attribute.Relation<'oneToOne', 'api::quiz.quiz'>;
     score: Schema.Attribute.Decimal;
@@ -877,7 +896,7 @@ export interface ApiResultResult extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    users_permissions_user: Schema.Attribute.Relation<
+    user: Schema.Attribute.Relation<
       'oneToOne',
       'plugin::users-permissions.user'
     >;

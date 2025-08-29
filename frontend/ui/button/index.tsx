@@ -1,23 +1,42 @@
 import { cn } from '@/utils';
 import Link from '@/ui/link';
 
+export enum VARIANTS {
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+  DANGER = 'danger',
+  SUCCESS = 'success',
+}
 type Props = React.ButtonHTMLAttributes<
   HTMLAnchorElement | HTMLButtonElement
 > & {
-  variant?: 'primary' | 'secondary';
+  variant?: VARIANTS;
   className?: string;
   href?: string;
 };
 
 export const Button = ({
   children,
-  variant = 'primary',
+  variant = VARIANTS.PRIMARY,
   className,
   href,
   ...rest
 }: Props) => {
   const base = 'px-4 py-2 rounded font-semibold cursor-pointer';
-  const styles = variant === 'primary' ? 'btn' : 'btn-secondary';
+  let styles = '';
+  switch (variant) {
+    case VARIANTS.PRIMARY:
+      styles = 'btn';
+      break;
+    case VARIANTS.DANGER:
+      styles = 'btn-danger';
+      break;
+    case VARIANTS.SUCCESS:
+      styles = 'btn-success';
+      break;
+    default:
+      styles = 'btn-secondary';
+  }
 
   return (
     <>

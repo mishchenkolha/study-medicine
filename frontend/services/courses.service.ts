@@ -1,7 +1,13 @@
 import { ROUTES } from '@/utils/routes';
 import { stringify } from 'qs';
-import { CoursesResponse, IPrivateCourse } from '@/types/courses';
+import {
+  CoursesResponse,
+  IPrivateCourse,
+  IQuestion,
+  IResult,
+} from '@/types/courses';
 import { strapiAuthService } from '@/utils/strapi_auth_client';
+import { DEFAULT_QUESTIONS, STRAPI_LIMIT } from '@/utils/constants';
 
 export const getCourseBySlug = async (
   slug: string,
@@ -24,7 +30,7 @@ export const getCourseBySlug = async (
 export const getUserCourses = async (): Promise<IPrivateCourse[]> => {
   const queryString = stringify({
     pagination: {
-      limit: 10000,
+      limit: STRAPI_LIMIT,
     },
   });
   const responce = await strapiAuthService().get<IPrivateCourse[]>(
@@ -32,4 +38,102 @@ export const getUserCourses = async (): Promise<IPrivateCourse[]> => {
   );
 
   return responce ?? [];
+};
+
+export const getQuestions = async (
+  documentId: string,
+  count = DEFAULT_QUESTIONS,
+): Promise<IQuestion[]> => {
+  if (!documentId) return [];
+  const queryString = stringify({
+    populate: ['answers.image', 'quiz'],
+    pagination: {
+      limit: STRAPI_LIMIT,
+    },
+    filters: {
+      quiz: {
+        documentId: {
+          $eqi: documentId,
+        },
+      },
+    },
+    randomSort: true,
+  });
+  const responce = await strapiAuthService().get<{ data: IQuestion[] }>(
+    `${ROUTES.QUESTIONS}?${queryString}`,
+  );
+
+  return (responce?.data ?? []).slice(0, count);
+};
+
+export const getUserAttempts = async (quizId?: string): Promise<number> => {
+  if (!quizId) return 0;
+  const queryString = stringify({ quizDocumentId: quizId });
+  try {
+    const responce = await strapiAuthService().get<{ count: number }>(
+      `${ROUTES.RESULTS}/me?${queryString}`,
+    );
+    console.log({ responce });
+    return responce?.count ?? 0;
+  } catch (e) {
+    console.error(e);
+    return 0;
+  }
+};
+
+export const saveUserResults = async ({
+  quizId,
+  answers,
+  score,
+  isPassed,
+}: {
+  quizId: string;
+  answers: {
+    question: string;
+    answers: string[];
+    correctAnswers: string[];
+  }[];
+  score: number;
+  isPassed: boolean;
+}): Promise<boolean> => {
+  if (!quizId || !answers || !Object.keys(answers)?.length) return false;
+  const userResults = {
+    quizDocumentId: quizId,
+    answers,
+    score,
+    isPassed,
+  };
+  try {
+    await strapiAuthService().post(`${ROUTES.RESULTS}/me`, userResults);
+    return true;
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
+};
+
+export const checkPassedQuiz = async (quizId: string): Promise<boolean> => {
+  if (!quizId) return false;
+  const queryString = stringify({ quizDocumentId: quizId });
+  try {
+    const responce = await strapiAuthService().get<boolean>(
+      `${ROUTES.RESULTS}/me/is-passed?${queryString}`,
+    );
+    return Boolean(responce);
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
+};
+
+export const getUserLatestResult = async (): Promise<IResult | null> => {
+  try {
+    const responce = await strapiAuthService().get<IResult>(
+      `${ROUTES.RESULTS}/me/latest`,
+    );
+    return responce ?? null;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
 };

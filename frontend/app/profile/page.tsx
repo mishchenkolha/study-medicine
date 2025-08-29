@@ -7,7 +7,9 @@ export default async function UserProfilePage() {
 
   return (
     <div className="container w-full">
-      <h1 className="header1 pb-6 animate-fade-in-up">{dictionary.profile}</h1>
+      <h1 className="header1 pb-6 animate-fade-in-up animate-fade-in-up">
+        {dictionary.profile}
+      </h1>
 
       <div className="space-y-4 mb-4">
         <div>

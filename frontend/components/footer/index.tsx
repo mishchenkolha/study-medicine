@@ -1,4 +1,5 @@
 import { ILabelObj } from '@/types/dictionary';
+import { HTMLBlock } from '@/ui/html-block/html-block';
 
 export default async function Footer({
   dictionary,
@@ -7,9 +8,10 @@ export default async function Footer({
 }) {
   return (
     <footer className="bg-gray-800 text-white py-6">
-      <div className="mx-auto text-center text-sm">
-        &copy; {dictionary.copyright}
-      </div>
+      <HTMLBlock
+        className="mx-auto text-center text-sm"
+        content={dictionary.copyright}
+      />
     </footer>
   );
 }

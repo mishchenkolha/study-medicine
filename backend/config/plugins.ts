@@ -2,6 +2,9 @@ export default ({ env }) => ({
   seo: {
     enabled: true,
   },
+  'random-sort': {
+    enabled: true,
+  },
   email: {
     config: {
       provider: 'nodemailer',

@@ -1,7 +1,7 @@
 'use client';
 import { useLogout, useUser } from '@/hooks/useUser';
 import { ILabelObj } from '@/types/dictionary';
-import { Button } from '@/ui/button';
+import { Button, VARIANTS } from '@/ui/button';
 import { ROUTES } from '@/utils/routes';
 
 export default function AuthButtons({ dictionary }: { dictionary: ILabelObj }) {
@@ -26,7 +26,7 @@ export default function AuthButtons({ dictionary }: { dictionary: ILabelObj }) {
           <Button
             className="!hidden xl:!inline-flex"
             href={ROUTES.REGISTER}
-            variant="secondary"
+            variant={VARIANTS.SECONDARY}
           >
             {dictionary.register}
           </Button>
@@ -39,7 +39,7 @@ export default function AuthButtons({ dictionary }: { dictionary: ILabelObj }) {
           <Button
             className="!hidden xl:!inline-flex"
             href={ROUTES.PROFILE}
-            variant="secondary"
+            variant={VARIANTS.SECONDARY}
           >
             {dictionary.greeting} {user?.username}
           </Button>

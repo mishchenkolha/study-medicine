@@ -1,18 +1,26 @@
 'use client';
 
 import { useState } from 'react';
-import { register } from '@/services/auth.service';
 import { Input } from '@/ui/input';
 import { Button } from '@/ui/button';
 import { ILabelObj } from '@/types/dictionary';
-import { error, success } from '@/utils/toast';
+import { AUTO_CLOSE_TOAST, error, success } from '@/utils/toast';
+import { fetcher, isValidEmail } from '@/utils';
+import { useRouter } from 'next/navigation';
+import { ROUTES } from '@/utils/routes';
 
 export default function RegisterForm({
   dictionary,
 }: {
   dictionary: ILabelObj;
 }) {
-  const [form, setForm] = useState({ username: '', email: '', password: '' });
+  const router = useRouter();
+  const [form, setForm] = useState({
+    username: '',
+    email: '',
+    password: '',
+    password2: '',
+  });
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,8 +32,12 @@ export default function RegisterForm({
     setLoading(true);
 
     try {
-      await register(form);
+      await fetcher('/api/register', 'POST', form);
       success(dictionary.register_success);
+      setForm({ username: '', email: '', password: '', password2: '' });
+      setTimeout(() => {
+        router.push(ROUTES.LOGIN);
+      }, AUTO_CLOSE_TOAST);
     } catch (e: unknown) {
       error((e as Error).message ?? dictionary.server_error);
     } finally {
@@ -55,7 +67,24 @@ export default function RegisterForm({
         onChange={handleChange}
         required
       />
-      <Button type="submit" disabled={loading}>
+      <Input
+        name="password2"
+        type="password"
+        placeholder={dictionary.passwordAgain}
+        onChange={handleChange}
+        required
+      />
+      <Button
+        type="submit"
+        disabled={
+          loading ||
+          !form.username ||
+          !form.email ||
+          !form.password ||
+          !isValidEmail(form.email) ||
+          form.password !== form.password2
+        }
+      >
         {loading ? dictionary.registering : dictionary.register}
       </Button>
     </form>

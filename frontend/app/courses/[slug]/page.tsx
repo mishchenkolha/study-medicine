@@ -14,6 +14,7 @@ import { cn } from '@/utils';
 import { Button } from '@/ui/button';
 import { getDictionary } from '@/services/dictionary.service';
 import { getUserCourses } from '@/services/courses.service';
+import BuyCourse from '@/components/courses/buy-course';
 
 export async function generateMetadata({
   params,
@@ -56,12 +57,13 @@ export default async function CousePage({ params }: IPageProps) {
   });
   const userCoursesPromise = getUserCourses();
   const userCourses = await userCoursesPromise;
-  const pageCourseData = userCourses.filter((item) => item.page.slug === slug);
-  const pageCourse = pageCourseData?.[0];
+  const userPageCourse = userCourses.find((item) => item.page.slug === slug);
 
   return (
     <>
-      <h1 className="pb-4 md:pb-5 xl:pb-6">{coursePage.title}</h1>
+      <h1 className="header1 pb-4 md:pb-5 xl:pb-6 animate-fade-in-up">
+        {coursePage.title}
+      </h1>
       <HTMLBlock
         content={coursePage.description}
         className={cn(
@@ -78,13 +80,17 @@ export default async function CousePage({ params }: IPageProps) {
         />
       ) : (
         <>
-          {pageCourse ? (
+          {userPageCourse ? (
             <div className="w-auto pt-2 pb-4">
-              <Button href={`${ROUTES.COURSES}/private/${slug}`}>
+              <Button href={`${ROUTES.COURSES}/private/${userPageCourse.slug}`}>
                 {dictionary.viewPrivateCourse}
               </Button>
             </div>
-          ) : null}
+          ) : (
+            <div className="w-auto pt-2 pb-4">
+              <BuyCourse name={coursePage.title} dictionary={dictionary} />
+            </div>
+          )}
         </>
       )}
     </>

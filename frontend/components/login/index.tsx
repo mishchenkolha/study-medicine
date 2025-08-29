@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Input } from '@/ui/input';
-import { Button } from '@/ui/button';
+import { Button, VARIANTS } from '@/ui/button';
 import { ILabelObj } from '@/types/dictionary';
 import { ROUTES } from '@/utils/routes';
 import { error, success } from '@/utils/toast';
@@ -61,7 +61,7 @@ export default function LoginForm({ dictionary }: { dictionary: ILabelObj }) {
         <Button
           href={ROUTES.FORGOT_PASSWORD}
           disabled={loading}
-          variant="secondary"
+          variant={VARIANTS.SECONDARY}
         >
           {dictionary.forgot_password}
         </Button>

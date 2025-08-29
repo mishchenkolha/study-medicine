@@ -1,4 +1,5 @@
 import { DictionaryResponse, ILabelObj } from '@/types/dictionary';
+import { STRAPI_LIMIT } from '@/utils/constants';
 import { ROUTES } from '@/utils/routes';
 import { strapiService } from '@/utils/strapi_client';
 import { stringify } from 'qs';
@@ -7,7 +8,7 @@ export const getDictionary = async (): Promise<ILabelObj> => {
   const queryString = stringify({
     populate: ['labels'],
     pagination: {
-      limit: 1000,
+      limit: STRAPI_LIMIT,
     },
   });
   const responce = await strapiService.get<DictionaryResponse>(

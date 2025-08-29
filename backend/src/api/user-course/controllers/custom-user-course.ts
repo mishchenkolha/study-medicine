@@ -16,7 +16,9 @@ export default {
 
     // Витягуємо курси з user-courses та робимо унікальні по id
     const uniqueCourses = [
-      ...new Map(userCourses.map((uc) => [uc.courses.id, uc.courses])).values(),
+      ...new Map(
+        userCourses.map((uc) => [uc.courses.documentId, uc.courses]),
+      ).values(),
     ];
 
     return uniqueCourses?.[0] ?? [];

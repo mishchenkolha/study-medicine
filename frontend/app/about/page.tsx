@@ -17,7 +17,7 @@ export default async function AboutUsPage() {
   const aboutUsPage = await aboutUsPagePromise;
   return (
     <>
-      <h1 className="header1 pb-4 md:pb-5 xl:pb-6  animate-fade-in-up">
+      <h1 className="header1 pb-4 md:pb-5 xl:pb-6 animate-fade-in-up">
         {aboutUsPage.title}
       </h1>
       <HTMLBlock

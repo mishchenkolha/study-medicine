@@ -4,6 +4,7 @@ import {
   ICategoriesTree,
   IStrapiCategory,
 } from '@/types/navbar';
+import { STRAPI_LIMIT } from '@/utils/constants';
 import { normalizeTree } from '@/utils/menu';
 import { strapiService } from '@/utils/strapi_client';
 import { stringify } from 'qs';
@@ -35,7 +36,7 @@ export const getCategoriesTree = async (
   const queryString = stringify({
     populate: ['parent'],
     pagination: {
-      limit: 1000,
+      limit: STRAPI_LIMIT,
     },
     ...(name && {
       filters: {

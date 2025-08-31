@@ -522,6 +522,7 @@ export interface ApiCertificateCertificate extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    certificate: Schema.Attribute.Media<'files'>;
     course: Schema.Attribute.Relation<'oneToOne', 'api::course.course'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -533,9 +534,10 @@ export interface ApiCertificateCertificate extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    results: Schema.Attribute.Relation<'oneToMany', 'api::result.result'>;
-    slug: Schema.Attribute.UID;
-    title: Schema.Attribute.String;
+    slug: Schema.Attribute.UID & Schema.Attribute.Required;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

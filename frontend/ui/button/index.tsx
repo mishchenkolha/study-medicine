@@ -44,6 +44,7 @@ export const Button = ({
         <Link
           href={href}
           className={cn('inline-flex justify-center', base, styles, className)}
+          target={href.startsWith('http') ? '_blank' : undefined}
           {...rest}
         >
           {children}

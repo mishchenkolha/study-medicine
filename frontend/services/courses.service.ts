@@ -8,6 +8,7 @@ import {
 } from '@/types/courses';
 import { strapiAuthService } from '@/utils/strapi_auth_client';
 import { DEFAULT_QUESTIONS, STRAPI_LIMIT } from '@/utils/constants';
+import { getUser } from './auth.service';
 
 export const getCourseBySlug = async (
   slug: string,
@@ -73,7 +74,6 @@ export const getUserAttempts = async (quizId?: string): Promise<number> => {
     const responce = await strapiAuthService().get<{ count: number }>(
       `${ROUTES.RESULTS}/me?${queryString}`,
     );
-    console.log({ responce });
     return responce?.count ?? 0;
   } catch (e) {
     console.error(e);
@@ -135,5 +135,26 @@ export const getUserLatestResult = async (): Promise<IResult | null> => {
   } catch (e) {
     console.error(e);
     return null;
+  }
+};
+
+export interface ICertificate {
+  isNew: boolean;
+  url: string | null;
+}
+export const sendCertificate = async (
+  courseId: string,
+  title: string,
+): Promise<ICertificate | null> => {
+  const user = await getUser();
+  if (!user?.email || !user.username) return { isNew: false, url: null };
+  try {
+    return await strapiAuthService().post(`${ROUTES.CERTIFICATES}/me`, {
+      courseId,
+      title,
+    });
+  } catch (e) {
+    console.error(e);
+    return { isNew: false, url: null };
   }
 };

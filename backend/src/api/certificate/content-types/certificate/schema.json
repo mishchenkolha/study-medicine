@@ -12,25 +12,30 @@
   "pluginOptions": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "unique": true
     },
     "slug": {
-      "type": "uid"
+      "type": "uid",
+      "required": true
     },
     "user": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
     },
-    "results": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::result.result"
-    },
     "course": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::course.course"
+    },
+    "certificate": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "files"
+      ]
     }
   }
 }

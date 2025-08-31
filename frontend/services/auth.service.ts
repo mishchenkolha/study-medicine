@@ -1,6 +1,7 @@
 import {
   AuthResponse,
   ForgotPasswordBody,
+  IUser,
   LoginBody,
   RegisterBody,
   ResetPasswordBody,
@@ -44,7 +45,7 @@ export const logout = async () => {
 
 export const getUserToken = async () => (await cookies()).get('token')?.value;
 
-export const getUser = async () => {
+export const getUser = async (): Promise<IUser | null> => {
   const user = (await cookies()).get('user')?.value;
   if (!user) return null;
   return JSON.parse(user);

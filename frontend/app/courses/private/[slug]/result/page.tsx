@@ -4,11 +4,13 @@ import {
   getUserAttempts,
   getUserCourses,
   getUserLatestResult,
+  ICertificate,
+  sendCertificate,
 } from '@/services/courses.service';
 import { getDictionary } from '@/services/dictionary.service';
 import { IPrivateCourse } from '@/types/courses';
 import { IPageProps } from '@/types/page';
-import { Button, VARIANTS } from '@/ui/button';
+import { Button } from '@/ui/button';
 import { HTMLBlock } from '@/ui/html-block/html-block';
 import { setTemplateData } from '@/utils';
 import { ROUTES } from '@/utils/routes';
@@ -73,6 +75,18 @@ export default async function PrivateCousePage({ params }: IPageProps) {
     setTemplateData(dictionary.attemptsCount, {
       attemptsCount: String(userAttempts ?? ''),
     });
+  let certificateUrl = null;
+  if (!isTestFailed && currentCourse) {
+    try {
+      const data: ICertificate | null = await sendCertificate(
+        currentCourse.documentId,
+        currentCourse.title,
+      );
+      certificateUrl = data?.url ?? null;
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   return (
     <>
@@ -80,14 +94,18 @@ export default async function PrivateCousePage({ params }: IPageProps) {
         {currentCourse?.title ?? ''}
       </h1>
       <HTMLBlock content={infoText ?? ''} className="py-2 md:py-3 xl:py-4" />
-      <div className="w-auto pt-2 pb-4">
-        <Button
-          href={`${ROUTES.COURSES}/private/${slug}/print`}
-          variant={VARIANTS.DANGER}
-        >
-          {dictionary.printCert}
-        </Button>
-      </div>
+      <div className="w-auto pt-2 pb-4">{dictionary.printCert}</div>
+      {certificateUrl && (
+        <div className="inline">
+          <Button
+            href={`${process.env.NEXT_PUBLIC_STRAPI_URL}${certificateUrl}`}
+            rel="noopener noreferrer"
+            className="btn"
+          >
+            {dictionary.downloadCert}
+          </Button>
+        </div>
+      )}
     </>
   );
 }

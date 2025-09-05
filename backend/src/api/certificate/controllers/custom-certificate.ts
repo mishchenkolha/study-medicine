@@ -1,6 +1,12 @@
 import PDFDocument from 'pdfkit';
+import QRCode from 'qrcode';
+
 // start helpers
-const generatePDF = async (username: string, courseTitle: string) => {
+const generatePDF = async (
+  username: string,
+  courseTitle: string,
+  certificateUrl: string,
+) => {
   const marginX = 50;
   const doc = new PDFDocument({ size: 'A4', margin: marginX });
   const chunks: Buffer[] = [];
@@ -11,6 +17,7 @@ const generatePDF = async (username: string, courseTitle: string) => {
   const pageWidth = doc.page.width;
   const pageHeight = doc.page.height; // ~842pt для A4
   const startY = pageHeight / 4; // четверта частина сторінки
+
   // 1.1. фон
   doc.opacity(0.1).image('public/logo.png', 100, 150, {
     fit: [400, 400],
@@ -18,6 +25,16 @@ const generatePDF = async (username: string, courseTitle: string) => {
     valign: 'center',
   });
   doc.opacity(1);
+
+  const qrDataUrl = await QRCode.toDataURL(certificateUrl, {
+    errorCorrectionLevel: 'H',
+    margin: 1,
+    width: 150,
+  });
+
+  // 2. Малюємо QR-код у верхньому лівому кутку
+  const qrBuffer = Buffer.from(qrDataUrl.split(',')[1], 'base64');
+  doc.image(qrBuffer, 30, 30, { width: 150, height: 150 });
 
   // 1.2. текст
   doc
@@ -141,14 +158,20 @@ export default {
     }
 
     try {
-      const pdfBuffer = await generatePDF(username, courseTitle);
-      if (!pdfBuffer.length) throw new Error('PDF не згенерувався');
-      await sendEmail(email, pdfBuffer);
       // 3. Унікальні імена та slug
       const { slug, fileName, uniqueTitle } = getUniqueNames(
         username,
         courseTitle,
       );
+      const certificateUrl = `${process.env.FRONTEND_URL}/certificate/${slug}`;
+      // 3.1. Генеруємо pdf
+      const pdfBuffer = await generatePDF(
+        username,
+        courseTitle,
+        certificateUrl,
+      );
+      if (!pdfBuffer.length) throw new Error('PDF не згенерувався');
+      await sendEmail(email, pdfBuffer);
       // 4. Завантаження PDF у Media Library через REST API (серверлес)
       const baseUrl =
         process.env.STRAPI_PUBLIC_URL ||
@@ -209,7 +232,7 @@ export default {
       // 6. Відповідь
       return ctx.send({
         isNew: true,
-        url: uploadedFile?.url ?? null,
+        slug: uploadedFile?.url ? slug : null,
       });
     } catch (err: any) {
       strapi.log.error('Помилка при відправці сертифікату:', err);

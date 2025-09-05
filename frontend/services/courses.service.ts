@@ -5,6 +5,7 @@ import {
   IPrivateCourse,
   IQuestion,
   IResult,
+  IStrapiCertificate,
 } from '@/types/courses';
 import { strapiAuthService } from '@/utils/strapi_auth_client';
 import { DEFAULT_QUESTIONS, STRAPI_LIMIT } from '@/utils/constants';
@@ -138,16 +139,36 @@ export const getUserLatestResult = async (): Promise<IResult | null> => {
   }
 };
 
+// not used yet. mb will remove it later
+export const getCertificateBySlug = async (
+  slug: string,
+): Promise<IStrapiCertificate | null> => {
+  if (!slug) return null;
+  const queryString = stringify({
+    filters: { slug: { $eqi: slug } },
+    pagination: { limit: 1 },
+  });
+  try {
+    const responce = await strapiAuthService().get<{
+      data: IStrapiCertificate[];
+    }>(`${ROUTES.CERTIFICATES}?${queryString}`);
+    return responce?.data?.[0] ?? null;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+};
+
 export interface ICertificate {
   isNew: boolean;
-  url: string | null;
+  slug: string | null;
 }
 export const sendCertificate = async (
   courseId: string,
   title: string,
 ): Promise<ICertificate | null> => {
   const user = await getUser();
-  if (!user?.email || !user.username) return { isNew: false, url: null };
+  if (!user?.email || !user.username) return { isNew: false, slug: null };
   try {
     return await strapiAuthService().post(`${ROUTES.CERTIFICATES}/me`, {
       courseId,
@@ -155,6 +176,6 @@ export const sendCertificate = async (
     });
   } catch (e) {
     console.error(e);
-    return { isNew: false, url: null };
+    return { isNew: false, slug: null };
   }
 };

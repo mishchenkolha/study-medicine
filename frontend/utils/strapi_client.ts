@@ -1,6 +1,6 @@
-const STRAPI_API_URL =
-  process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337/api';
+import { STRAPI_URL } from './constants';
 
+const STRAPI_API_URL = `${STRAPI_URL}/api`;
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 interface FetchOptions<TBody = unknown> {

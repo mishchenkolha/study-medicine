@@ -81,3 +81,18 @@ export interface IResult {
   passed: boolean;
   submittedAt: string;
 }
+
+export interface ICertificateFile {
+  id: number;
+  url: string;
+  name: string;
+}
+
+export interface IStrapiCertificate {
+  id: number;
+  title: string;
+  slug: string;
+  user: IUser;
+  course: IPrivateCourse;
+  certificate: ICertificateFile;
+}

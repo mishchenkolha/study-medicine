@@ -75,14 +75,14 @@ export default async function PrivateCousePage({ params }: IPageProps) {
     setTemplateData(dictionary.attemptsCount, {
       attemptsCount: String(userAttempts ?? ''),
     });
-  let certificateUrl = null;
+  let certificateSlug = null;
   if (!isTestFailed && currentCourse) {
     try {
       const data: ICertificate | null = await sendCertificate(
         currentCourse.documentId,
         currentCourse.title,
       );
-      certificateUrl = data?.url ?? null;
+      certificateSlug = data?.slug ?? null;
     } catch (e) {
       console.error(e);
     }
@@ -95,11 +95,10 @@ export default async function PrivateCousePage({ params }: IPageProps) {
       </h1>
       <HTMLBlock content={infoText ?? ''} className="py-2 md:py-3 xl:py-4" />
       <div className="w-auto pt-2 pb-4">{dictionary.printCert}</div>
-      {certificateUrl && (
+      {certificateSlug && (
         <div className="inline">
           <Button
-            href={`${process.env.NEXT_PUBLIC_STRAPI_URL}${certificateUrl}`}
-            rel="noopener noreferrer"
+            href={`${ROUTES.CERTIFICATES}/${certificateSlug}`}
             className="btn"
           >
             {dictionary.downloadCert}

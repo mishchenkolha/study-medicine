@@ -35,9 +35,9 @@ export const getUserCourses = async (): Promise<IPrivateCourse[]> => {
       limit: STRAPI_LIMIT,
     },
   });
-  const responce = await strapiAuthService().get<IPrivateCourse[]>(
-    `${ROUTES.USER_COURSES}/me?${queryString}`,
-  );
+  const responce: IPrivateCourse[] | null = await strapiAuthService().get<
+    IPrivateCourse[]
+  >(`${ROUTES.USER_COURSES}/me?${queryString}`);
 
   return responce ?? [];
 };
@@ -63,6 +63,7 @@ export const getQuestions = async (
   });
   const responce = await strapiAuthService().get<{ data: IQuestion[] }>(
     `${ROUTES.QUESTIONS}?${queryString}`,
+    { revalidate: Number(process.env.NEXT_PUBLIC_CACHING_SHORT_TIME ?? 0) },
   );
 
   return (responce?.data ?? []).slice(0, count);
@@ -74,6 +75,7 @@ export const getUserAttempts = async (quizId?: string): Promise<number> => {
   try {
     const responce = await strapiAuthService().get<{ count: number }>(
       `${ROUTES.RESULTS}/me?${queryString}`,
+      { revalidate: Number(process.env.NEXT_PUBLIC_CACHING_SHORT_TIME ?? 0) },
     );
     return responce?.count ?? 0;
   } catch (e) {
@@ -119,6 +121,7 @@ export const checkPassedQuiz = async (quizId: string): Promise<boolean> => {
   try {
     const responce = await strapiAuthService().get<boolean>(
       `${ROUTES.RESULTS}/me/is-passed?${queryString}`,
+      { revalidate: Number(process.env.NEXT_PUBLIC_CACHING_SHORT_TIME ?? 0) },
     );
     return Boolean(responce);
   } catch (e) {
@@ -131,6 +134,7 @@ export const getUserLatestResult = async (): Promise<IResult | null> => {
   try {
     const responce = await strapiAuthService().get<IResult>(
       `${ROUTES.RESULTS}/me/latest`,
+      { revalidate: Number(process.env.NEXT_PUBLIC_CACHING_SHORT_TIME ?? 0) },
     );
     return responce ?? null;
   } catch (e) {

@@ -5,3 +5,6 @@ export const DOMAIN_URL = process.env.NEXT_PUBLIC_DOMAIN_URL;
 export const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
 export const STRAPI_LIMIT = 10000;
 export const DEFAULT_QUESTIONS = 20;
+export const SESSION_TIME = Number(
+  process.env.NEXT_PUBLIC_USER_SESSION_TIME || 60 * 60,
+); // 1h

@@ -1,5 +1,5 @@
-import { cookies } from 'next/headers';
 import { strapiService } from './strapi_client';
+import { getUserToken } from '@/services/auth.service';
 
 const REVALIDATION_TIME = 60; // 1min
 const ERROR_TEXT = 'Error fetching from Strapi with Auth user:';
@@ -9,15 +9,15 @@ export function strapiAuthService(customToken?: string) {
       path: string,
       options?: Omit<Parameters<typeof strapiService.get>[1], 'token'>,
     ) => {
-      const token = customToken ?? (await cookies()).get('token')?.value;
+      const token = customToken ?? (await getUserToken());
       if (!token) {
         return null;
       }
       try {
         return strapiService.get<TResponse>(path, {
-          ...options,
           token,
           revalidate: REVALIDATION_TIME,
+          ...options,
         });
       } catch (error) {
         console.error(ERROR_TEXT, error);
@@ -30,15 +30,15 @@ export function strapiAuthService(customToken?: string) {
       body: TBody,
       options?: Omit<Parameters<typeof strapiService.post>[2], 'token'>,
     ) => {
-      const token = customToken ?? (await cookies()).get('token')?.value;
+      const token = customToken ?? (await getUserToken());
       if (!token) {
         return null;
       }
       try {
         return strapiService.post<TResponse, TBody>(path, body, {
-          ...options,
           token,
           revalidate: REVALIDATION_TIME,
+          ...options,
         });
       } catch (error) {
         console.error(ERROR_TEXT, error);
@@ -51,15 +51,15 @@ export function strapiAuthService(customToken?: string) {
       body: TBody,
       options?: Omit<Parameters<typeof strapiService.put>[2], 'token'>,
     ) => {
-      const token = customToken ?? (await cookies()).get('token')?.value;
+      const token = customToken ?? (await getUserToken());
       if (!token) {
         return null;
       }
       try {
         return strapiService.put<TResponse, TBody>(path, body, {
-          ...options,
           token,
           revalidate: REVALIDATION_TIME,
+          ...options,
         });
       } catch (error) {
         console.error(ERROR_TEXT, error);
@@ -71,15 +71,15 @@ export function strapiAuthService(customToken?: string) {
       path: string,
       options?: Omit<Parameters<typeof strapiService.delete>[1], 'token'>,
     ) => {
-      const token = customToken ?? (await cookies()).get('token')?.value;
+      const token = customToken ?? (await getUserToken());
       if (!token) {
         return null;
       }
       try {
         return strapiService.delete<TResponse>(path, {
-          ...options,
           token,
           revalidate: REVALIDATION_TIME,
+          ...options,
         });
       } catch (error) {
         console.error(ERROR_TEXT, error);
@@ -88,7 +88,7 @@ export function strapiAuthService(customToken?: string) {
     },
 
     me: async <TResponse>() => {
-      const token = customToken ?? (await cookies()).get('token')?.value;
+      const token = customToken ?? (await getUserToken());
       if (!token) {
         return null;
       }

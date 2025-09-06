@@ -45,7 +45,6 @@ export async function GET(
     json = await strapiService.get<CertificateResponse>(
       `${ROUTES.CERTIFICATES}?${queryString}`,
     );
-    console.log({ json });
   } catch {
     return NextResponse.json(
       { error: 'Certificate not found' },

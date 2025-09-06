@@ -1,3 +1,4 @@
+'use server';
 import { getAllCategoryPages, getCoursePage } from '@/services/pages.services';
 import { getMeta } from '@/services/meta.service';
 import { getCategoriesTree } from '@/services/navbar.service';
@@ -15,6 +16,7 @@ import { Button } from '@/ui/button';
 import { getDictionary } from '@/services/dictionary.service';
 import { getUserCourses } from '@/services/courses.service';
 import BuyCourse from '@/components/courses/buy-course';
+import { getUser } from '@/services/auth.service';
 
 export async function generateMetadata({
   params,
@@ -26,6 +28,7 @@ export async function generateMetadata({
 
 export default async function CousePage({ params }: IPageProps) {
   const { slug } = await params;
+  const user = await getUser();
   const dictionaryPromise = getDictionary();
   const coursePagePromise: Promise<IPublicPage> = getCoursePage(slug);
   const categoriesPromise = getCategoriesTree();
@@ -88,7 +91,13 @@ export default async function CousePage({ params }: IPageProps) {
             </div>
           ) : (
             <div className="w-auto pt-2 pb-4">
-              <BuyCourse name={coursePage.title} dictionary={dictionary} />
+              {user?.email ? (
+                <BuyCourse name={coursePage.title} dictionary={dictionary} />
+              ) : (
+                <Button className="!hidden xl:!inline-flex" href={ROUTES.LOGIN}>
+                  {dictionary.login}
+                </Button>
+              )}
             </div>
           )}
         </>

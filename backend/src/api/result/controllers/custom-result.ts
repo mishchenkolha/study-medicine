@@ -118,12 +118,10 @@ export default {
             user: {
               id: user.id,
             },
-            passed: true,
           },
           orderBy: { id: 'desc' },
         });
-
-      return latestResult;
+      return latestResult ?? {};
     } catch (error) {
       strapi.log.error('Помилка при отриманні останнього результату:', error);
       return ctx.internalServerError('Не вдалося отримати дані');

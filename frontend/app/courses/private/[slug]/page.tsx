@@ -1,5 +1,9 @@
 import { getUser } from '@/services/auth.service';
-import { checkPassedQuiz, getUserCourses } from '@/services/courses.service';
+import {
+  checkPassedQuiz,
+  getUserAttempts,
+  getUserCourses,
+} from '@/services/courses.service';
 import { getDictionary } from '@/services/dictionary.service';
 import { IPageProps } from '@/types/page';
 import { Button, VARIANTS } from '@/ui/button';
@@ -26,7 +30,19 @@ export default async function PrivateCousePage({ params }: IPageProps) {
   const isPassedQuiz = await checkPassedQuiz(
     currentCourse?.quiz?.documentId || '',
   );
-
+  if (!isPassedQuiz) {
+    const currentQuiz = currentCourse?.quiz;
+    const attemptsCount = Number(currentQuiz?.attempts_count ?? 0);
+    const userAttempts = await getUserAttempts(currentQuiz?.documentId);
+    const attemptsLeft = attemptsCount
+      ? attemptsCount - userAttempts > 0
+        ? attemptsCount - userAttempts
+        : 0
+      : -1;
+    if (attemptsLeft <= 0) {
+      redirect(`${ROUTES.COURSES}/private/${slug}/result`);
+    }
+  }
   return (
     <>
       <h1 className="header1 pb-4 md:pb-5 xl:pb-6 animate-fade-in-up">

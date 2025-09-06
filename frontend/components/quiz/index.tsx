@@ -65,12 +65,12 @@ export default async function Quiz({
         score: Math.round(score * 100) / 100,
         isPassed: !isTestFailed,
       });
-      redirect(`${ROUTES.COURSES}/private/${slug}/result`);
     } catch (e: unknown) {
       console.error(
         e instanceof Error ? e.message : dictionary.somethingWentWrong,
       );
     }
+    redirect(`${ROUTES.COURSES}/private/${slug}/result`);
   }
   return (
     <form

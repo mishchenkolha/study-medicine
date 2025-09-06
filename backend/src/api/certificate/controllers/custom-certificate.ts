@@ -19,8 +19,8 @@ const generatePDF = async (
   const startY = pageHeight / 4; // четверта частина сторінки
 
   // 1.1. фон
-  doc.opacity(0.1).image('public/logo.png', 100, 150, {
-    fit: [400, 400],
+  doc.opacity(0.1).image('public/logo.png', 50, 230, {
+    fit: [500, 500],
     align: 'center',
     valign: 'center',
   });
@@ -66,7 +66,7 @@ const generatePDF = async (
       width: pageWidth - 2 * marginX,
     });
 
-  currentY += 40;
+  currentY += 70;
   doc
     .fontSize(16)
     .font('Helvetica')
@@ -153,7 +153,7 @@ export default {
     if (existing) {
       return ctx.send({
         isNew: false,
-        url: existing.certificate?.url ?? null,
+        slug: existing.slug ?? null,
       });
     }
 

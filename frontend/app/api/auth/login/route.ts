@@ -1,4 +1,5 @@
 import { login } from '@/services/auth.service';
+import { SESSION_TIME } from '@/utils/constants';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
@@ -14,7 +15,7 @@ export async function POST(request: Request) {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       path: '/',
-      maxAge: Number(process.env.NEXT_PUBLIC_USER_SESSION_TIME || 60 * 60), // 1 hour
+      maxAge: SESSION_TIME,
       sameSite: 'lax',
     });
     response.cookies.set({
@@ -23,7 +24,7 @@ export async function POST(request: Request) {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       path: '/',
-      maxAge: Number(process.env.NEXT_PUBLIC_USER_SESSION_TIME || 60 * 60), // 1 hour
+      maxAge: SESSION_TIME,
       sameSite: 'lax',
     });
 

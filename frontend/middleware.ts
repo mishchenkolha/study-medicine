@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { SESSION_TIME } from './utils/constants';
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -6,6 +7,36 @@ export async function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('pathname', pathname);
   requestHeaders.set('x-url', request.url);
+
+  const token = request.cookies.get('token')?.value;
+  const user = request.cookies.get('user')?.value;
+
+  // Якщо куки є — оновлюємо їх
+  if (token && user) {
+    const response = NextResponse.next();
+
+    response.cookies.set({
+      name: 'token',
+      value: token,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      path: '/',
+      maxAge: SESSION_TIME,
+      sameSite: 'lax',
+    });
+
+    response.cookies.set({
+      name: 'user',
+      value: user,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      path: '/',
+      maxAge: SESSION_TIME,
+      sameSite: 'lax',
+    });
+
+    return response;
+  }
 
   return NextResponse.next({
     request: {

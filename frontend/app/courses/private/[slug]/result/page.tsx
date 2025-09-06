@@ -1,6 +1,5 @@
 import { getUser } from '@/services/auth.service';
 import {
-  checkPassedQuiz,
   getUserAttempts,
   getUserCourses,
   getUserLatestResult,
@@ -40,12 +39,7 @@ export default async function PrivateCousePage({ params }: IPageProps) {
   ) {
     redirect(ROUTES.COURSES);
   }
-  const isPassedQuiz = await checkPassedQuiz(
-    currentCourse?.quiz?.documentId || '',
-  );
-  if (!isPassedQuiz) {
-    redirect(`${ROUTES.COURSES}/private/${slug}/quiz`);
-  }
+
   const treshold = currentQuiz?.min_percent_treshold ?? 0;
   const isTestFailed =
     userLatestResult?.score && userLatestResult.score < treshold;
@@ -94,14 +88,22 @@ export default async function PrivateCousePage({ params }: IPageProps) {
         {currentCourse?.title ?? ''}
       </h1>
       <HTMLBlock content={infoText ?? ''} className="py-2 md:py-3 xl:py-4" />
-      <div className="w-auto pt-2 pb-4">{dictionary.printCert}</div>
       {certificateSlug && (
+        <div className="w-auto pt-2 pb-4">{dictionary.printCert}</div>
+      )}
+      {certificateSlug ? (
         <div className="inline">
           <Button
             href={`${ROUTES.CERTIFICATES}/${certificateSlug}`}
             className="btn"
           >
             {dictionary.downloadCert}
+          </Button>
+        </div>
+      ) : (
+        <div className="inline">
+          <Button href={`${ROUTES.COURSES}/private/${slug}`} className="btn">
+            {dictionary.viewPrivateCourse}
           </Button>
         </div>
       )}

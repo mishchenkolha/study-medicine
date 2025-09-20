@@ -37,13 +37,6 @@ export const resetPassword = async (data: ResetPasswordBody) =>
     data,
   );
 
-export const logout = async () => {
-  const cookieStore = await cookies();
-  cookieStore.delete('token');
-  cookieStore.delete('user');
-  return { success: true };
-};
-
 export const getUserToken = async (): Promise<string | null> => {
   const token = (await cookies()).get('token')?.value;
   if (!token) return null;

@@ -98,19 +98,6 @@ const generatePDF = async (
   return Buffer.concat(chunks);
 };
 
-const sendEmail = async (to: string, pdfBuffer: Buffer) => {
-  // 2. Відправка email (працює)
-  return strapi
-    .plugin('email')
-    .service('email')
-    .send({
-      to,
-      subject: 'Your Certificate',
-      text: 'Please find attached your course completion certificate.',
-      attachments: [{ filename: 'certificate.pdf', content: pdfBuffer }],
-    });
-};
-
 const getUniqueNames = (username: string, courseTitle: string) => {
   const safe = (s: string) => s.normalize('NFKD').replace(/[^\w.-]+/g, '_');
   const ts = new Date().toISOString().replace(/[:.]/g, '-');
@@ -171,7 +158,8 @@ export default {
         certificateUrl,
       );
       if (!pdfBuffer.length) throw new Error('PDF не згенерувався');
-      await sendEmail(email, pdfBuffer);
+      // Email ми шлемо окремо
+      //await sendEmail(email, pdfBuffer);
       // 4. Завантаження PDF у Media Library через REST API (серверлес)
       const baseUrl =
         process.env.STRAPI_PUBLIC_URL ||

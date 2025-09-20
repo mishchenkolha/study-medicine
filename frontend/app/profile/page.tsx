@@ -16,14 +16,14 @@ export default async function UserProfilePage() {
           <label className="block text-sm font-medium text-gray-700">
             {dictionary.email}
           </label>
-          <p className="text-gray-900">{user.email}</p>
+          <p className="text-gray-900">{user?.email}</p>
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700">
             {dictionary.username}
           </label>
-          <p className="text-gray-900">{user.username}</p>
+          <p className="text-gray-900">{user?.username}</p>
         </div>
       </div>
 

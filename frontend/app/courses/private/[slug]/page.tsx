@@ -58,14 +58,14 @@ export default async function PrivateCousePage({ params }: IPageProps) {
             href={`${ROUTES.COURSES}/private/${slug}/result`}
             variant={VARIANTS.SUCCESS}
           >
-            {dictionary.checkResult}
+            {dictionary.check_result}
           </Button>
         ) : (
           <Button
             href={`${ROUTES.COURSES}/private/${slug}/quiz`}
             variant={VARIANTS.DANGER}
           >
-            {dictionary.startQuiz}
+            {dictionary.start_quiz}
           </Button>
         )}
       </div>

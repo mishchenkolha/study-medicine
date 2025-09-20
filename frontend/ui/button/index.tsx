@@ -13,12 +13,14 @@ type Props = React.ButtonHTMLAttributes<
   variant?: VARIANTS;
   className?: string;
   href?: string;
+  target?: string;
 };
 
 export const Button = ({
   children,
   variant = VARIANTS.PRIMARY,
   className,
+  target,
   href,
   ...rest
 }: Props) => {
@@ -44,7 +46,7 @@ export const Button = ({
         <Link
           href={href}
           className={cn('inline-flex justify-center', base, styles, className)}
-          target={href.startsWith('http') ? '_blank' : undefined}
+          target={target ?? (href.startsWith('http') ? '_blank' : undefined)}
           {...rest}
         >
           {children}

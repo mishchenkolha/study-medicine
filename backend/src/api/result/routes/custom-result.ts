@@ -26,6 +26,14 @@ export default {
     },
     {
       method: 'GET',
+      path: '/results/me/is-certificate-sent',
+      handler: 'custom-result.isCertificateSent',
+      config: {
+        auth: {},
+      },
+    },
+    {
+      method: 'GET',
       path: '/results/me/latest',
       handler: 'custom-result.latest',
       config: {

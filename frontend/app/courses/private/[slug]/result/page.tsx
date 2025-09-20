@@ -1,5 +1,8 @@
+import BuyCourse from '@/components/courses/buy-course';
+import { Modal } from '@/components/modal';
 import { getUser } from '@/services/auth.service';
 import {
+  checkCertificateSent,
   getUserAttempts,
   getUserCourses,
   getUserLatestResult,
@@ -32,6 +35,7 @@ export default async function PrivateCousePage({ params }: IPageProps) {
   const currentCourse = userCourses.find(
     (course: IPrivateCourse) => course.slug === slug,
   );
+
   const currentQuiz = currentCourse?.quiz;
   if (
     !currentQuiz?.documentId ||
@@ -44,9 +48,9 @@ export default async function PrivateCousePage({ params }: IPageProps) {
   const isTestFailed =
     userLatestResult?.score && userLatestResult.score < treshold;
   let failedInfo = '';
-  const successInfo = dictionary.resultSuccess;
+  const successInfo = dictionary.result_success;
   let userAttempts = 0;
-  //if (isTestFailed && treshold > 0) {
+
   const attemptsCount = Number(currentQuiz?.attempts_count ?? 0);
   userAttempts = await getUserAttempts(currentQuiz?.documentId);
   const attemptsLeft = attemptsCount
@@ -54,19 +58,19 @@ export default async function PrivateCousePage({ params }: IPageProps) {
       ? attemptsCount - userAttempts
       : 0
     : -1;
-  failedInfo = setTemplateData(dictionary.resultFailed, {
+  failedInfo = setTemplateData(dictionary.result_failed, {
     count: String(attemptsLeft < 0 ? dictionary.unlimited : attemptsLeft),
   });
-  //}
+
   const infoText =
-    setTemplateData(dictionary.resultSent, {
+    setTemplateData(dictionary.result_sent, {
       score: String(userLatestResult?.score ?? ''),
       treshold: String(treshold),
     }) +
     ' ' +
     (isTestFailed ? failedInfo : successInfo) +
     '<br />' +
-    setTemplateData(dictionary.attemptsCount, {
+    setTemplateData(dictionary.attempts_count, {
       attemptsCount: String(userAttempts ?? ''),
     });
   let certificateSlug = null;
@@ -82,30 +86,62 @@ export default async function PrivateCousePage({ params }: IPageProps) {
     }
   }
 
+  let finishedCourse = false;
+  if (certificateSlug) {
+    finishedCourse = await checkCertificateSent(currentQuiz?.documentId);
+  }
+
   return (
     <>
       <h1 className="header1 pb-4 md:pb-5 xl:pb-6 animate-fade-in-up">
         {currentCourse?.title ?? ''}
       </h1>
       <HTMLBlock content={infoText ?? ''} className="py-2 md:py-3 xl:py-4" />
-      {certificateSlug && (
-        <div className="w-auto pt-2 pb-4">{dictionary.printCert}</div>
-      )}
-      {certificateSlug ? (
-        <div className="inline">
-          <Button
-            href={`${ROUTES.CERTIFICATES}/${certificateSlug}`}
-            className="btn"
-          >
-            {dictionary.downloadCert}
-          </Button>
-        </div>
+      {finishedCourse ? (
+        <>
+          {certificateSlug && (
+            <>
+              <div className="w-auto pt-2 pb-4">
+                {dictionary.print_certificate}
+              </div>
+              <div className="inline">
+                <Button
+                  href={`${ROUTES.CERTIFICATES}/${certificateSlug}`}
+                  target="_blank"
+                  className="btn"
+                >
+                  {dictionary.download_certificate}
+                </Button>
+              </div>
+            </>
+          )}
+        </>
       ) : (
-        <div className="inline">
-          <Button href={`${ROUTES.COURSES}/private/${slug}`} className="btn">
-            {dictionary.viewPrivateCourse}
-          </Button>
-        </div>
+        <>
+          {certificateSlug ? (
+            <div className="inline">
+              <Modal
+                message={<HTMLBlock content={dictionary.receive_certificate} />}
+              />
+            </div>
+          ) : (
+            <div className="inline">
+              {attemptsLeft > 0 ? (
+                <Button
+                  href={`${ROUTES.COURSES}/private/${slug}`}
+                  className="btn"
+                >
+                  {dictionary.view_private_course}
+                </Button>
+              ) : (
+                <BuyCourse
+                  name={currentCourse?.title ?? ''}
+                  dictionary={dictionary}
+                />
+              )}
+            </div>
+          )}
+        </>
       )}
     </>
   );

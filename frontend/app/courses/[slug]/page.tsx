@@ -86,7 +86,7 @@ export default async function CousePage({ params }: IPageProps) {
           {userPageCourse ? (
             <div className="w-auto pt-2 pb-4">
               <Button href={`${ROUTES.COURSES}/private/${userPageCourse.slug}`}>
-                {dictionary.viewPrivateCourse}
+                {dictionary.view_private_course}
               </Button>
             </div>
           ) : (

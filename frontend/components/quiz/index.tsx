@@ -2,21 +2,23 @@
 import { saveUserResults } from '@/services/courses.service';
 import { IQuestion } from '@/types/courses';
 import { ILabelObj } from '@/types/dictionary';
-import { Button, VARIANTS } from '@/ui/button';
 import { HTMLBlock } from '@/ui/html-block/html-block';
 import { isNumber } from '@/utils';
 import { scoreQuiz } from '@/utils/quiz';
 import { ROUTES } from '@/utils/routes';
 import { redirect } from 'next/navigation';
+import SubmitButton from './submit';
 
 export default async function Quiz({
   questions,
   dictionary,
   slug,
+  courseId,
 }: {
   questions: IQuestion[];
   dictionary: ILabelObj;
   slug: string;
+  courseId: string;
 }) {
   async function handleSubmit(formData: FormData) {
     'use server';
@@ -61,6 +63,7 @@ export default async function Quiz({
       const isTestFailed = score < treshold;
       await saveUserResults({
         quizId,
+        courseId,
         answers: answersToDB,
         score: Math.round(score * 100) / 100,
         isPassed: !isTestFailed,
@@ -82,7 +85,7 @@ export default async function Quiz({
       </h2>
       <HTMLBlock
         className="text-sm text-gray-500 mb-6"
-        content={dictionary.quizDescription}
+        content={dictionary.quiz_description}
       />
 
       {questions.map((question, qIndex) => (
@@ -108,6 +111,7 @@ export default async function Quiz({
                     name={`${question.id}`}
                     value={aIndex}
                     className="w-5 h-5 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+                    required
                   />
                   <span className="text-gray-700">{answer.title}</span>
                 </label>
@@ -131,12 +135,7 @@ export default async function Quiz({
           </div>
         </div>
       ))}
-
-      <div className="flex justify-end">
-        <Button type="submit" variant={VARIANTS.SUCCESS}>
-          {dictionary.send}
-        </Button>
-      </div>
+      <SubmitButton dictionary={dictionary} />
     </form>
   );
 }

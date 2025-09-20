@@ -79,6 +79,7 @@ export interface IResult {
   quiz: IQuiz;
   score: number;
   passed: boolean;
+  certificate_sent: boolean;
   submittedAt: string;
 }
 

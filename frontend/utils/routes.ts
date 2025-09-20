@@ -4,6 +4,8 @@ export const ROUTES = {
   FORGOT_PASSWORD: '/forgot-password',
   PROFILE: '/profile',
   ABOUT: '/about',
+  CONSULTING_AND_NETWORKING: '/consulting-and-networking',
+  TESTIMONIALS: '/testimonial',
   CONTACTS: '/contacts',
   ALL_COURSES: '/all-courses',
   COURSES: '/courses',

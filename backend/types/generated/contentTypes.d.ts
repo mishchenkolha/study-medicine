@@ -548,6 +548,43 @@ export interface ApiCertificateCertificate extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiConsultingAndNetworkingConsultingAndNetworking
+  extends Struct.SingleTypeSchema {
+  collectionName: 'consulting_and_networkings';
+  info: {
+    displayName: 'consulting and networking';
+    pluralName: 'consulting-and-networkings';
+    singularName: 'consulting-and-networking';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbarBalloon';
+        }
+      >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::consulting-and-networking.consulting-and-networking'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiContactContact extends Struct.SingleTypeSchema {
   collectionName: 'contacts';
   info: {
@@ -881,6 +918,9 @@ export interface ApiResultResult extends Struct.CollectionTypeSchema {
   };
   attributes: {
     answers: Schema.Attribute.JSON;
+    certificate_sent: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    course: Schema.Attribute.Relation<'oneToOne', 'api::course.course'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -902,6 +942,42 @@ export interface ApiResultResult extends Struct.CollectionTypeSchema {
       'oneToOne',
       'plugin::users-permissions.user'
     >;
+  };
+}
+
+export interface ApiTestimonialTestimonial extends Struct.SingleTypeSchema {
+  collectionName: 'testimonials';
+  info: {
+    displayName: 'testimonial';
+    pluralName: 'testimonials';
+    singularName: 'testimonial';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbarBalloon';
+        }
+      >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::testimonial.testimonial'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1450,6 +1526,7 @@ declare module '@strapi/strapi' {
       'api::all-courses.all-courses': ApiAllCoursesAllCourses;
       'api::category.category': ApiCategoryCategory;
       'api::certificate.certificate': ApiCertificateCertificate;
+      'api::consulting-and-networking.consulting-and-networking': ApiConsultingAndNetworkingConsultingAndNetworking;
       'api::contact.contact': ApiContactContact;
       'api::course.course': ApiCourseCourse;
       'api::dictionary.dictionary': ApiDictionaryDictionary;
@@ -1459,6 +1536,7 @@ declare module '@strapi/strapi' {
       'api::question.question': ApiQuestionQuestion;
       'api::quiz.quiz': ApiQuizQuiz;
       'api::result.result': ApiResultResult;
+      'api::testimonial.testimonial': ApiTestimonialTestimonial;
       'api::user-course.user-course': ApiUserCourseUserCourse;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

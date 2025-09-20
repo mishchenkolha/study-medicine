@@ -25,15 +25,14 @@ export default function LoginForm({ dictionary }: { dictionary: ILabelObj }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
-      const data = await res.json();
       if (!res.ok) {
-        error(data?.error ?? dictionary.login_failed);
+        error(dictionary.login_failed);
       } else {
         success(dictionary.login_success);
         window.open(ROUTES.COURSES, '_self');
       }
-    } catch (e: unknown) {
-      error((e as Error).message ?? dictionary.server_error);
+    } catch {
+      error(dictionary.server_error);
     } finally {
       setLoading(false);
     }

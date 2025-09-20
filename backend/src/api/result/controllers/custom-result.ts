@@ -1,3 +1,5 @@
+import certificate from '../../certificate/controllers/certificate';
+
 const resultsContentApiName = 'api::result.result';
 export default {
   async submit(ctx) {
@@ -8,16 +10,25 @@ export default {
 
     const {
       quizDocumentId,
+      courseDocumentId,
       answers,
       score,
       isPassed: passed,
     } = ctx.request.body;
 
-    if (!quizDocumentId || typeof score !== 'number' || !answers) {
-      return ctx.badRequest('quizDocumentId, answers і score обов’язкові');
+    if (
+      !quizDocumentId ||
+      !courseDocumentId ||
+      typeof score !== 'number' ||
+      !answers
+    ) {
+      return ctx.badRequest(
+        'quizDocumentId, courseDocumentId, answers і score обов’язкові',
+      );
     }
     const entryData = {
       quiz: quizDocumentId,
+      course: courseDocumentId,
       user: user.documentId ? user.documentId : { id: user.id },
       score,
       submittedAt: new Date(),
@@ -94,6 +105,35 @@ export default {
             id: user.id,
           },
           passed: true,
+        },
+      });
+
+      return Boolean(record);
+    } catch (error) {
+      strapi.log.error('Помилка при перевірці результатів:', error);
+      return ctx.internalServerError('Не вдалося отримати дані');
+    }
+  },
+  async isCertificateSent(ctx) {
+    const user = ctx.state.user;
+    if (!user) {
+      return ctx.unauthorized('Авторизація потрібна');
+    }
+
+    const { quizDocumentId } = ctx.query;
+    if (!quizDocumentId) {
+      return ctx.badRequest('quizDocumentId обов’язковий у query');
+    }
+    try {
+      const record = await strapi.db.query(resultsContentApiName).findOne({
+        where: {
+          quiz: {
+            documentId: quizDocumentId,
+          },
+          user: {
+            id: user.id,
+          },
+          certificate_sent: true,
         },
       });
 

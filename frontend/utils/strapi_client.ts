@@ -40,7 +40,7 @@ async function fetchFromStrapi<TResponse, TBody = unknown>(
     token,
     headers = {},
     cache = 'force-cache', // або 'default'
-    revalidate = 3600, // 1 година кешу за замовчуванням
+    revalidate = Number(process.env.NEXT_PUBLIC_CACHING_TIME ?? 0),
   }: FetchOptions<TBody> = {},
 ): Promise<TResponse> {
   const url = `${STRAPI_API_URL}${path.startsWith('/') ? path : `/${path}`}`;
@@ -58,7 +58,7 @@ async function fetchFromStrapi<TResponse, TBody = unknown>(
     headers: finalHeaders,
     body: body ? JSON.stringify(body) : undefined,
     cache,
-    next: cache === 'no-store' ? undefined : { revalidate },
+    next: cache === 'no-cache' ? undefined : { revalidate },
   });
 
   const data = await res.json();
@@ -82,6 +82,7 @@ export const strapiService = {
   ) =>
     fetchFromStrapi<TResponse, TBody>(path, {
       ...options,
+      cache: 'no-cache',
       method: 'POST',
       body,
     }),
@@ -93,10 +94,15 @@ export const strapiService = {
   ) =>
     fetchFromStrapi<TResponse, TBody>(path, {
       ...options,
+      cache: 'no-cache',
       method: 'PUT',
       body,
     }),
 
   delete: <TResponse>(path: string, options?: FetchOptions) =>
-    fetchFromStrapi<TResponse>(path, { ...options, method: 'DELETE' }),
+    fetchFromStrapi<TResponse>(path, {
+      ...options,
+      cache: 'no-cache',
+      method: 'DELETE',
+    }),
 };

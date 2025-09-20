@@ -2,7 +2,8 @@
 import { ILabelObj } from '@/types/dictionary';
 import { Button, VARIANTS } from '@/ui/button';
 import { setTemplateData } from '@/utils';
-import { info } from '@/utils/toast';
+import { Modal } from '../modal';
+import { useState } from 'react';
 
 export default function BuyCourse({
   name,
@@ -11,14 +12,30 @@ export default function BuyCourse({
   name: string;
   dictionary: ILabelObj;
 }) {
+  const [showModal, setShowModal] = useState(false);
+  const onShowModal = () => {
+    setShowModal(true);
+  };
+  const onCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
-    <Button
-      onClick={() =>
-        info(`${setTemplateData(dictionary.buyCourseDetails, { name })}`)
-      }
-      variant={VARIANTS.DANGER}
-    >
-      {dictionary.buyCourse}
-    </Button>
+    <>
+      {showModal && (
+        <Modal
+          title={dictionary.buy_course}
+          message={
+            <div className="pt-2">
+              {setTemplateData(dictionary.buy_course_details, { name })}
+            </div>
+          }
+          onClose={onCloseModal}
+        />
+      )}
+      <Button onClick={onShowModal} variant={VARIANTS.DANGER}>
+        {dictionary.buy_course}
+      </Button>
+    </>
   );
 }

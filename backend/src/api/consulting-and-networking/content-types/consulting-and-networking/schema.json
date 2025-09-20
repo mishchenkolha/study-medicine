@@ -1,0 +1,31 @@
+{
+  "kind": "singleType",
+  "collectionName": "consulting_and_networkings",
+  "info": {
+    "singularName": "consulting-and-networking",
+    "pluralName": "consulting-and-networkings",
+    "displayName": "consulting and networking"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "customField",
+      "customField": "plugin::ckeditor5.CKEditor",
+      "options": {
+        "preset": "toolbarBalloon"
+      }
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo",
+      "repeatable": false
+    }
+  }
+}

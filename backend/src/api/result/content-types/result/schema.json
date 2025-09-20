@@ -16,6 +16,11 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
     },
+    "course": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::course.course"
+    },
     "quiz": {
       "type": "relation",
       "relation": "oneToOne",
@@ -31,6 +36,10 @@
       "type": "json"
     },
     "passed": {
+      "type": "boolean",
+      "default": false
+    },
+    "certificate_sent": {
       "type": "boolean",
       "default": false
     }

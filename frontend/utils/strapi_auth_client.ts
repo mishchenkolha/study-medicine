@@ -1,7 +1,7 @@
 import { strapiService } from './strapi_client';
 import { getUserToken } from '@/services/auth.service';
 
-const REVALIDATION_TIME = 60; // 1min
+const REVALIDATION_TIME = 10; // 10s
 const ERROR_TEXT = 'Error fetching from Strapi with Auth user:';
 export function strapiAuthService(customToken?: string) {
   return {
@@ -16,7 +16,10 @@ export function strapiAuthService(customToken?: string) {
       try {
         return strapiService.get<TResponse>(path, {
           token,
-          revalidate: REVALIDATION_TIME,
+          ...(options &&
+            (options as { cache?: string }).cache !== 'no-cache' && {
+              revalidate: REVALIDATION_TIME,
+            }),
           ...options,
         });
       } catch (error) {
@@ -37,7 +40,6 @@ export function strapiAuthService(customToken?: string) {
       try {
         return strapiService.post<TResponse, TBody>(path, body, {
           token,
-          revalidate: REVALIDATION_TIME,
           ...options,
         });
       } catch (error) {
@@ -58,7 +60,6 @@ export function strapiAuthService(customToken?: string) {
       try {
         return strapiService.put<TResponse, TBody>(path, body, {
           token,
-          revalidate: REVALIDATION_TIME,
           ...options,
         });
       } catch (error) {
@@ -78,7 +79,6 @@ export function strapiAuthService(customToken?: string) {
       try {
         return strapiService.delete<TResponse>(path, {
           token,
-          revalidate: REVALIDATION_TIME,
           ...options,
         });
       } catch (error) {
@@ -95,7 +95,6 @@ export function strapiAuthService(customToken?: string) {
       try {
         return strapiService.get<TResponse>('/users/me', {
           token,
-          revalidate: REVALIDATION_TIME,
         });
       } catch (error) {
         console.error(ERROR_TEXT, error);

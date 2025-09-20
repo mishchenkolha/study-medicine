@@ -27,7 +27,7 @@ export default function ChangePasswordForm({ dictionary }: IProps) {
     }),
   );
   if (isError) {
-    error(dictionary.changePasswordError);
+    error(dictionary.change_password_error);
   }
   useEffect(() => {
     if (!loading) {
@@ -41,14 +41,14 @@ export default function ChangePasswordForm({ dictionary }: IProps) {
     e.preventDefault();
 
     if (newPassword !== repeatPassword) {
-      error(dictionary.passwordsDoNotMatch);
+      error(dictionary.passwords_do_not_match);
       return;
     }
     try {
       await onChangePassword();
-      success(dictionary.changePasswordSuccess);
+      success(dictionary.change_password_success);
     } catch (err: unknown) {
-      error((err as Error).message || dictionary.changePasswordError);
+      error((err as Error).message || dictionary.change_password_error);
     }
   };
 
@@ -58,7 +58,7 @@ export default function ChangePasswordForm({ dictionary }: IProps) {
 
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          {dictionary.currentPassword}
+          {dictionary.current_password}
         </label>
         <input
           type="password"
@@ -71,7 +71,7 @@ export default function ChangePasswordForm({ dictionary }: IProps) {
 
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          {dictionary.newPassword}
+          {dictionary.new_password}
         </label>
         <input
           type="password"
@@ -84,7 +84,7 @@ export default function ChangePasswordForm({ dictionary }: IProps) {
 
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          {dictionary.repeatPassword}
+          {dictionary.repeat_password}
         </label>
         <input
           type="password"

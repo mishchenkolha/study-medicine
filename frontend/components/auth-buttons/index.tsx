@@ -10,7 +10,7 @@ export default function AuthButtons({ dictionary }: { dictionary: ILabelObj }) {
   const { logout } = useLogout();
   const onLogout = () => {
     logout();
-    setTimeout(() => window.open('/', '_self'), 100);
+    setTimeout(() => window.open('/', '_self'), 500);
   };
   if (isLoading) {
     return <div className="w-40 h-10" />;

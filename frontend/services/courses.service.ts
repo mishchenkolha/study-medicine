@@ -8,7 +8,7 @@ import {
   IStrapiCertificate,
 } from '@/types/courses';
 import { strapiAuthService } from '@/utils/strapi_auth_client';
-import { DEFAULT_QUESTIONS, STRAPI_LIMIT } from '@/utils/constants';
+import { DEFAULT_QUESTIONS, NO_CACHE, STRAPI_LIMIT } from '@/utils/constants';
 import { getUser } from './auth.service';
 
 export const getCourseBySlug = async (
@@ -63,7 +63,6 @@ export const getQuestions = async (
   });
   const responce = await strapiAuthService().get<{ data: IQuestion[] }>(
     `${ROUTES.QUESTIONS}?${queryString}`,
-    { revalidate: Number(process.env.NEXT_PUBLIC_CACHING_SHORT_TIME ?? 0) },
   );
 
   return (responce?.data ?? []).slice(0, count);
@@ -75,7 +74,7 @@ export const getUserAttempts = async (quizId?: string): Promise<number> => {
   try {
     const responce = await strapiAuthService().get<{ count: number }>(
       `${ROUTES.RESULTS}/me?${queryString}`,
-      { revalidate: Number(process.env.NEXT_PUBLIC_CACHING_SHORT_TIME ?? 0) },
+      NO_CACHE,
     );
     return responce?.count ?? 0;
   } catch (e) {
@@ -86,11 +85,13 @@ export const getUserAttempts = async (quizId?: string): Promise<number> => {
 
 export const saveUserResults = async ({
   quizId,
+  courseId,
   answers,
   score,
   isPassed,
 }: {
   quizId: string;
+  courseId: string;
   answers: {
     question: string;
     answers: string[];
@@ -99,9 +100,11 @@ export const saveUserResults = async ({
   score: number;
   isPassed: boolean;
 }): Promise<boolean> => {
-  if (!quizId || !answers || !Object.keys(answers)?.length) return false;
+  if (!quizId || !courseId || !answers || !Object.keys(answers)?.length)
+    return false;
   const userResults = {
     quizDocumentId: quizId,
+    courseDocumentId: courseId,
     answers,
     score,
     isPassed,
@@ -121,7 +124,23 @@ export const checkPassedQuiz = async (quizId: string): Promise<boolean> => {
   try {
     const responce = await strapiAuthService().get<boolean>(
       `${ROUTES.RESULTS}/me/is-passed?${queryString}`,
-      { revalidate: Number(process.env.NEXT_PUBLIC_CACHING_SHORT_TIME ?? 0) },
+    );
+    return Boolean(responce);
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
+};
+
+export const checkCertificateSent = async (
+  quizId: string,
+): Promise<boolean> => {
+  if (!quizId) return false;
+  const queryString = stringify({ quizDocumentId: quizId });
+  try {
+    const responce = await strapiAuthService().get<boolean>(
+      `${ROUTES.RESULTS}/me/is-certificate-sent?${queryString}`,
+      NO_CACHE,
     );
     return Boolean(responce);
   } catch (e) {
@@ -134,7 +153,7 @@ export const getUserLatestResult = async (): Promise<IResult | null> => {
   try {
     const responce = await strapiAuthService().get<IResult>(
       `${ROUTES.RESULTS}/me/latest`,
-      { revalidate: Number(process.env.NEXT_PUBLIC_CACHING_SHORT_TIME ?? 0) },
+      NO_CACHE,
     );
     return responce ?? null;
   } catch (e) {

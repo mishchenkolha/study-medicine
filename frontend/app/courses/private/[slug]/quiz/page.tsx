@@ -3,6 +3,7 @@ import { getUser } from '@/services/auth.service';
 import {
   checkPassedQuiz,
   getQuestions,
+  getUserAttempts,
   getUserCourses,
 } from '@/services/courses.service';
 import { getDictionary } from '@/services/dictionary.service';
@@ -35,6 +36,18 @@ export default async function QuizPage({ params }: IPageProps) {
   );
   let questions: IQuestion[] = [];
   if (!isPassedQuiz) {
+    const currentQuiz = currentCourse?.quiz;
+    const attemptsCount = Number(currentQuiz?.attempts_count ?? 0);
+    const userAttempts = await getUserAttempts(currentQuiz?.documentId);
+    const attemptsLeft = attemptsCount
+      ? attemptsCount - userAttempts > 0
+        ? attemptsCount - userAttempts
+        : 0
+      : -1;
+    if (attemptsLeft <= 0) {
+      redirect(`${ROUTES.COURSES}/private/${slug}/result`);
+    }
+
     questions = await getQuestions(
       currentQuiz?.documentId || '',
       currentQuiz?.questions_count || DEFAULT_QUESTIONS,
@@ -42,6 +55,7 @@ export default async function QuizPage({ params }: IPageProps) {
   } else {
     redirect(`${ROUTES.COURSES}/private/${slug}/result`);
   }
+
   return (
     <>
       <h1 className="header1 animate-fade-in-up">{currentQuiz.title}</h1>
@@ -49,7 +63,12 @@ export default async function QuizPage({ params }: IPageProps) {
         content={currentQuiz.description ?? ''}
         className="py-2 md:py-3 xl:py-4"
       />
-      <Quiz questions={questions} dictionary={dictionary} slug={slug} />
+      <Quiz
+        questions={questions}
+        dictionary={dictionary}
+        slug={slug}
+        courseId={currentCourse?.documentId || ''}
+      />
     </>
   );
 }

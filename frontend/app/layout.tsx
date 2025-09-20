@@ -29,9 +29,11 @@ export default async function RootLayout({
 }>) {
   const dictionaryPromise = getDictionary();
   const navBarPromise = getNavbar('main_menu');
+  const footerMenuPromise = getNavbar('footer');
   const categoriesPromise = getCategoriesTree();
   const dictionary = await dictionaryPromise;
   const navBar = await navBarPromise;
+  const footerMenu = await footerMenuPromise;
   const categoriesTree = await categoriesPromise;
   const menu = normalizeMenu(navBar, categoriesTree);
 
@@ -44,7 +46,7 @@ export default async function RootLayout({
         <main className="container pt-32 min-h-[calc(100vh-68px)] flex flex-col">
           {children}
         </main>
-        <Footer dictionary={dictionary} />
+        <Footer dictionary={dictionary} menu={footerMenu} />
         <ToastContainer />
       </body>
     </html>

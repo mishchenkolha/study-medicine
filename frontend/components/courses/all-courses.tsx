@@ -27,6 +27,7 @@ export const AllCourses: React.FC = async () => {
     );
     const cardImage = card?.image ? `${getImageURL(card.image.url)}` : '';
     const postImage = item?.image?.url ? `${getImageURL(item.image.url)}` : '';
+    console.log({ cardImage, cardURL: card?.image?.url });
     return {
       id: item.id,
       title: item.title ?? card?.title ?? '',

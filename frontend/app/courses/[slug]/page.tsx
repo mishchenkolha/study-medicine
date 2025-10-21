@@ -8,10 +8,9 @@ import CourseGrid from '@/components/courses';
 import { BLOCK, IPublicPage } from '@/types/pages';
 import { IPublicCourse } from '@/types/courses';
 import { HTMLBlock } from '@/ui/html-block/html-block';
-import { STRAPI_URL } from '@/utils/constants';
 import { Metadata } from 'next';
 import { IPageProps } from '@/types/page';
-import { cn } from '@/utils';
+import { cn, getImageURL } from '@/utils';
 import { Button } from '@/ui/button';
 import { getDictionary } from '@/services/dictionary.service';
 import { getUserCourses } from '@/services/courses.service';
@@ -55,7 +54,7 @@ export default async function CousePage({ params }: IPageProps) {
       duration: card?.time ?? '',
       level: card?.level ?? '',
       audience: card?.description ?? '',
-      image: item?.image?.url ? `${STRAPI_URL}${item.image.url}` : '',
+      image: item?.image?.url ? `${getImageURL(item.image.url)}` : '',
     } as IPublicCourse;
   });
   const userCoursesPromise = getUserCourses();

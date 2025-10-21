@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { IMetaData, MetaResponse, TOgType } from '@/types/meta';
-import { trimChar } from '@/utils';
+import { getImageURL, trimChar } from '@/utils';
 import { strapiService } from '@/utils/strapi_client';
 import { headers } from 'next/headers';
 import { stringify } from 'qs';
@@ -9,7 +9,6 @@ import {
   SITE_DESCRIPTION,
   SITE_KEYWORDS,
   SITE_NAME,
-  STRAPI_URL,
 } from '@/utils/constants';
 
 export const getMeta = async (
@@ -36,7 +35,7 @@ export const getMeta = async (
   const url = `${DOMAIN_URL}${header.get('pathname') || ''}`;
   const fallbackImage = DOMAIN_URL + '/images/logo.svg';
   const image = seo.metaImage?.data?.url
-    ? STRAPI_URL + seo.metaImage.data.url
+    ? getImageURL(seo.metaImage.data.url)
     : fallbackImage;
 
   const title = seo.metaTitle?.trim() || SITE_NAME;

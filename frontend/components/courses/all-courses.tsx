@@ -4,7 +4,7 @@ import { getCoursesIds } from '@/utils/menu';
 import CourseGrid from '@/components/courses';
 import { BLOCK } from '@/types/pages';
 import { IPublicCourse } from '@/types/courses';
-import { STRAPI_URL } from '@/utils/constants';
+import { getImageURL } from '@/utils';
 
 export const AllCourses: React.FC = async () => {
   const categoriesPromise = getCategoriesTree();
@@ -25,8 +25,8 @@ export const AllCourses: React.FC = async () => {
     const card = item.blocks?.find?.(
       (block) => block.__component === BLOCK.CARD,
     );
-    const cardImage = card?.image ? `${STRAPI_URL}${card.image.url}` : '';
-    const postImage = item?.image?.url ? `${STRAPI_URL}${item.image.url}` : '';
+    const cardImage = card?.image ? `${getImageURL(card.image.url)}` : '';
+    const postImage = item?.image?.url ? `${getImageURL(item.image.url)}` : '';
     return {
       id: item.id,
       title: item.title ?? card?.title ?? '',

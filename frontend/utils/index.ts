@@ -1,3 +1,5 @@
+import { STRAPI_URL } from './constants';
+
 export function cn(...classes: (string | false | null | undefined)[]) {
   return classes.filter(Boolean).join(' ');
 }
@@ -55,3 +57,13 @@ export function isValidEmail(email: string): boolean {
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   return re.test(email.toLowerCase());
 }
+
+export const getImageURL = (url: string) => {
+  if (!url) {
+    return '';
+  }
+  if (url.startsWith('http')) {
+    return url;
+  }
+  return `${STRAPI_URL}${url}`;
+};

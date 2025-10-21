@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { strapiService } from '@/utils/strapi_client';
 import { ROUTES } from '@/utils/routes';
 import { stringify } from 'qs';
-import { STRAPI_URL } from '@/utils/constants';
+import { getImageURL } from '@/utils';
 
 export const runtime = 'nodejs';
 
@@ -60,9 +60,7 @@ export async function GET(
   }
 
   // 2) Завантажуємо PDF із Strapi
-  const absoluteUrl = fileUrl.startsWith('http')
-    ? fileUrl
-    : `${STRAPI_URL}${fileUrl}`;
+  const absoluteUrl = getImageURL(fileUrl);
 
   const fileRes = await fetch(absoluteUrl);
   if (!fileRes.ok || !fileRes.body) {

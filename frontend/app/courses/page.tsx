@@ -7,8 +7,8 @@ import CourseGrid from '@/components/courses';
 import { BLOCK, IStaticPage } from '@/types/pages';
 import { IPublicCourse } from '@/types/courses';
 import { HTMLBlock } from '@/ui/html-block/html-block';
-import { STRAPI_URL } from '@/utils/constants';
 import { Metadata } from 'next';
+import { getImageURL } from '@/utils';
 
 export async function generateMetadata(): Promise<Metadata> {
   return getMeta(ROUTES.ALL_COURSES);
@@ -44,7 +44,7 @@ export default async function CousesPage() {
       duration: card?.time ?? '',
       level: card?.level ?? '',
       audience: card?.description ?? '',
-      image: item?.image?.url ? `${STRAPI_URL}${item.image.url}` : '',
+      image: item?.image?.url ? `${getImageURL(item.image.url)}` : '',
     } as IPublicCourse;
   });
   return (

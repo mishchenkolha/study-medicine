@@ -7,6 +7,8 @@ import { normalizeMenu } from '@/utils/menu';
 import Footer from '@/components/footer';
 import { getDictionary } from '@/services/dictionary.service';
 import { ToastContainer } from 'react-toastify';
+import { Analytics } from '@vercel/analytics/next';
+
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -48,6 +50,7 @@ export default async function RootLayout({
         </main>
         <Footer dictionary={dictionary} menu={footerMenu} />
         <ToastContainer />
+        <Analytics />
       </body>
     </html>
   );

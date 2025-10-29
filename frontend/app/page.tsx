@@ -25,7 +25,7 @@ export default async function Home() {
     'courses.cards.image',
     'articles.image',
   ];
-  const homepagePromise = getStaticPage('homepage', populate);
+  const homepagePromise = getStaticPage(ROUTES.HOME, populate);
   const homepage = await homepagePromise;
 
   return (

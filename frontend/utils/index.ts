@@ -67,3 +67,24 @@ export const getImageURL = (url: string) => {
   }
   return `${STRAPI_URL}${url}`;
 };
+
+export function extractRemotePattern(url: string): {
+  protocol: string;
+  hostname: string;
+  port?: string;
+}[] {
+  try {
+    const parsedUrl = new URL(url);
+    const pattern: { protocol: string; hostname: string; port?: string } = {
+      protocol: parsedUrl.protocol.replace(':', ''),
+      hostname: parsedUrl.hostname,
+    };
+    if (parsedUrl.port) {
+      pattern.port = parsedUrl.port;
+    }
+    return [pattern];
+  } catch (err) {
+    console.error('Invalid URL:', url, err);
+    return [{ protocol: 'http', hostname: 'localhost', port: '3000' }];
+  }
+}

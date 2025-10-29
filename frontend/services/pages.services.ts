@@ -5,6 +5,7 @@ import {
   StaticPageResponse,
   DynamicPageResponse,
 } from '@/types/pages';
+import { trimChar } from '@/utils';
 import { strapiService } from '@/utils/strapi_client';
 import { stringify } from 'qs';
 
@@ -37,9 +38,13 @@ export const getAllCategoryPages = async (
 };
 
 export const getStaticPage = async (
-  pageName: string,
+  corePageName: string,
   populate: string[] = [],
 ) => {
+  if (!corePageName) {
+    return {};
+  }
+  const pageName = trimChar(corePageName, '/').toLowerCase();
   const queryString = populate.length ? `?${stringify({ populate })}` : '';
   const pagesData = await strapiService.get<StaticPageResponse>(
     `/${pageName}${queryString}`,

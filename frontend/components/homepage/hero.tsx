@@ -40,6 +40,7 @@ export const Hero: React.FC<IProps> = async ({ hero }: { hero: IHero }) => {
               alt="Medical research"
               className="object-cover w-full h-full rounded-xl shadow-md"
               fill
+              priority
             />
           </div>
         </div>

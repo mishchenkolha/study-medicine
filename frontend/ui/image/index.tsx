@@ -6,7 +6,15 @@ const Image = (props: ImageProps) => {
     return null;
   }
 
-  return <OrigImage {...props} src={getImageURL(String(props.src))} />;
+  return (
+    <OrigImage
+      {...props}
+      src={getImageURL(String(props.src))}
+      priority={props.priority ?? false}
+      fetchPriority={props.priority ? 'high' : undefined}
+      loading={!props.priority ? (props.loading ?? 'lazy') : undefined}
+    />
+  );
 };
 
 export default Image;

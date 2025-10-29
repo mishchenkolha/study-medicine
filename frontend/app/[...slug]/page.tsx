@@ -22,7 +22,7 @@ export default async function StaticPage({ params }: IPageProps) {
     return notFound();
   }
   const staticPagePromise = getStaticPage(
-    slug?.[0]?.toLowerCase?.(),
+    slug?.[0] ?? '',
   ) as Promise<IStaticPage>;
   const staticPage = await staticPagePromise;
 

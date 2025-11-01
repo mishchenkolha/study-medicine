@@ -1,4 +1,4 @@
-import { STRAPI_URL } from './constants';
+import { MEDIA_LIBRARY_URL } from './constants';
 
 export function cn(...classes: (string | false | null | undefined)[]) {
   return classes.filter(Boolean).join(' ');
@@ -65,7 +65,7 @@ export const getImageURL = (url: string) => {
   if (url.startsWith('http')) {
     return url;
   }
-  return `${STRAPI_URL}${url}`;
+  return `${MEDIA_LIBRARY_URL}${url}`;
 };
 
 export function extractRemotePattern(url: string): {

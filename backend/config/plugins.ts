@@ -18,8 +18,8 @@ export default ({ env }) => ({
         secure: false,
       },
       settings: {
-        defaultFrom: env('SMTP_USERNAME'),
-        defaultReplyTo: env('SMTP_USERNAME'),
+        defaultFrom: env('DEFAULT_FROM'),
+        defaultReplyTo: env('DEFAULT_FROM'),
       },
     },
   },

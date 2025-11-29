@@ -67,12 +67,14 @@ async function fetchFromStrapi<TResponse, TBody = unknown>(
   const purePath = trimChar(path, '/').toLowerCase().split('?')[0];
   tags = tags?.length ? tags : [COLLECTION_TYPES_ONE[purePath] || purePath];
 
-  if (method === 'GET') {
+  if (method === 'GET' && SIX_MONTHS_SECONDS > 0) {
     const key = `cf:${url}`;
     const cached = await getCached(key);
     if (cached) {
       console.log('Cache hit for key:', key);
       return cached as TResponse;
+    } else {
+      console.log('Cache miss for key:', key);
     }
     const res = await fetch(url, {
       method,

@@ -1,6 +1,6 @@
 import { redis } from './redis';
 
-export const SIX_MONTHS_SECONDS = Number(process.env.CACHE_DEFAULT_TTL);
+export const SIX_MONTHS_SECONDS = Number(process.env.CACHE_DEFAULT_TTL ?? '0');
 
 export async function getCached(key: string) {
   const raw = await redis.get(key);

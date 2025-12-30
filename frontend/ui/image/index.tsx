@@ -1,4 +1,5 @@
 import { getImageURL } from '@/utils';
+import { IS_PROD } from '@/utils/constants';
 import OrigImage, { ImageProps } from 'next/image';
 
 const Image = (props: ImageProps) => {
@@ -10,9 +11,9 @@ const Image = (props: ImageProps) => {
     <OrigImage
       {...props}
       src={getImageURL(String(props.src))}
-      priority={props.priority ?? false}
       fetchPriority={props.priority ? 'high' : undefined}
       loading={!props.priority ? (props.loading ?? 'lazy') : undefined}
+      unoptimized={IS_PROD ? undefined : true}
     />
   );
 };

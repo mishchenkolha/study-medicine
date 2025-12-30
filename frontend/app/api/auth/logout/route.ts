@@ -1,3 +1,4 @@
+import { IS_PROD } from '@/utils/constants';
 import { NextResponse } from 'next/server';
 
 export async function POST() {
@@ -7,7 +8,7 @@ export async function POST() {
     name: 'token',
     value: '',
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: IS_PROD,
     path: '/',
     maxAge: 0,
     sameSite: 'lax',
@@ -16,7 +17,7 @@ export async function POST() {
     name: 'user',
     value: '',
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: IS_PROD,
     path: '/',
     maxAge: 0,
     sameSite: 'lax',

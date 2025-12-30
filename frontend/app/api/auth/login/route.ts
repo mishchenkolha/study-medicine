@@ -1,5 +1,5 @@
 import { login } from '@/services/auth.service';
-import { SESSION_TIME } from '@/utils/constants';
+import { IS_PROD, SESSION_TIME } from '@/utils/constants';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
@@ -13,7 +13,7 @@ export async function POST(request: Request) {
       name: 'token',
       value: result.jwt,
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: IS_PROD,
       path: '/',
       maxAge: SESSION_TIME,
       sameSite: 'lax',
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
       name: 'user',
       value: JSON.stringify(result.user),
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: IS_PROD,
       path: '/',
       maxAge: SESSION_TIME,
       sameSite: 'lax',

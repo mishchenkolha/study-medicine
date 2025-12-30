@@ -72,19 +72,19 @@ export function extractRemotePattern(url: string): {
   protocol: string;
   hostname: string;
   port?: string;
+  pathname?: string;
 }[] {
   try {
     const parsedUrl = new URL(url);
-    const pattern: { protocol: string; hostname: string; port?: string } = {
+
+    const pattern: { protocol: string; hostname: string; port?: string, pathname?: string } = {
       protocol: parsedUrl.protocol.replace(':', ''),
       hostname: parsedUrl.hostname,
     };
-    if (parsedUrl.port) {
-      pattern.port = parsedUrl.port;
-    }
+
     return [pattern];
   } catch (err) {
     console.error('Invalid URL:', url, err);
-    return [{ protocol: 'http', hostname: 'localhost', port: '3000' }];
+    return [{ protocol: 'http', hostname: 'localhost' }];
   }
 }

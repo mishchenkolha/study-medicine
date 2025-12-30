@@ -10,3 +10,4 @@ export const SESSION_TIME = Number(
   process.env.NEXT_PUBLIC_USER_SESSION_TIME || 60 * 60,
 ); // 1h
 export const NO_CACHE = { cache: 'no-cache' };
+export const IS_PROD = process.env.NODE_ENV === 'production'

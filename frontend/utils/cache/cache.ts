@@ -1,8 +1,13 @@
-import { redis } from './redis';
+import { redis, redisConnected, tryConnectRedis } from './redis';
+
+tryConnectRedis();
 
 export const SIX_MONTHS_SECONDS = Number(process.env.CACHE_DEFAULT_TTL ?? '0');
 
 export async function getCached(key: string) {
+  if (!redisConnected || !redis) {
+    return null;
+  }
   const raw = await redis.get(key);
   if (!raw) return null;
   try {
@@ -18,6 +23,9 @@ export async function setCachedWithTags(
   ttlSec: number,
   tags: string[],
 ) {
+  if (!redisConnected || !redis) {
+    return;
+  }
   const str = JSON.stringify(value);
   // set with TTL
   await redis.set(key, str, 'EX', ttlSec);
@@ -33,12 +41,18 @@ export async function setCachedWithTags(
 }
 
 export async function deleteKeys(keys: string[]) {
+  if (!redisConnected || !redis) {
+    return 0;
+  }
   if (!keys || keys.length === 0) return 0;
   const res = await redis.del(...keys);
   return res;
 }
 
 export async function invalidateTags(tags: string[]) {
+  if (!redisConnected || !redis) {
+    return { deleted: 0, keys: [] };
+  }
   if (!tags || tags.length === 0) return { deleted: 0, keys: [] };
 
   // 1. Отримуємо всі ключі для кожного тегу через pipeline
@@ -73,6 +87,9 @@ export async function invalidateTags(tags: string[]) {
 }
 
 export async function findTagsForKey(key: string) {
+  if (!redisConnected || !redis) {
+    return [];
+  }
   // 1. отримати всі теги (якщо у тебе список тегів відомий, наприклад ['posts', 'posts:10', ...])
   const allTags = await redis.keys('tag:*'); // масив усіх tag:* множин
   const result: string[] = [];
@@ -88,5 +105,8 @@ export async function findTagsForKey(key: string) {
 }
 
 export const clearAllCache = async () => {
+  if (!redisConnected || !redis) {
+    return;
+  }
   return redis.flushdb();
 };

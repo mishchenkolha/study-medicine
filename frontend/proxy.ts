@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { SESSION_TIME } from './utils/constants';
+import { IS_PROD, SESSION_TIME } from './utils/constants';
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   const requestHeaders = new Headers(request.headers);
@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest) {
       name: 'token',
       value: token,
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: IS_PROD,
       path: '/',
       maxAge: SESSION_TIME,
       sameSite: 'lax',
@@ -29,7 +29,7 @@ export async function middleware(request: NextRequest) {
       name: 'user',
       value: user,
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: IS_PROD,
       path: '/',
       maxAge: SESSION_TIME,
       sameSite: 'lax',

@@ -1,7 +1,10 @@
 import { NextResponse } from 'next/server';
 import { invalidateTags, clearAllCache } from '@/utils/cache/cache';
+import { revalidateTag } from 'next/cache';
+import { COLLECTION_TYPES_ONE, SINGLE_TYPES } from '@/utils/routes';
 
 const SECRET = process.env.CACHE_INVALIDATION_SECRET;
+const REVALIDATE_PROFILE = 'max'; //{ expire: 0 };
 
 export async function POST(req: Request) {
   // Перевірка авторизації
@@ -18,17 +21,26 @@ export async function POST(req: Request) {
   }
 
   const model = body.model.toLowerCase();
-  const tags: string[] = [`${model}:${body.entry.documentId}`];
 
-  if (tags.length === 0) {
+  if (!model) {
     return NextResponse.json(
       { error: 'missing tags or contentType' },
       { status: 400 },
     );
   }
 
+  const redisTags: string[] = [`${model}:${body.entry.documentId}`];
+  const nextTags: string[] = [model];
+
   // Інвалідовуємо кеш у Redis
-  const deleted = await invalidateTags(tags);
+  const deleted = await invalidateTags(redisTags);
+
+    // --- Інвалідуємо Next.js tag cache ---
+  try {
+    await Promise.all(nextTags.map((tag) => revalidateTag(tag, REVALIDATE_PROFILE)));
+  } catch (err) {
+    console.error('Next.js revalidateTag error', err);
+  }
 
   return NextResponse.json({
     ok: true,
@@ -45,6 +57,13 @@ export async function GET(req: Request) {
 
   try {
     const deletedCount = await clearAllCache();
+    const allTags = [...Object.values(COLLECTION_TYPES_ONE), ...Object.values(SINGLE_TYPES)];
+      try {
+    await Promise.all(allTags.map((tag) => revalidateTag(tag, REVALIDATE_PROFILE)));
+  } catch (err) {
+    console.error('Next.js revalidateTag error', err);
+  }
+
     return NextResponse.json({ ok: true, deletedKeysCount: deletedCount });
   } catch (err) {
     console.error('Error clearing Redis cache', err);

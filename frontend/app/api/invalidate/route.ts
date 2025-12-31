@@ -7,20 +7,14 @@ const SECRET = process.env.CACHE_INVALIDATION_SECRET;
 const REVALIDATE_PROFILE = 'max'; //{ expire: 0 };
 
 export async function POST(req: Request) {
-  console.log('Auth successful');
   // Перевірка авторизації
   const auth = req.headers.get('authorization') || '';
-  console.log(SECRET, auth);
   if (!SECRET || auth !== `Bearer ${SECRET}`) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
   }
 
-  console.log('Auth successful');
-
   // Зчитування тіла
   const body = await req.json().catch(() => null);
-
-  console.log(JSON.stringify(body));
 
   if (!body || !body.model) {
     return NextResponse.json({ error: 'invalid body' }, { status: 400 });
@@ -43,8 +37,6 @@ export async function POST(req: Request) {
 
     // --- Інвалідуємо Next.js tag cache ---
   try {
-    console.log(JSON.stringify(nextTags));
-
     await Promise.all(nextTags.map((tag) => revalidateTag(tag, REVALIDATE_PROFILE)));
   } catch (err) {
     console.error('Next.js revalidateTag error', err);

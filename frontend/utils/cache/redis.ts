@@ -1,4 +1,4 @@
-import { Redis } from 'ioredis';
+import type Redis from 'ioredis';
 
 const redisUrl = process.env.REDIS_URL;
 let redis: Redis | null = null;
@@ -7,6 +7,7 @@ let redisConnected: boolean | null = null; // null = ще не перевіря�
 async function tryConnectRedis() {
   if (!redisUrl || redisConnected !== null) return; // вже спробували
 
+  const { default: Redis } = await import('ioredis');
   redis = new Redis(redisUrl, {
     lazyConnect: true,       // не підключаємось автоматично
     retryStrategy: () => null, // не робимо повторних спроб

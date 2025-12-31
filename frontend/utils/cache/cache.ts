@@ -1,6 +1,8 @@
 import { redis, redisConnected, tryConnectRedis } from './redis';
 
-tryConnectRedis();
+if(process.env.USE_REDIS === 'true') {
+  tryConnectRedis();
+}
 
 export const SIX_MONTHS_SECONDS = Number(process.env.CACHE_DEFAULT_TTL ?? '0');
 

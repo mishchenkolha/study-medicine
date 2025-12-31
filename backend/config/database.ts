@@ -1,7 +1,19 @@
+// ./config/database.ts
 import path from 'path';
 
 export default ({ env }) => {
-  const client = env('DATABASE_CLIENT', 'sqlite');
+  // Який client обрати за замовчуванням
+  let client = env('DATABASE_CLIENT');
+
+  // Локально, якщо client не заданий, беремо SQLite
+  if (!client && env('NODE_ENV') !== 'production') {
+    client = 'sqlite';
+  }
+
+  // На проді, якщо client не заданий, беремо Postgres
+  if (!client && env('NODE_ENV') === 'production') {
+    client = 'postgres';
+  }
 
   const connections = {
     mysql: {

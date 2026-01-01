@@ -86,17 +86,17 @@ export default function CourseGrid({
             </div>
             <div className="p-4 flex flex-col flex-grow">
               <div className="flex items-center gap-4 text-gray-500 text-sm mb-2">
-                <div className="text-gray-400 inline-flex flex-col">
+                <div className="text-gray-500 inline-flex flex-col">
                   <Icon type={IconType.Clock} width="16px" height="16px" />
                   {course.duration}
                 </div>
-                <div className="text-gray-400 inline-flex flex-col">
+                <div className="text-gray-500 inline-flex flex-col">
                   <Icon type={IconType.Level} width="16px" height="16px" />
                   {course.level}
                 </div>
               </div>
               <div className="header6 flex-grow">{course.title}</div>
-              <p className="text-sm text-gray-600 mt-2">{course.audience}</p>
+              <p className="text-sm text-gray-700 mt-2">{course.audience}</p>
             </div>
           </Link>
         ))}

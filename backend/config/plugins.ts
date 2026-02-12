@@ -9,7 +9,7 @@ export default ({ env }) => ({
     config: {
       provider: 'nodemailer',
       providerOptions: {
-        host: env('SMTP_HOST', 'smtp.gmail.com'),
+        host: env('SMTP_HOST', 'smtp.mailersend.net'),
         port: env.int('SMTP_PORT', 587),
         auth: {
           user: env('SMTP_USERNAME'),
@@ -18,7 +18,7 @@ export default ({ env }) => ({
         secure: false,
       },
       settings: {
-        defaultFrom: env('DEFAULT_FROM'),
+        defaultFrom: `Romola Med Clinic <${env('DEFAULT_FROM')}>`,
         defaultReplyTo: env('DEFAULT_FROM'),
       },
     },

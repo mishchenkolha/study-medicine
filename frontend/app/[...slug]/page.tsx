@@ -3,12 +3,17 @@ import { getStaticPage } from '@/services/pages.services';
 import { IPageProps } from '@/types/page';
 import { IStaticPage } from '@/types/pages';
 import { HTMLBlock } from '@/ui/html-block/html-block';
+import { noParamsChecker } from '@/utils/not_found';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata({
   params,
 }: IPageProps): Promise<Metadata> {
+  const notFoundData = await noParamsChecker({ params });
+  if (notFoundData?.title) {
+    return notFoundData;
+  }
   const { slug } = await params;
   if (!slug || (Array.isArray(slug) && slug.length > 1)) {
     return {};
@@ -17,6 +22,7 @@ export async function generateMetadata({
 }
 
 export default async function StaticPage({ params }: IPageProps) {
+  if (!params) return null;
   const { slug } = await params;
   if (!slug || (Array.isArray(slug) && slug.length > 1)) {
     return notFound();

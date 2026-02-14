@@ -28,6 +28,7 @@ export async function GET(
   _req: Request,
   { params }: { params: Promise<{ slug: string }> },
 ) {
+  if (!params) return null;
   const { slug } = await params;
 
   // 1) Отримуємо сертифікат із Strapi

@@ -16,16 +16,22 @@ import { getDictionary } from '@/services/dictionary.service';
 import { getUserCourses } from '@/services/courses.service';
 import BuyCourse from '@/components/courses/buy-course';
 import { getUser } from '@/services/auth.service';
+import { noParamsChecker } from '@/utils/not_found';
 
 export async function generateMetadata({
   params,
 }: IPageProps): Promise<Metadata> {
+  const notFoundData = await noParamsChecker({params});
+  if (notFoundData?.title) {
+    return notFoundData;
+  }
   const { slug } = await params;
   const post = await getCoursePage(slug);
   return getMeta(ROUTES.ALL_COURSES, {}, post?.seo ?? null);
 }
 
 export default async function CousePage({ params }: IPageProps) {
+  if (!params) return null;
   const { slug } = await params;
   const user = await getUser();
   const dictionaryPromise = getDictionary();

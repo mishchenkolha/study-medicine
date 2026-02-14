@@ -12,6 +12,7 @@ import { ROUTES } from '@/utils/routes';
 import { redirect } from 'next/navigation';
 
 export default async function PrivateCousePage({ params }: IPageProps) {
+  if (!params) return null;
   const { slug } = await params;
   const user = await getUser();
   if (!user) {

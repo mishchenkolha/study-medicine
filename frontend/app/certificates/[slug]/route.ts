@@ -28,7 +28,11 @@ export async function GET(
   _req: Request,
   { params }: { params: Promise<{ slug: string }> },
 ) {
-  if (!params) return null;
+  if (!params)
+    return NextResponse.json(
+      { error: 'Certificate not found' },
+      { status: 404 },
+    );
   const { slug } = await params;
 
   // 1) Отримуємо сертифікат із Strapi

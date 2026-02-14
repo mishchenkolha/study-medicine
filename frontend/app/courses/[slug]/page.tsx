@@ -21,7 +21,7 @@ import { noParamsChecker } from '@/utils/not_found';
 export async function generateMetadata({
   params,
 }: IPageProps): Promise<Metadata> {
-  const notFoundData = await noParamsChecker({params});
+  const notFoundData = await noParamsChecker({ params });
   if (notFoundData?.title) {
     return notFoundData;
   }
@@ -65,7 +65,7 @@ export default async function CousePage({ params }: IPageProps) {
   });
   const userCoursesPromise = getUserCourses();
   const userCourses = await userCoursesPromise;
-  const userPageCourse = userCourses.find((item) => item.page.slug === slug);
+  const userPageCourse = userCourses.find((item) => item?.page?.slug === slug);
 
   return (
     <>

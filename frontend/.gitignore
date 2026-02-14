@@ -44,3 +44,6 @@ next-env.d.ts
 storybook-static
 
 .vercel
+
+.open-next
+.env.development

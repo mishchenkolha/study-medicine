@@ -1,0 +1,75 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "next-js",
+	"main": ".open-next/worker.js",
+	"compatibility_date": "2025-12-01",
+	"compatibility_flags": [
+		"nodejs_compat",
+		"global_fetch_strictly_public"
+	],
+	"assets": {
+		"binding": "ASSETS",
+		"directory": ".open-next/assets"
+	},
+	"images": {
+		// Enable image optimization
+		// see https://opennext.js.org/cloudflare/howtos/image
+		"binding": "IMAGES"
+	},
+	"services": [
+		{
+			// Self-reference service binding, the service name must match the worker name
+			// see https://opennext.js.org/cloudflare/caching
+			"binding": "WORKER_SELF_REFERENCE",
+			"service": "my-next-app"
+		}
+	],
+	"observability": {
+		"enabled": true
+	},
+	/**
+	 * Smart Placement
+	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
+	 */
+	// "placement": {  "mode": "smart" }
+	/**
+	 * Bindings
+	 * Bindings allow your Worker to interact with resources on the Cloudflare Developer Platform, including
+	 * databases, object storage, AI inference, real-time communication and more.
+	 * https://developers.cloudflare.com/workers/runtime-apis/bindings/
+	 */
+	/**
+	 * Environment Variables
+	 * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
+	 * Note: Use secrets to store sensitive data.
+	 * https://developers.cloudflare.com/workers/configuration/secrets/
+	 */
+  "r2_buckets": [
+    {
+      "binding": "NEXT_INC_CACHE_R2_BUCKET",  // обов’язково саме так
+      "bucket_name": "next-cache",
+      "preview_bucket_name": "next-cache"
+    }
+  ],
+	"vars": {
+    "NEXT_PUBLIC_DOMAIN_URL": "http://localhost:3000",
+    "NEXT_PUBLIC_MEDIA_LIBRARY_URL":"https://worthy-agreement-b851614a2f.media.strapiapp.com",
+    "NEXT_PUBLIC_STRAPI_URL":"https://worthy-agreement-b851614a2f.strapiapp.com",
+    "NEXT_PUBLIC_STRAPI_API_TOKEN":"42cbcf4f82deddfe59e7e4fcc91f2a700110f1f7dff6689d4b57738c6a5c0c2b6d3d80241c7b6e5f0ddb3045d4c74ed5e10f779ba97e8b326bf47d103e16bb44cb41904f5e5e5c6da8c775b38216f7fda1cae8f75f43245ed8ea8bcb9fdb13d63951ab80c119e0d6d0a30ea166ba84f420a27570dcb5f9a77a4ee7502690342e",
+    "NEXT_PUBLIC_CACHING_SHORT_TIME":60,
+    "NEXT_PUBLIC_CACHING_TIME":3600,
+    "NEXT_PUBLIC_CACHING_LONG_TIME":86400,
+    "NEXT_PUBLIC_USER_SESSION_TIME":3600,
+
+    "CACHE_INVALIDATION_SECRET":"VI5ziiZP0MhIRr3omqizOyplD3BVXVMadUgqSf0Pj0BkTd4sQsrkGZBo1DTrlP7zluPPYIz8FvKl25VQmL0v56kRp6zhbdU6VaYI",
+    "CACHE_DEFAULT_TTL":15552000
+  }
+}

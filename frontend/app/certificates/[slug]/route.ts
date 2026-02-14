@@ -4,7 +4,7 @@ import { ROUTES } from '@/utils/routes';
 import { stringify } from 'qs';
 import { getImageURL } from '@/utils';
 
-export const runtime = 'nodejs';
+// export const runtime = 'nodejs';
 
 interface CertificateFile {
   id: number;

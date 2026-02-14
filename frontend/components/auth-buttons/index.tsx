@@ -5,7 +5,7 @@ import { Button, VARIANTS } from '@/ui/button';
 import { ROUTES } from '@/utils/routes';
 
 export default function AuthButtons({ dictionary }: { dictionary: ILabelObj }) {
-  const { user: userData, isLoading } = useUser();
+  const { user: userData, isLoading }: { user: any; isLoading: boolean } = useUser();
   const user = userData?.user || {};
   const { logout } = useLogout();
   const onLogout = () => {

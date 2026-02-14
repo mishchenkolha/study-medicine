@@ -1,6 +1,6 @@
 import { trimChar } from '.';
 import {
-  getCached,
+  //getCached,
   setCachedWithTags,
   SIX_MONTHS_SECONDS,
 } from './cache/cache';
@@ -74,21 +74,21 @@ async function fetchFromStrapi<TResponse, TBody = unknown>(
 
   if (isGet && SIX_MONTHS_SECONDS > 0) {
     const key = `cf:${url}`;
-    let cached: TResponse | null = null;
+    // let cached: TResponse | null = null;
 
     const isRedisConnected = redisConnected && redis;
 
     // --- Спроба отримати кеш через прослойку ---
-    try {
-      cached = await getCached(key);
-    } catch (err) {
-      console.warn('[Cache] Redis або основний кеш недоступний, fallback на Next.js tag cache', err);
-    }
+    // try {
+    //   cached = await getCached(key);
+    // } catch (err) {
+    //   console.warn('[Cache] Redis або основний кеш недоступний, fallback на Next.js tag cache', err);
+    // }
 
-    if (isRedisConnected && cached) {
-      console.log('Cache hit from Redis for key:', key);
-      return cached as TResponse;
-    }
+    // if (isRedisConnected && cached) {
+    //   console.log('Cache hit from Redis for key:', key);
+    //   return cached as TResponse;
+    // }
     // --- робимо fetch з Strapi ---
     const res = await fetch(url, {
       method,
@@ -97,7 +97,7 @@ async function fetchFromStrapi<TResponse, TBody = unknown>(
       next: !isRedisConnected ? { tags } : undefined, // fallback Next.js tag cache, якщо getCached не спрацював
     });
 
-    const data = await res.json();
+    const data: any = await res.json();
     if (!res.ok) {
       console.error({ url, error: data?.error });
       throw new Error(data?.error?.message || 'Strapi API Error');
@@ -133,7 +133,7 @@ async function fetchFromStrapi<TResponse, TBody = unknown>(
     next: cache === 'no-cache' ? undefined : { revalidate },
   });
 
-  const data = await res.json();
+  const data: any = await res.json();
   if (!res.ok) {
     console.error({ url, error: data?.error });
     throw new Error(data?.error?.message || 'Strapi API Error');

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { IS_PROD, SESSION_TIME } from './utils/constants';
 
-export async function proxy(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   const requestHeaders = new Headers(request.headers);

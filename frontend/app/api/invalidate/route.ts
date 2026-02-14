@@ -14,7 +14,7 @@ export async function POST(req: Request) {
   }
 
   // Зчитування тіла
-  const body = await req.json().catch(() => null);
+  const body: any = await req.json().catch(() => null);
 
   if (!body || !body.model) {
     return NextResponse.json({ error: 'invalid body' }, { status: 400 });
@@ -44,8 +44,8 @@ export async function POST(req: Request) {
 
   return NextResponse.json({
     ok: true,
-    deletedCount: deleted.deleted,
-    deletedKeys: deleted.keys,
+    deletedCount: deleted?.deleted,
+    deletedKeys: deleted?.keys,
   });
 }
 

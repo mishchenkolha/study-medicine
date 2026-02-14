@@ -4,7 +4,8 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    const { identifier, password } = await request.json();
+    const body = await request.json();
+    const { identifier, password } = body as { identifier: string; password: string };
 
     const result = await login({ identifier, password });
     const response = NextResponse.json({ user: result.user });

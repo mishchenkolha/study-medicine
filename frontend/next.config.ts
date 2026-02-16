@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   //swcMinify: true,
   compress: true,
   images: {
+    dangerouslyAllowLocalIP: DOMAIN_URL?.includes('localhost'),
     remotePatterns: [
       ...(extractRemotePattern(MEDIA_LIBRARY_URL ?? '') as RemotePattern[]),
       ...(extractRemotePattern(DOMAIN_URL ?? '') as RemotePattern[]),

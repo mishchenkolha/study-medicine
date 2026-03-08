@@ -23,8 +23,8 @@ export default async function Navbar({
         >
           <Image
             src={`${DOMAIN_URL}/images/logoMEE-removebg-preview.png`}
-            fill
-            style={{ objectFit: 'contain' }}
+            width={120}
+            height={40}
             alt={'Logo'}
             priority
           />

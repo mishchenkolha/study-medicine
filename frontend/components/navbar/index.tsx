@@ -22,8 +22,9 @@ export default async function Navbar({
           className="absolute top-0 left-0 z-60 w-13 h-13 xl:w-[70px] xl:h-[70px]"
         >
           <Image
-            src={`${DOMAIN_URL}/images/logo.svg`}
+            src={`${DOMAIN_URL}/images/logoMEE-removebg-preview.png`}
             fill
+            style={{ objectFit: 'contain', transform: 'scale(1.3)' }}
             alt={'Logo'}
             priority
           />

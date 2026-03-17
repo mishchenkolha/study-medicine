@@ -1,0 +1,20 @@
+{
+    "kind": "singleType",
+    "collectionName": "dictionaries",
+    "info": {
+        "singularName": "dictionary",
+        "pluralName": "dictionaries",
+        "displayName": "Dictionary"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "labels": {
+            "type": "component",
+            "component": "components.dictionary-item",
+            "repeatable": true
+        }
+    }
+}

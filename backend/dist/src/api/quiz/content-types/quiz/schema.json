@@ -1,0 +1,44 @@
+{
+    "kind": "collectionType",
+    "collectionName": "quizzes",
+    "info": {
+        "singularName": "quiz",
+        "pluralName": "quizzes",
+        "displayName": "quiz"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "title": {
+            "type": "string",
+            "required": true
+        },
+        "description": {
+            "type": "customField",
+            "customField": "plugin::ckeditor5.CKEditor",
+            "options": {
+                "preset": "toolbarBalloon"
+            }
+        },
+        "min_percent_treshold": {
+            "type": "integer",
+            "default": 0,
+            "min": 0,
+            "max": 100
+        },
+        "attempts_count": {
+            "type": "integer",
+            "required": true,
+            "default": 2,
+            "min": 0
+        },
+        "questions_count": {
+            "type": "integer",
+            "required": true,
+            "default": 20,
+            "min": 0
+        }
+    }
+}

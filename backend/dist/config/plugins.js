@@ -1,6 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = ({ env }) => ({
+    upload: {
+        config: {
+            provider: 'local',
+            providerOptions: {
+                sizeLimit: 50000000, // максимальний розмір файлу 50 MB
+                basePath: env('UPLOADS_PATH', './public/uploads'),
+            },
+            actionOptions: {
+                upload: {},
+                delete: {},
+            },
+        },
+    },
     seo: {
         enabled: true,
     },

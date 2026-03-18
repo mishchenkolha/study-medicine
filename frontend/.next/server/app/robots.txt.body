@@ -4,4 +4,4 @@ Allow: /
 User-Agent: *
 Disallow: /*?
 
-Sitemap: http://localhost:3000/sitemap.xml
+Sitemap: https://medesthetexperts.up.railway.app/sitemap.xml

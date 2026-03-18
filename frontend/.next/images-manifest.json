@@ -31,7 +31,7 @@
     ],
     "maximumRedirects": 3,
     "maximumResponseBody": 50000000,
-    "dangerouslyAllowLocalIP": true,
+    "dangerouslyAllowLocalIP": false,
     "dangerouslyAllowSVG": false,
     "contentSecurityPolicy": "script-src 'none'; frame-src 'none'; sandbox;",
     "contentDispositionType": "attachment",
@@ -44,12 +44,12 @@
     "remotePatterns": [
       {
         "protocol": "https",
-        "hostname": "^(?:^(?:strapi\\-production\\-3567\\.up\\.railway\\.app)$)$",
+        "hostname": "^(?:^(?:strapi\\-medesthetexperts\\.up\\.railway\\.app)$)$",
         "pathname": "^(?:(?!(?:^|\\/)\\.{1,2}(?:\\/|$))(?:(?:(?!(?:^|\\/)\\.{1,2}(?:\\/|$)).)*?)\\/?)$"
       },
       {
-        "protocol": "http",
-        "hostname": "^(?:^(?:localhost)$)$",
+        "protocol": "https",
+        "hostname": "^(?:^(?:medesthetexperts\\.up\\.railway\\.app)$)$",
         "pathname": "^(?:(?!(?:^|\\/)\\.{1,2}(?:\\/|$))(?:(?:(?!(?:^|\\/)\\.{1,2}(?:\\/|$)).)*?)\\/?)$"
       }
     ],

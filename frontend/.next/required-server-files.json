@@ -53,7 +53,7 @@
       ],
       "maximumRedirects": 3,
       "maximumResponseBody": 50000000,
-      "dangerouslyAllowLocalIP": true,
+      "dangerouslyAllowLocalIP": false,
       "dangerouslyAllowSVG": false,
       "contentSecurityPolicy": "script-src 'none'; frame-src 'none'; sandbox;",
       "contentDispositionType": "attachment",
@@ -66,11 +66,11 @@
       "remotePatterns": [
         {
           "protocol": "https",
-          "hostname": "strapi-production-3567.up.railway.app"
+          "hostname": "strapi-medesthetexperts.up.railway.app"
         },
         {
-          "protocol": "http",
-          "hostname": "localhost"
+          "protocol": "https",
+          "hostname": "medesthetexperts.up.railway.app"
         }
       ],
       "qualities": [

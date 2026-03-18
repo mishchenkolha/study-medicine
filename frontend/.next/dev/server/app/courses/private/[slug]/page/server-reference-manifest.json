@@ -1,0 +1,110 @@
+{
+  "node": {
+    "0083fb43c2df2c288c67cf3c2d959a93df9d4b3a90": {
+      "workers": {
+        "app/courses/private/[slug]/page": {
+          "moduleId": "[project]/.next-internal/server/app/courses/private/[slug]/page/actions.js { ACTIONS_MODULE0 => \"[project]/services/auth.service.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getUserToken",
+          "filename": "services/auth.service.ts"
+        }
+      },
+      "layer": {
+        "app/courses/private/[slug]/page": "rsc"
+      },
+      "exportedName": "getUserToken",
+      "filename": "services/auth.service.ts"
+    },
+    "00b4f860153782da488742763b4be5f4a212432fdc": {
+      "workers": {
+        "app/courses/private/[slug]/page": {
+          "moduleId": "[project]/.next-internal/server/app/courses/private/[slug]/page/actions.js { ACTIONS_MODULE0 => \"[project]/services/auth.service.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getUser",
+          "filename": "services/auth.service.ts"
+        }
+      },
+      "layer": {
+        "app/courses/private/[slug]/page": "rsc"
+      },
+      "exportedName": "getUser",
+      "filename": "services/auth.service.ts"
+    },
+    "406de0b46859bd60636be6de906e8981e40fe26059": {
+      "workers": {
+        "app/courses/private/[slug]/page": {
+          "moduleId": "[project]/.next-internal/server/app/courses/private/[slug]/page/actions.js { ACTIONS_MODULE0 => \"[project]/services/auth.service.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "changePassword",
+          "filename": "services/auth.service.ts"
+        }
+      },
+      "layer": {
+        "app/courses/private/[slug]/page": "rsc"
+      },
+      "exportedName": "changePassword",
+      "filename": "services/auth.service.ts"
+    },
+    "40b900988bc685914d1e3f49ed8b193b67d9a88e57": {
+      "workers": {
+        "app/courses/private/[slug]/page": {
+          "moduleId": "[project]/.next-internal/server/app/courses/private/[slug]/page/actions.js { ACTIONS_MODULE0 => \"[project]/services/auth.service.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "login",
+          "filename": "services/auth.service.ts"
+        }
+      },
+      "layer": {
+        "app/courses/private/[slug]/page": "rsc"
+      },
+      "exportedName": "login",
+      "filename": "services/auth.service.ts"
+    },
+    "40d7a4ea44ad035e8f8a8d3c4449c1a81d9859cf06": {
+      "workers": {
+        "app/courses/private/[slug]/page": {
+          "moduleId": "[project]/.next-internal/server/app/courses/private/[slug]/page/actions.js { ACTIONS_MODULE0 => \"[project]/services/auth.service.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "resetPassword",
+          "filename": "services/auth.service.ts"
+        }
+      },
+      "layer": {
+        "app/courses/private/[slug]/page": "rsc"
+      },
+      "exportedName": "resetPassword",
+      "filename": "services/auth.service.ts"
+    },
+    "40d8713a3eff2d1f332ca1747ff623a53245370841": {
+      "workers": {
+        "app/courses/private/[slug]/page": {
+          "moduleId": "[project]/.next-internal/server/app/courses/private/[slug]/page/actions.js { ACTIONS_MODULE0 => \"[project]/services/auth.service.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "forgotPassword",
+          "filename": "services/auth.service.ts"
+        }
+      },
+      "layer": {
+        "app/courses/private/[slug]/page": "rsc"
+      },
+      "exportedName": "forgotPassword",
+      "filename": "services/auth.service.ts"
+    },
+    "40ee4458ea908c771edfe206e1a18f8b2b0f1eab01": {
+      "workers": {
+        "app/courses/private/[slug]/page": {
+          "moduleId": "[project]/.next-internal/server/app/courses/private/[slug]/page/actions.js { ACTIONS_MODULE0 => \"[project]/services/auth.service.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "register",
+          "filename": "services/auth.service.ts"
+        }
+      },
+      "layer": {
+        "app/courses/private/[slug]/page": "rsc"
+      },
+      "exportedName": "register",
+      "filename": "services/auth.service.ts"
+    }
+  },
+  "edge": {}
+}

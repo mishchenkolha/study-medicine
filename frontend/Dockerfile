@@ -1,11 +1,20 @@
 FROM node:20-alpine
-# Встановлюємо залежності для збірки node-gyp
-RUN apk update && apk add --no-cache build-base gcc autoconf automake libtool make python3
+
 WORKDIR /opt/app
+
+# Вказуємо, що ми в продакшені
+ENV NODE_ENV=production
+
+# Копіюємо залежності (без dev-пакетів для швидкості)
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm ci --omit=dev
+
+# Копіюємо ваш готовий локальний білд (.next), public та інші файли
 COPY . .
-RUN npm run build
-EXPOSE 1337
-CMD npm run start
-# Для продакшену змініть на [npm, run, start]
+
+# Railway автоматично підхопить цей порт, якщо він вказаний у налаштуваннях сервісу
+ENV PORT 3000
+EXPOSE 3000
+
+# Запускаємо через масив для коректної обробки сигналів завершення
+CMD ["npm", "run", "start"]

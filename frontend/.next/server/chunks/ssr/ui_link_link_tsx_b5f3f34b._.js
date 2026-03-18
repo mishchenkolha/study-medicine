@@ -1,0 +1,3 @@
+module.exports=[13976,a=>{"use strict";var b=a.i(87924),c=a.i(38246);a.s(["default",0,({children:a,prefetch:d=!0,href:e,target:f,...g})=>(0,b.jsx)(b.Fragment,{children:"_blank"===f?(0,b.jsx)("a",{href:String(e),target:f,...g,children:a}):(0,b.jsx)(c.default,{href:e,target:f??"_top",prefetch:d,...g,children:a})})])},69858,a=>{a.n(a.i(13976))}];
+
+//# sourceMappingURL=ui_link_link_tsx_b5f3f34b._.js.map

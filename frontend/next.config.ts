@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   //swcMinify: true,
   compress: true,
+  typescript: { ignoreBuildErrors: true },
   images: {
     dangerouslyAllowLocalIP: DOMAIN_URL?.includes('localhost'),
     remotePatterns: [

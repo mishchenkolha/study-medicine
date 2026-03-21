@@ -1,25 +1,19 @@
 FROM node:20-alpine
-
 WORKDIR /app
-# Важливо: на етапі білду нам потрібні всі пакети (devDependencies теж)
-ENV NODE_ENV=development 
+
+# Повертаємо стандартний production
+ENV NODE_ENV=production
 
 COPY package*.json ./
-# Використовуємо звичайний install, щоб гарантовано мати TypeScript
-RUN npm install 
+# Встановлюємо ВСІ залежності, включаючи devDependencies, 
+# але в режимі production (це заставить npm поставити TS для білду)
+RUN npm install --include=dev
 
 COPY . .
 
-# Прокидаємо ARG, якщо вони потрібні в коді
+# Прокидаємо ARG для білду
 ARG NEXT_PUBLIC_STRAPI_URL
 ARG NEXT_PUBLIC_STRAPI_API_TOKEN
 ARG NEXT_PUBLIC_MEDIA_LIBRARY_URL
 
-# Тепер білд знайде TypeScript і прочитає next.config.ts
 RUN npm run build
-
-# Після білду перемикаємо в production
-ENV NODE_ENV=production
-EXPOSE 3000
-
-CMD ["npm", "run", "start"]

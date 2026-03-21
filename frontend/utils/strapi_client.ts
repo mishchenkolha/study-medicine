@@ -11,9 +11,7 @@ import { STRAPI_URL } from './constants';
 import { COLLECTION_TYPES_ONE } from './routes';
 
 const baseUrl =
-  typeof window === 'undefined'
-    ? process.env.STRAPI_URL
-    : process.env.MEDIA_LIBRARY_URL;
+  typeof window === 'undefined' ? STRAPI_URL : process.env.MEDIA_LIBRARY_URL;
 const STRAPI_API_URL = `${baseUrl}/api`;
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 

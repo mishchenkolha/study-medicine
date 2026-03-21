@@ -10,7 +10,11 @@ import { redis, redisConnected } from './cache/redis';
 import { STRAPI_URL } from './constants';
 import { COLLECTION_TYPES_ONE } from './routes';
 
-const STRAPI_API_URL = `${STRAPI_URL}/api`;
+const baseUrl =
+  typeof window === 'undefined'
+    ? process.env.STRAPI_URL
+    : process.env.MEDIA_LIBRARY_URL;
+const STRAPI_API_URL = `${baseUrl}/api`;
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 interface FetchOptions<TBody = unknown> {
@@ -89,39 +93,46 @@ async function fetchFromStrapi<TResponse, TBody = unknown>(
     //   console.log('Cache hit from Redis for key:', key);
     //   return cached as TResponse;
     // }
-    // --- робимо fetch з Strapi ---
-    const res = await fetch(url, {
-      method,
-      headers: finalHeaders,
-      cache: !isRedisConnected ? cache : 'no-store',
-      next: !isRedisConnected ? { tags } : undefined, // fallback Next.js tag cache, якщо getCached не спрацював
-    });
-
-    const data: any = await res.json();
-    if (!res.ok) {
-      console.error({ url, error: data?.error });
-      throw new Error(data?.error?.message || 'Strapi API Error');
-    }
-
-    // --- enrichment тегів для Redis / прослойки ---
-    if (Array.isArray(data?.data)) {
-      for (const item of data.data) {
-        if (item?.documentId) {
-          tags.push(`${tags[0]}:${item.documentId}`);
-        }
-      }
-    } else if (data?.data?.documentId) {
-      tags.push(`${tags[0]}:${data.data.documentId}`);
-    }
-
-    const effectiveTTL = ttl ?? SIX_MONTHS_SECONDS;
     try {
-      await setCachedWithTags(key, data, effectiveTTL, tags);
-    } catch (err) {
-      console.warn('[Cache] Не вдалося записати кеш, продовжуємо без нього', err);
-    }
+      // --- робимо fetch з Strapi ---
+      const res = await fetch(url, {
+        method,
+        headers: finalHeaders,
+        cache: !isRedisConnected ? cache : 'no-store',
+        next: !isRedisConnected ? { tags } : undefined, // fallback Next.js tag cache, якщо getCached не спрацював
+      });
 
-    return data as TResponse;
+      const data: any = await res.json();
+      if (!res.ok) {
+        console.error({ url, error: data?.error });
+        throw new Error(data?.error?.message || 'Strapi API Error');
+      }
+
+      // --- enrichment тегів для Redis / прослойки ---
+      if (Array.isArray(data?.data)) {
+        for (const item of data.data) {
+          if (item?.documentId) {
+            tags.push(`${tags[0]}:${item.documentId}`);
+          }
+        }
+      } else if (data?.data?.documentId) {
+        tags.push(`${tags[0]}:${data.data.documentId}`);
+      }
+
+      const effectiveTTL = ttl ?? SIX_MONTHS_SECONDS;
+      try {
+        await setCachedWithTags(key, data, effectiveTTL, tags);
+      } catch (err) {
+        console.warn(
+          '[Cache] Не вдалося записати кеш, продовжуємо без нього',
+          err,
+        );
+      }
+
+      return data as TResponse;
+    } catch (e) {
+      console.error({ e: JSON.stringify(e) });
+    }
   }
 
   // --- для POST/PUT/DELETE або GET без TTL ---

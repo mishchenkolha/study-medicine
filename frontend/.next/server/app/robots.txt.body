@@ -1,7 +1,0 @@
-User-Agent: *
-Allow: /
-
-User-Agent: *
-Disallow: /*?
-
-Sitemap: https://medesthetexperts.up.railway.app/sitemap.xml

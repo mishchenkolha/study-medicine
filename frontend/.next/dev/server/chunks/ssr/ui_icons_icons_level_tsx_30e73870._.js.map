@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///D:/work/olha/study_medicine/frontend/ui/icons/icons/level.tsx"],"sourcesContent":["import { memo } from 'react';\nimport { TIcon } from '..';\n\nconst Icon = ({ id, className, style: coreStyle, width, height }: TIcon) => {\n  const style = { ...coreStyle, width, height };\n  return (\n    <svg\n      id={id}\n      style={style}\n      className={className}\n      viewBox=\"0 0 60 53\"\n      width=\"16\"\n      height=\"16\"\n      fill=\"none\"\n      xmlns=\"http://www.w3.org/2000/svg\"\n    >\n      <path\n        d=\"M33.3,7v37.89h15.16V7H33.3z M10.57,22.16v22.73h15.15V22.16H10.57z\"\n        fill=\"currentcolor\"\n      />\n    </svg>\n  );\n};\nexport default memo(Icon);\n"],"names":[],"mappings":";;;;;AAAA;;;AAGA,MAAM,OAAO,CAAC,EAAE,EAAE,EAAE,SAAS,EAAE,OAAO,SAAS,EAAE,KAAK,EAAE,MAAM,EAAS;IACrE,MAAM,QAAQ;QAAE,GAAG,SAAS;QAAE;QAAO;IAAO;IAC5C,qBACE,8OAAC;QACC,IAAI;QACJ,OAAO;QACP,WAAW;QACX,SAAQ;QACR,OAAM;QACN,QAAO;QACP,MAAK;QACL,OAAM;kBAEN,cAAA,8OAAC;YACC,GAAE;YACF,MAAK;;;;;;;;;;;AAIb;qDACe,IAAA,6MAAI,EAAC"}}]
-}

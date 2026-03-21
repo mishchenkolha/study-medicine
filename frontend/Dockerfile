@@ -1,20 +1,24 @@
 FROM node:20-alpine
 
+RUN apk add --no-cache libc6-compat
+
 WORKDIR /opt/app
 
-# Вказуємо, що ми в продакшені
-ENV NODE_ENV=production
+# Залишаємо вимкнення SWC, бо саме воно рятує від BMI2
+ENV NEXT_SWC_DISABLED=1
 
-# Копіюємо залежності (без dev-пакетів для швидкості)
-COPY package.json package-lock.json ./
-RUN npm ci --omit=dev
+COPY package*.json ./
+RUN npm install
 
-# Копіюємо ваш готовий локальний білд (.next), public та інші файли
+# Заглушка обов'язкова, щоб не було паніки
+RUN mkdir -p node_modules/@next/swc-linux-x64-musl
+RUN touch node_modules/@next/swc-linux-x64-musl/next-swc.linux-x64-musl.node
+RUN echo '{"name": "@next/swc-linux-x64-musl", "main": "next-swc.linux-x64-musl.node"}' > node_modules/@next/swc-linux-x64-musl/package.json
+
 COPY . .
 
-# Railway автоматично підхопить цей порт, якщо він вказаний у налаштуваннях сервісу
-ENV PORT 3000
-EXPOSE 3000
+# ВИДАЛЯЄМО experimental-specifier-resolution, він ламає імпорти в TS
+# ENV NODE_OPTIONS="--experimental-specifier-resolution=node" <-- ПРИБРАЛИ
 
-# Запускаємо через масив для коректної обробки сигналів завершення
-CMD ["npm", "run", "start"]
+EXPOSE 3000
+CMD ["npm", "run", "dev"]

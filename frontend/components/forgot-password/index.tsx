@@ -23,10 +23,10 @@ export default function ForgotPassword({
   });
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.BaseSyntheticEvent) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-  const handleForgotPassword = async (e: FormEvent<HTMLFormElement>) => {
+  const handleForgotPassword = async (e: React.BaseSyntheticEvent) => {
     e.preventDefault();
     setLoading(true);
 
@@ -40,7 +40,7 @@ export default function ForgotPassword({
     }
   };
 
-  const handleResetPassword = async (e: FormEvent<HTMLFormElement>) => {
+  const handleResetPassword = async (e: React.BaseSyntheticEvent) => {
     e.preventDefault();
     setLoading(true);
 
@@ -75,14 +75,14 @@ export default function ForgotPassword({
           <Input
             name="password"
             placeholder={dictionary.new_password}
-            onChange={handleChange}
+            onInput={handleChange}
             required
           />
           <Input
             type="password"
             name="passwordConfirm"
             placeholder={dictionary.confirm_password}
-            onChange={handleChange}
+            onInput={handleChange}
             required
           />
           <Button type="submit" disabled={loading}>
@@ -95,7 +95,7 @@ export default function ForgotPassword({
             type="email"
             name="email"
             placeholder={dictionary.email}
-            onChange={handleChange}
+            onInput={handleChange}
             required
           />
           <Button type="submit" disabled={loading}>

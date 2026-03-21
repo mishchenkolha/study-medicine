@@ -14,6 +14,14 @@ const nextConfig: NextConfig = {
       ...(extractRemotePattern(DOMAIN_URL ?? '') as RemotePattern[]),
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/uploads/:path*',
+        destination: `${MEDIA_LIBRARY_URL}/uploads/:path*`, // проксі на Strapi
+      },
+    ];
+  },
 };
 
 export default nextConfig;

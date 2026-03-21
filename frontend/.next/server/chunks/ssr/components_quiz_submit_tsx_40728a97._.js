@@ -1,3 +1,0 @@
-module.exports=[15814,a=>{"use strict";var b=a.i(87924),c=a.i(48782),d=a.i(59858),e=a.i(35112);function f({dictionary:a}){let{pending:f}=(0,e.useFormStatus)();return(0,b.jsx)("div",{className:"flex justify-end",children:(0,b.jsx)(c.Button,{type:"submit",variant:c.VARIANTS.SUCCESS,disabled:f,className:(0,d.cn)(f&&"opacity-50 cursor-default"),children:f?a.sending:a.send})})}a.s(["default",()=>f])}];
-
-//# sourceMappingURL=components_quiz_submit_tsx_40728a97._.js.map

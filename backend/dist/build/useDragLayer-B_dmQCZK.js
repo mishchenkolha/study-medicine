@@ -1,1 +1,0 @@
-import{ay as s,az as c,r as a}from"./strapi-MFmEVmtu.js";function g(o){const e=s().getMonitor(),[t,r]=c(e,o);return a.useEffect(()=>e.subscribeToOffsetChange(r)),a.useEffect(()=>e.subscribeToStateChange(r)),t}export{g as u};

@@ -1,0 +1,91 @@
+############################
+# IDE & System Files
+############################
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+.Spotlight-V100
+.Trashes
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.idea
+.vscode
+*.swp
+*.swo
+*.swn
+*.swm
+
+############################
+# Node.js & Package Managers
+############################
+node_modules/
+# package-lock.json
+# yarn.lock
+yarn-error.log
+.pnp.*
+.yarn/*
+!.yarn/cache
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+.eslintcache
+.tsbuildinfo
+
+############################
+# Build Outputs (Universal)
+############################
+dist/
+build/
+.next/
+out/
+.strapi/
+.cache/
+.tmp/
+coverage/
+.vercel/
+############################
+# Environment & Secrets (CRITICAL)
+############################
+.env
+.env.*
+!.env.example
+license.txt
+.strapi-updater.json
+.strapi-cloud.json
+
+############################
+# Databases & Logs
+############################
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+data/
+*.db
+*.db-journal
+exports/
+
+############################
+# Strapi Specifics
+############################
+# Ігноруємо завантажені файли, але лишаємо структуру
+backend/public/uploads/*
+!backend/public/uploads/.gitkeep
+
+############################
+# OS & Misc Packages
+############################
+*.7z
+*.zip
+*.tar
+*.gz
+*.rar
+*.exe
+*.dll
+*.so
+*.dmg
+*.iso

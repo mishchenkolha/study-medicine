@@ -1,3 +1,0 @@
-module.exports=[58618,a=>{"use strict";var b=a.i(87924);let c=(0,a.i(72131).memo)(({id:a,className:c,style:d,width:e,height:f})=>{let g={...d,width:e,height:f};return(0,b.jsx)("svg",{id:a,style:g,className:c,viewBox:"0 0 60 53",width:"16",height:"16",fill:"none",xmlns:"http://www.w3.org/2000/svg",children:(0,b.jsx)("path",{d:"M33.3,7v37.89h15.16V7H33.3z M10.57,22.16v22.73h15.15V22.16H10.57z",fill:"currentcolor"})})});a.s(["default",0,c])}];
-
-//# sourceMappingURL=ui_icons_icons_level_tsx_30e73870._.js.map

@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///D:/work/olha/study_medicine/frontend/ui/link/link.tsx"],"sourcesContent":["import { ComponentProps } from 'react';\nimport CoreLink from 'next/link';\n\nconst Link: React.FC<ComponentProps<typeof CoreLink>> = ({\n  children,\n  prefetch = true,\n  href,\n  target,\n  ...rest\n}) => {\n  return (\n    <>\n      {target === '_blank' ? (\n        <a href={String(href)} target={target} {...rest}>\n          {children}\n        </a>\n      ) : (\n        <CoreLink\n          href={href}\n          target={target ?? '_top'}\n          prefetch={prefetch}\n          {...rest}\n        >\n          {children}\n        </CoreLink>\n      )}\n    </>\n  );\n};\n\nexport default Link;\n"],"names":[],"mappings":";;;;;AACA;;;AAEA,MAAM,OAAkD,CAAC,EACvD,QAAQ,EACR,WAAW,IAAI,EACf,IAAI,EACJ,MAAM,EACN,GAAG,MACJ;IACC,qBACE;kBACG,WAAW,yBACV,6LAAC;YAAE,MAAM,OAAO;YAAO,QAAQ;YAAS,GAAG,IAAI;sBAC5C;;;;;qEAGH,6LAAC,0KAAQ;YACP,MAAM;YACN,QAAQ,UAAU;YAClB,UAAU;YACT,GAAG,IAAI;sBAEP;;;;;;;AAKX;KAzBM;uCA2BS"}}]
-}

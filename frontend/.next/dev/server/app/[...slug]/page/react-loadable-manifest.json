@@ -1,9 +1,0 @@
-{
-  "[project]/ui/link/link.tsx [app-client] (ecmascript, next/dynamic entry)": {
-    "id": "[project]/ui/link/link.tsx [app-client] (ecmascript, next/dynamic entry)",
-    "files": [
-      "static/chunks/ui_link_link_tsx_2d077442._.js",
-      "static/chunks/ui_link_link_tsx_4ac238ba._.js"
-    ]
-  }
-}

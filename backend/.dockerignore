@@ -1,8 +1,12 @@
 node_modules
 .tmp
 .cache
-.git
+dist
 build
+.next
+.git
+.env*
 data
 *.db
-.next
+npm-debug.log*
+.DS_Store

@@ -3,7 +3,7 @@ export default ({ env }) => ({
     config: {
       provider: 'local',
       providerOptions: {
-        sizeLimit: 50000000, // максимальний розмір файлу 50 MB
+        sizeLimit: 50000000,
         basePath: env('UPLOADS_PATH', './public/uploads'),
       },
       actionOptions: {

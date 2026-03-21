@@ -1,24 +1,25 @@
 FROM node:20-alpine
 
 WORKDIR /app
-ENV NODE_ENV=production
+# Важливо: на етапі білду нам потрібні всі пакети (devDependencies теж)
+ENV NODE_ENV=development 
 
-# Використовуємо npm ci для надійної збірки (потребує package-lock.json)
 COPY package*.json ./
-RUN npm ci
+# Використовуємо звичайний install, щоб гарантовано мати TypeScript
+RUN npm install 
 
 COPY . .
 
-# Передаємо змінні для Next.js (вони вшиваються в JS при білді)
+# Прокидаємо ARG, якщо вони потрібні в коді
 ARG NEXT_PUBLIC_STRAPI_URL
 ARG NEXT_PUBLIC_STRAPI_API_TOKEN
 ARG NEXT_PUBLIC_MEDIA_LIBRARY_URL
 
+# Тепер білд знайде TypeScript і прочитає next.config.ts
 RUN npm run build
 
+# Після білду перемикаємо в production
+ENV NODE_ENV=production
 EXPOSE 3000
-# Next.js за замовчуванням слухає 3000, але ми підстрахуємося
-ENV PORT 3000
-ENV HOSTNAME "0.0.0.0"
 
 CMD ["npm", "run", "start"]

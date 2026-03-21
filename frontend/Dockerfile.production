@@ -17,3 +17,12 @@ ARG NEXT_PUBLIC_STRAPI_API_TOKEN
 ARG NEXT_PUBLIC_MEDIA_LIBRARY_URL
 
 RUN npm run build
+
+# Вказуємо порт і хост (обов'язково для Railway)
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+EXPOSE 3000
+
+# Команда запуску
+CMD ["npm", "run", "start"]

@@ -23,12 +23,13 @@ export default ({ env }) => ({
       provider: 'nodemailer',
       providerOptions: {
         host: env('SMTP_HOST', 'smtp.mailersend.net'),
-        port: env.int('SMTP_PORT', 465),
+        port: env.int('SMTP_PORT', 587),
         auth: {
           user: env('SMTP_USERNAME'),
           pass: env('SMTP_PASSWORD'),
         },
-        secure: true,
+        secure: env.bool('SMTP_SECURE', false),
+        connectionTimeout: 10000,
       },
       settings: {
         defaultFrom: `Romola Med Clinic <${env('DEFAULT_FROM')}>`,

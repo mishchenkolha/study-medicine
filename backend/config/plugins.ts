@@ -22,13 +22,13 @@ export default ({ env }) => ({
     config: {
       provider: 'nodemailer',
       providerOptions: {
-        host: env('SMTP_HOST', 'smtp.mailersend.net'),
-        port: env.int('SMTP_PORT', 587),
+        host: env('SMTP_HOST', 'smtp.resend.com'),
+        port: env.int('SMTP_PORT', 465),
         auth: {
           user: env('SMTP_USERNAME'),
           pass: env('SMTP_PASSWORD'),
         },
-        secure: env.bool('SMTP_SECURE', false),
+        secure: env.bool('SMTP_SECURE', true),
         connectionTimeout: 10000,
       },
       settings: {

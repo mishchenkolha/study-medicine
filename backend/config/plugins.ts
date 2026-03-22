@@ -1,3 +1,5 @@
+const path = require('path');
+
 export default ({ env }) => ({
   upload: {
     config: {
@@ -20,23 +22,35 @@ export default ({ env }) => ({
   },
   email: {
     config: {
-      provider: 'nodemailer',
+      provider: 'strapi-provider-email-resend',
       providerOptions: {
-        host: env('SMTP_HOST', 'smtp.resend.com'),
-        port: env.int('SMTP_PORT', 465),
-        auth: {
-          user: env('SMTP_USERNAME'),
-          pass: env('SMTP_PASSWORD'),
-        },
-        secure: env.bool('SMTP_SECURE', true),
-        connectionTimeout: 10000,
+        apiKey: env('RESEND_API_KEY'),
       },
       settings: {
-        defaultFrom: `Romola Med Clinic <${env('DEFAULT_FROM')}>`,
-        defaultReplyTo: env('DEFAULT_FROM'),
+        defaultFrom: env('DEFAULT_FROM', 'no-reply@medesthetexperts.com'),
+        defaultReplyTo: env('DEFAULT_FROM', 'no-reply@medesthetexperts.com'),
       },
     },
   },
+  // email: {
+  //   config: {
+  //     provider: 'nodemailer',
+  //     providerOptions: {
+  //       host: env('SMTP_HOST', 'smtp.resend.com'),
+  //       port: env.int('SMTP_PORT', 465),
+  //       auth: {
+  //         user: env('SMTP_USERNAME'),
+  //         pass: env('SMTP_PASSWORD'),
+  //       },
+  //       secure: env.bool('SMTP_SECURE', true),
+  //       connectionTimeout: 10000,
+  //     },
+  //     settings: {
+  //       defaultFrom: `Romola Med Clinic <${env('DEFAULT_FROM')}>`,
+  //       defaultReplyTo: env('DEFAULT_FROM'),
+  //     },
+  //   },
+  // },
   'users-permissions': {
     config: {
       register: {

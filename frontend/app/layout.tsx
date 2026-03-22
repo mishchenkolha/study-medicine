@@ -7,7 +7,6 @@ import { normalizeMenu } from '@/utils/menu';
 import Footer from '@/components/footer';
 import { getDictionary } from '@/services/dictionary.service';
 import { ToastContainer } from 'react-toastify';
-import { Analytics } from '@vercel/analytics/next';
 
 export const dynamic = 'force-dynamic';
 
@@ -47,12 +46,11 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Navbar menu={menu} dictionary={dictionary} />
-        <main className="container pt-32 min-h-[calc(100vh-68px)] flex flex-col">
+        <main className="container flex min-h-[calc(100vh-68px)] flex-col pt-32">
           {children}
         </main>
         <Footer dictionary={dictionary} menu={footerMenu} />
         <ToastContainer />
-        <Analytics />
       </body>
     </html>
   );

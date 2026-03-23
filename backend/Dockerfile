@@ -14,9 +14,11 @@ RUN npm install --omit=dev
 COPY . .
 RUN npm run build
 
-# Права доступу для користувача node
 RUN chown -R node:node /opt/app
-USER node
+# USER node
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 EXPOSE 1337
-CMD ["npm", "run", "start"]
+CMD ["/entrypoint.sh"]

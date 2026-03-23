@@ -3,7 +3,7 @@ import { DOMAIN_URL, MEDIA_LIBRARY_URL } from './utils/constants';
 import { extractRemotePattern } from './utils';
 import { RemotePattern } from 'next/dist/shared/lib/image-config';
 
-const [protocol, host] = DOMAIN_URL.split('//');
+const [protocol, host] = DOMAIN_URL.split('//'); 
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,

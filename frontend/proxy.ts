@@ -1,10 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { IS_PROD, SESSION_TIME } from './utils/constants';
+import { DOMAIN_URL, IS_PROD, SESSION_TIME } from './utils/constants';
 
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  const searchParams = request.nextUrl.search;
 
   const requestHeaders = new Headers(request.headers);
+
+  // redirect if host starts with www
+  const host = requestHeaders.get('host');
+
+  // Отримуємо чистий канонічний домен з вашої змінної (видаляємо протокол для порівняння)
+  const canonicalHost = new URL(DOMAIN_URL).host;
+
+  // Якщо хост починається з www або не збігається з канонічним (і це не localhost)
+  if (host && host.startsWith('www.') && IS_PROD) {
+    // Формуємо нову адресу: канонічний домен + поточний шлях + query-параметри
+    const newUrl = `https://${canonicalHost}${pathname}${searchParams}`;
+
+    return NextResponse.redirect(newUrl, 301);
+  }
+
   requestHeaders.set('pathname', pathname);
   requestHeaders.set('x-url', request.url);
 

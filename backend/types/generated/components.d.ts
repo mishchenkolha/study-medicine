@@ -84,13 +84,6 @@ export interface ComponentsLabels extends Struct.ComponentSchema {
     displayName: 'labels';
   };
   attributes: {
-    description: Schema.Attribute.RichText &
-      Schema.Attribute.CustomField<
-        'plugin::ckeditor5.CKEditor',
-        {
-          preset: 'toolbarBalloon';
-        }
-      >;
     label: Schema.Attribute.String & Schema.Attribute.Required;
     name: Schema.Attribute.String & Schema.Attribute.Required;
   };

@@ -606,6 +606,8 @@ export interface ApiContactContact extends Struct.SingleTypeSchema {
           preset: 'toolbarBalloon';
         }
       >;
+    image: Schema.Attribute.Media<'images'>;
+    labels: Schema.Attribute.Component<'components.labels', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

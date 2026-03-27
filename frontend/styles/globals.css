@@ -23,11 +23,21 @@
   }
 
   /* --- Typography base styles --- */
-  h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  .h1,
+  .h2,
+  .h3,
+  .h4,
+  .h5 {
     font-weight: 493; /* normalMedium */
   }
 
-  h6, .h6 {
+  h6,
+  .h6 {
     font-weight: 700; /* bold */
   }
 
@@ -53,6 +63,10 @@
   .pBoldLink {
     font-weight: 587;
     line-height: 100%;
+  }
+
+  .input-error {
+    @apply !border-red-500 !ring-2 !ring-red-500/10 !outline-red-500;
   }
 
   /* --- Responsive typography and classes --- */
@@ -83,23 +97,27 @@
   }
 
   /* h1 */
-  h1, .h1 {
+  h1,
+  .h1 {
     line-height: 90%;
   }
   @media (min-width: 1280px) {
-    h1, .h1 {
+    h1,
+    .h1 {
       letter-spacing: -0.15rem;
       font-size: 6rem; /* 12xl - 6rem */
     }
   }
   @media (min-width: 768px) and (max-width: 1279px) {
-    h1, .h1 {
+    h1,
+    .h1 {
       letter-spacing: -0.125rem;
       font-size: 5rem; /* 11xl - 5rem */
     }
   }
   @media (max-width: 767px) {
-    h1, .h1 {
+    h1,
+    .h1 {
       line-height: 91.667%;
       letter-spacing: -0.075rem;
       font-size: 3rem; /* 6xl - 3rem */
@@ -107,47 +125,55 @@
   }
 
   /* h2 */
-  h2, .h2 {
+  h2,
+  .h2 {
     line-height: 100%;
   }
   @media (min-width: 1280px) {
-    h2, .h2 {
+    h2,
+    .h2 {
       letter-spacing: -0.1125rem;
       font-size: 4.5rem; /* 10xl - 4.5rem */
     }
   }
   @media (min-width: 768px) and (max-width: 1279px) {
-    h2, .h2 {
+    h2,
+    .h2 {
       letter-spacing: -0.09375rem;
       font-size: 3.75rem; /* 7xl - 3.75rem */
     }
   }
   @media (max-width: 767px) {
-    h2, .h2 {
+    h2,
+    .h2 {
       letter-spacing: -0.0625rem;
       font-size: 2.5rem; /* 5xl - 2.5rem */
     }
   }
 
   /* h3 */
-  h3, .h3 {
+  h3,
+  .h3 {
   }
   @media (min-width: 1280px) {
-    h3, .h3 {
+    h3,
+    .h3 {
       letter-spacing: -0.075rem;
       line-height: 108%;
       font-size: 3rem; /* 6xl - 3rem */
     }
   }
   @media (min-width: 768px) and (max-width: 1279px) {
-    h3, .h3 {
+    h3,
+    .h3 {
       letter-spacing: -0.06875rem;
       line-height: 118.182%;
       font-size: 2.75rem; /* 5_5xl approx 2.75rem */
     }
   }
   @media (max-width: 767px) {
-    h3, .h3 {
+    h3,
+    .h3 {
       letter-spacing: -0.04375rem;
       line-height: 114.286%;
       font-size: 1.75rem; /* 3xl - 1.75rem */
@@ -155,23 +181,27 @@
   }
 
   /* h4 */
-  h4, .h4 {
+  h4,
+  .h4 {
     line-height: 125%;
   }
   @media (min-width: 1280px) {
-    h4, .h4 {
+    h4,
+    .h4 {
       letter-spacing: -0.04rem;
       font-size: 2rem; /* 4xl - 2rem */
     }
   }
   @media (min-width: 768px) and (max-width: 1279px) {
-    h4, .h4 {
+    h4,
+    .h4 {
       letter-spacing: -0.04rem;
       font-size: 2rem; /* 4xl - 2rem */
     }
   }
   @media (max-width: 767px) {
-    h4, .h4 {
+    h4,
+    .h4 {
       line-height: 133.33%;
       letter-spacing: -0.03rem;
       font-size: 1.5rem; /* 2xl - 1.5rem */
@@ -179,23 +209,27 @@
   }
 
   /* h5 */
-  h5, .h5 {
+  h5,
+  .h5 {
     line-height: 133.33%;
   }
   @media (min-width: 1280px) {
-    h5, .h5 {
+    h5,
+    .h5 {
       letter-spacing: -0.0375rem;
       font-size: 1.5rem; /* 2xl - 1.5rem */
     }
   }
   @media (min-width: 768px) and (max-width: 1279px) {
-    h5, .h5 {
+    h5,
+    .h5 {
       letter-spacing: -0.0375rem;
       font-size: 1.5rem; /* 2xl - 1.5rem */
     }
   }
   @media (max-width: 767px) {
-    h5, .h5 {
+    h5,
+    .h5 {
       letter-spacing: -0.03125rem;
       line-height: 140%;
       font-size: 1.25rem; /* lg - 1.25rem */
@@ -203,23 +237,27 @@
   }
 
   /* h6 */
-  h6, .h6 {
+  h6,
+  .h6 {
     line-height: 150%;
     letter-spacing: 0;
     font-weight: 700; /* bold */
   }
   @media (min-width: 1280px) {
-    h6, .h6 {
+    h6,
+    .h6 {
       font-size: 1.25rem; /* lg - 1.25rem */
     }
   }
   @media (min-width: 768px) and (max-width: 1279px) {
-    h6, .h6 {
+    h6,
+    .h6 {
       font-size: 1.25rem; /* lg - 1.25rem */
     }
   }
   @media (max-width: 767px) {
-    h6, .h6 {
+    h6,
+    .h6 {
       line-height: 155.55%;
       font-size: 1.125rem; /* md - 1.125rem */
     }
@@ -347,7 +385,7 @@
     }
   }
 
-/*--------- Scrollbar --------- */
+  /*--------- Scrollbar --------- */
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
@@ -374,7 +412,7 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
-    @apply rounded-b-lg bg-gray-400 border-1 border-gray-200;
+    @apply rounded-b-lg border-1 border-gray-200 bg-gray-400;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
@@ -386,7 +424,7 @@
   }
 
   .custom-middle-scrollbar::-webkit-scrollbar-track {
-    @apply rounded-b-lg bg-transparent border-0;
+    @apply rounded-b-lg border-0 bg-transparent;
   }
 
   .custom-middle-scrollbar::-webkit-scrollbar-thumb {
@@ -398,10 +436,10 @@
     @apply bg-blue-900 text-white hover:!bg-blue-800;
   }
   .btn:disabled {
-    @apply bg-gray-400  !text-gray-200 hover:!bg-gray-400 hover:!text-gray-200;
+    @apply bg-gray-400 !text-gray-200 hover:!bg-gray-400 hover:!text-gray-200;
   }
   .btn-secondary {
-    @apply bg-gray-300  text-gray-700 hover:!bg-gray-700 hover:text-white;
+    @apply bg-gray-300 text-gray-700 hover:!bg-gray-700 hover:text-white;
   }
   .btn-danger {
     @apply bg-red-900 text-white hover:!bg-red-800;
@@ -433,7 +471,7 @@
   }
   .animate-fade-in {
     animation: fade-in 1s ease-out both;
-  }  
+  }
   .delay-200 {
     animation-delay: 0.2s;
   }
@@ -452,21 +490,21 @@
 
   /* ----- Headers ------ */
   .header1 {
-    @apply text-3xl md:text-4xl font-bold text-gray-700;
+    @apply text-3xl font-bold text-gray-700 md:text-4xl;
   }
   .header2 {
-    @apply text-2xl md:text-3xl font-bold text-gray-700;
+    @apply text-2xl font-bold text-gray-700 md:text-3xl;
   }
   .header3 {
-    @apply text-xl md:text-2xl font-bold text-gray-700;
+    @apply text-xl font-bold text-gray-700 md:text-2xl;
   }
   .header4 {
-    @apply text-lg md:text-xl font-bold text-gray-700;
+    @apply text-lg font-bold text-gray-700 md:text-xl;
   }
   .header5 {
-    @apply text-base md:text-lg font-bold text-gray-700;
+    @apply text-base font-bold text-gray-700 md:text-lg;
   }
   .header6 {
-    @apply text-sm md:text-base font-bold text-gray-700;
+    @apply text-sm font-bold text-gray-700 md:text-base;
   }
 }

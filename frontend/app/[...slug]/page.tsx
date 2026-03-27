@@ -18,7 +18,7 @@ export async function generateMetadata({
   if (!slug || (Array.isArray(slug) && slug.length > 1)) {
     return {};
   }
-  return getMeta(`/${slug?.[0]?.toLowerCase?.()}`);
+  return getMeta(slug?.[0]?.toLowerCase?.());
 }
 
 export default async function StaticPage({ params }: IPageProps) {
@@ -37,7 +37,7 @@ export default async function StaticPage({ params }: IPageProps) {
   }
   return (
     <>
-      <h1 className="header1 pb-4 md:pb-5 xl:pb-6 animate-fade-in-up">
+      <h1 className="header1 animate-fade-in-up pb-4 md:pb-5 xl:pb-6">
         {staticPage.title}
       </h1>
       <HTMLBlock

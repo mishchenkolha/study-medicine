@@ -25,6 +25,18 @@
       "type": "component",
       "component": "shared.seo",
       "repeatable": false
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "labels": {
+      "type": "component",
+      "component": "components.labels",
+      "repeatable": true
     }
   }
 }

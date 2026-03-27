@@ -14,12 +14,12 @@ export default async function Navbar({
   dictionary: ILabelObj;
 }) {
   return (
-    <header className="bg-white/80 border-b border-gray-200 fixed top-0 left-0 right-0 z-50 backdrop-blur">
-      <div className="mx-auto container py-3 flex justify-between items-center">
+    <header className="fixed top-0 right-0 left-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur">
+      <div className="container mx-auto flex items-center justify-between py-3">
         <Link
           href="/"
           title="logo"
-          className="absolute top-0 left-0 z-60 w-13 h-13 xl:w-[70px] xl:h-[70px]"
+          className="absolute top-0 left-0 z-60 h-13 w-13 xl:h-[70px] xl:w-[70px]"
         >
           <Image
             src={`${DOMAIN_URL}/images/logoMEE-removebg-preview.png`}
@@ -31,34 +31,34 @@ export default async function Navbar({
         </Link>
         <div />
         {/* Desktop nav */}
-        <nav className="hidden xl:flex space-x-6 text-sm font-medium text-gray-600">
+        <nav className="hidden space-x-6 text-sm font-medium text-gray-600 xl:flex">
           {menu.map((item) => (
-            <div key={item.title} className="relative group">
+            <div key={item.title} className="group relative">
               <Link
                 href={item.href}
-                className="hover:text-brand h-8 flex items-center whitespace-nowrap"
+                className="hover:text-brand flex h-8 items-center whitespace-nowrap"
                 title={item.alt}
               >
                 {item.title}
               </Link>
               {!!item.children?.length && (
-                <div className="absolute top-full left-0 bg-white shadow-lg rounded-md invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200 min-w-[200px] border border-gray-100 pointer-events-none group-hover:pointer-events-auto z-50">
+                <div className="pointer-events-none invisible absolute top-full left-0 z-50 min-w-[200px] rounded-md border border-gray-100 bg-white opacity-0 shadow-lg transition-all duration-200 group-hover:pointer-events-auto group-hover:visible group-hover:opacity-100">
                   {item.children.map((subItem) => (
-                    <div key={subItem.title} className="relative group/sub">
+                    <div key={subItem.title} className="group/sub relative">
                       <Link
                         href={subItem.href}
-                        className="whitespace-nowrap max-w-[200px] overflow-hidden overflow-ellipsis block px-4 py-2 text-sm hover:bg-gray-100 text-gray-700"
+                        className="block max-w-[200px] overflow-hidden px-4 py-2 text-sm overflow-ellipsis whitespace-nowrap text-gray-700 hover:bg-gray-100"
                         title={subItem.alt}
                       >
                         {subItem.title}
                       </Link>
                       {!!subItem.children?.length && (
-                        <div className="absolute top-0 left-full bg-white shadow-lg rounded-md invisible group-hover/sub:visible opacity-0 group-hover/sub:opacity-100 transition-all duration-200 min-w-[180px] border border-gray-100 pointer-events-none group-hover/sub:pointer-events-auto z-50">
+                        <div className="pointer-events-none invisible absolute top-0 left-full z-50 min-w-[180px] rounded-md border border-gray-100 bg-white opacity-0 shadow-lg transition-all duration-200 group-hover/sub:pointer-events-auto group-hover/sub:visible group-hover/sub:opacity-100">
                           {subItem.children.map((thirdItem) => (
                             <Link
                               key={thirdItem.title}
                               href={thirdItem.href}
-                              className="whitespace-nowrap max-w-[200px] overflow-hidden overflow-ellipsis block px-4 py-2 text-sm hover:bg-gray-100 text-gray-700"
+                              className="block max-w-[200px] overflow-hidden px-4 py-2 text-sm overflow-ellipsis whitespace-nowrap text-gray-700 hover:bg-gray-100"
                               title={thirdItem.alt}
                             >
                               {thirdItem.title}

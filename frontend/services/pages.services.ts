@@ -4,8 +4,11 @@ import {
   IStaticPage,
   StaticPageResponse,
   DynamicPageResponse,
+  ContactPageResponse,
+  IContactPage,
 } from '@/types/pages';
 import { trimChar } from '@/utils';
+import { ROUTES } from '@/utils/routes';
 import { strapiService } from '@/utils/strapi_client';
 import { stringify } from 'qs';
 
@@ -51,6 +54,16 @@ export const getStaticPage = async (
   );
 
   return (pagesData?.data ?? {}) as IStaticPage | unknown;
+};
+
+export const getContactPage = async () => {
+  const populate = ['image', 'labels'];
+  const queryString = stringify({ populate });
+  const pagesData = await strapiService.get<ContactPageResponse>(
+    `/${ROUTES.CONTACTS}?${queryString}`,
+  );
+
+  return (pagesData?.data ?? {}) as IContactPage;
 };
 
 export const getCoursePage = async (slug: string): Promise<IPublicPage> => {

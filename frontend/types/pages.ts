@@ -2,6 +2,12 @@ import { IMetaData } from './meta';
 import { ICategory } from './navbar';
 import { IImage } from './strapi';
 
+interface ILabel {
+  id: number;
+  name: string;
+  label: string;
+}
+
 export enum LEVEL {
   BEGINNER = 'BEGINNER',
   INERMEDIATE = 'INERMEDIATE',
@@ -67,4 +73,16 @@ export interface StaticPageResponse {
 
 export interface DynamicPageResponse {
   data: IPublicPage[];
+}
+
+export interface IContactPage {
+  id: number;
+  title: string;
+  description: string;
+  image: IImage;
+  labels: ILabel[];
+}
+
+export interface ContactPageResponse {
+  data: IContactPage;
 }

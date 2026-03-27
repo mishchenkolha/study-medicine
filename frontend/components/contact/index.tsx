@@ -10,12 +10,21 @@ import { Icon } from '@/ui/icons';
 import { IconType } from '@/ui/icons/IconType';
 import Image from '@/ui/image';
 import { DOMAIN_URL } from '@/utils/constants';
+import { IImage } from '@/types/strapi';
 
 interface ContactSectionProps {
   dictionary: ILabelObj;
+  image: IImage | null;
+  signature?: string;
+  timestamp?: number;
 }
 
-export default function ContactSection({ dictionary }: ContactSectionProps) {
+export default function ContactSection({
+  dictionary,
+  image,
+  signature = '',
+  timestamp = 0,
+}: ContactSectionProps) {
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -93,7 +102,7 @@ export default function ContactSection({ dictionary }: ContactSectionProps) {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, signature, timestamp }),
       });
 
       if (!res.ok) {
@@ -132,18 +141,22 @@ export default function ContactSection({ dictionary }: ContactSectionProps) {
               ))}
             </div>
 
-            <div className="relative hidden h-48 overflow-hidden rounded-2xl border border-gray-100 shadow-md md:block">
-              <Image
-                src={`${DOMAIN_URL}/images/map.jpg`}
-                alt={dictionary.alt_office_map}
-                className="h-full w-full object-cover"
-                fill
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-              <div className="absolute bottom-4 left-4 flex items-center gap-2 text-sm font-medium text-white">
-                📍 {dictionary.office_location}
+            {Boolean(image) && (
+              <div className="relative hidden h-48 space-y-6 overflow-hidden rounded-2xl border border-gray-100 shadow-md md:block">
+                <div>
+                  <Image
+                    src={image?.url ?? ''}
+                    alt={dictionary.alt_office_map}
+                    className="h-full w-full object-cover"
+                    fill
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                  <div className="absolute bottom-4 left-4 flex items-center gap-2 text-sm font-medium text-white">
+                    📍 {dictionary.office_location}
+                  </div>
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* Форма */}

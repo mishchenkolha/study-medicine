@@ -31,7 +31,7 @@ export default async function ContactPage() {
 
   return (
     <>
-      <link rel="dns-prefetch" href="https://challenges.cloudflare.com" />
+      <link rel="preconnect" href="https://challenges.cloudflare.com" />
       <Suspense>
         <h1 className="header1 animate-fade-in-up pb-2">{contactPage.title}</h1>
         {Boolean(contactPage.description) && (

@@ -35,7 +35,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Bot detected' }, { status: 400 });
   }
 
-  await fetch('https://api.resend.com/emails', {
+  const resendResponse = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -48,10 +48,15 @@ export async function POST(req: Request) {
       text: [
         email,
         Object.entries(rest).map(([key, value]) => `${key}: ${value}`),
-      ].join('\n'),
+      ].join('\n\r'),
       reply_to: email,
     }),
   });
+  if (resendResponse.ok) {
+    return new Response(JSON.stringify({ success: true }));
+  }
 
-  return new Response(JSON.stringify({ success: true }));
+  return new Response(
+    JSON.stringify({ success: false, error: 'Failed to send email' }),
+  );
 }

@@ -254,9 +254,9 @@ export default function ContactSection({
                   </p>
                 )}
               </div>
-              <div className="grid grid-cols-1 items-center sm:grid-cols-2">
+              <div className="grid grid-cols-1 items-center gap-0 xl:grid-cols-2 xl:gap-5">
                 <div
-                  className="cf-turnstile"
+                  className="cf-turnstile mt-6 h-14"
                   data-sitekey={CLOUDFLARE_SITE_KEY}
                 ></div>
                 <Button

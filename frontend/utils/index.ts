@@ -10,6 +10,20 @@ declare global {
   }
 }
 
+declare global {
+  interface Window {
+    turnstile: {
+      render: (
+        container: HTMLElement,
+        options: {
+          sitekey: string;
+          callback: (token: string) => void;
+        },
+      ) => void;
+    };
+  }
+}
+
 export const trimChar = function (str: string, char?: string): string {
   if (!char) {
     return str.trim(); // стандартна поведінка — пробіли
@@ -77,7 +91,12 @@ export function extractRemotePattern(url: string): {
   try {
     const parsedUrl = new URL(url);
 
-    const pattern: { protocol: string; hostname: string; port?: string, pathname?: string } = {
+    const pattern: {
+      protocol: string;
+      hostname: string;
+      port?: string;
+      pathname?: string;
+    } = {
       protocol: parsedUrl.protocol.replace(':', ''),
       hostname: parsedUrl.hostname,
     };

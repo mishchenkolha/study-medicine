@@ -4,9 +4,11 @@ import { getMeta } from '@/services/meta.service';
 import { getContactPage } from '@/services/pages.services';
 import { ILabelObj } from '@/types/dictionary';
 import { HTMLBlock } from '@/ui/html-block/html-block';
+import { CLOUDFLARE_URL } from '@/utils/constants';
 import { ROUTES } from '@/utils/routes';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Script from 'next/script';
 import { Suspense } from 'react';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -36,6 +38,7 @@ export default async function ContactPage() {
           className="py-2 md:py-3 xl:py-4"
         />
       )}
+      <Script src={CLOUDFLARE_URL} strategy="afterInteractive" />
       <Contact
         dictionary={dictionary}
         image={contactPage.image}

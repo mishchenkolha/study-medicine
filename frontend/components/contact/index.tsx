@@ -9,8 +9,8 @@ import { error, success } from '@/utils/toast';
 import { Icon } from '@/ui/icons';
 import { IconType } from '@/ui/icons/IconType';
 import Image from '@/ui/image';
-import { DOMAIN_URL } from '@/utils/constants';
 import { IImage } from '@/types/strapi';
+import { useCaptchaToken } from '@/hooks/useCaptchaToken';
 
 interface ContactSectionProps {
   dictionary: ILabelObj;
@@ -31,6 +31,8 @@ export default function ContactSection({
     phone: '',
     message: '',
   });
+  const { captchaToken, captchaRef } = useCaptchaToken();
+
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [loading, setLoading] = useState(false);
 
@@ -102,7 +104,7 @@ export default function ContactSection({
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, signature, timestamp }),
+        body: JSON.stringify({ ...form, signature, timestamp, captchaToken }),
       });
 
       if (!res.ok) {
@@ -241,24 +243,26 @@ export default function ContactSection({
                   </p>
                 )}
               </div>
-
-              <Button
-                type="submit"
-                disabled={loading}
-                className="mt-6 h-14 w-full text-base shadow-lg shadow-blue-500/20"
-              >
-                {loading ? (
-                  <span className="flex items-center gap-2">
-                    <Icon
-                      type={IconType.Loading}
-                      className="h-5 w-5 animate-spin"
-                    />
-                    {dictionary.sending}
-                  </span>
-                ) : (
-                  dictionary.send
-                )}
-              </Button>
+              <div className="grid grid-cols-1 items-center sm:grid-cols-2">
+                <div ref={captchaRef} id="captchaRef" />
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className="mt-6 h-14 w-full text-base shadow-lg shadow-blue-500/20"
+                >
+                  {loading ? (
+                    <span className="flex items-center gap-2">
+                      <Icon
+                        type={IconType.Loading}
+                        className="h-5 w-5 animate-spin"
+                      />
+                      {dictionary.sending}
+                    </span>
+                  ) : (
+                    dictionary.send
+                  )}
+                </Button>
+              </div>
             </form>
           </div>
         </div>

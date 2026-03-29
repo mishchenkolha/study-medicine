@@ -21,3 +21,13 @@ export const RESEND_API_KEY = process.env.RESEND_API_KEY ?? '';
 export const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL ?? '';
 export const CONTACT_EMAIL = process.env.CONTACT_EMAIL ?? '';
 export const SECRET_KEY = process.env.FORM_SECRET || '';
+
+export const CLOUDFLARE_SITE_KEY =
+  process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY || '';
+export const CLOUDFLARE_SECRET_KEY = process.env.CLOUDFLARE_SECRET_KEY || '';
+export const CLOUDFLARE_TOKEN_URL =
+  process.env.CLOUDFLARE_TOKEN_URL ||
+  'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+export const CLOUDFLARE_URL =
+  process.env.CLOUDFLARE_URL ||
+  'https://challenges.cloudflare.com/turnstile/v0/api.js';

@@ -30,21 +30,24 @@ export default async function ContactPage() {
   });
 
   return (
-    <Suspense>
-      <h1 className="header1 animate-fade-in-up pb-2">{contactPage.title}</h1>
-      {Boolean(contactPage.description) && (
-        <HTMLBlock
-          content={contactPage.description}
-          className="py-2 md:py-3 xl:py-4"
+    <>
+      <link rel="preconnect" href="https://challenges.cloudflare.com" />
+      <Suspense>
+        <h1 className="header1 animate-fade-in-up pb-2">{contactPage.title}</h1>
+        {Boolean(contactPage.description) && (
+          <HTMLBlock
+            content={contactPage.description}
+            className="py-2 md:py-3 xl:py-4"
+          />
+        )}
+        <Script src={CLOUDFLARE_URL} strategy="afterInteractive" />
+        <Contact
+          dictionary={dictionary}
+          image={contactPage.image}
+          signature={signature}
+          timestamp={timestamp}
         />
-      )}
-      <Script src={CLOUDFLARE_URL} strategy="afterInteractive" />
-      <Contact
-        dictionary={dictionary}
-        image={contactPage.image}
-        signature={signature}
-        timestamp={timestamp}
-      />
-    </Suspense>
+      </Suspense>
+    </>
   );
 }

@@ -10,7 +10,7 @@ import { Icon } from '@/ui/icons';
 import { IconType } from '@/ui/icons/IconType';
 import Image from '@/ui/image';
 import { IImage } from '@/types/strapi';
-import { useCaptchaToken } from '@/hooks/useCaptchaToken';
+import { CLOUDFLARE_SITE_KEY } from '@/utils/constants';
 
 interface ContactSectionProps {
   dictionary: ILabelObj;
@@ -31,8 +31,6 @@ export default function ContactSection({
     phone: '',
     message: '',
   });
-  const { captchaToken, captchaRef } = useCaptchaToken();
-
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [loading, setLoading] = useState(false);
 
@@ -95,16 +93,29 @@ export default function ContactSection({
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!validate()) return;
+    if (!validate()) {
+      return;
+    }
+
+    const formData = new FormData(e.currentTarget);
+    const captchaToken = formData.get('cf-turnstile-response');
+    if (!captchaToken) {
+      return;
+    }
 
     setLoading(true);
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, signature, timestamp, captchaToken }),
+        body: JSON.stringify({
+          ...form,
+          signature,
+          timestamp,
+          captchaToken,
+        }),
       });
 
       if (!res.ok) {
@@ -244,7 +255,10 @@ export default function ContactSection({
                 )}
               </div>
               <div className="grid grid-cols-1 items-center sm:grid-cols-2">
-                <div ref={captchaRef} id="captchaRef" />
+                <div
+                  className="cf-turnstile"
+                  data-sitekey={CLOUDFLARE_SITE_KEY}
+                ></div>
                 <Button
                   type="submit"
                   disabled={loading}

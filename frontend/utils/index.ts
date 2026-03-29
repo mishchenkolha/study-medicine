@@ -10,20 +10,6 @@ declare global {
   }
 }
 
-declare global {
-  interface Window {
-    turnstile: {
-      render: (
-        container: HTMLElement,
-        options: {
-          sitekey: string;
-          callback: (token: string) => void;
-        },
-      ) => void;
-    };
-  }
-}
-
 export const trimChar = function (str: string, char?: string): string {
   if (!char) {
     return str.trim(); // стандартна поведінка — пробіли

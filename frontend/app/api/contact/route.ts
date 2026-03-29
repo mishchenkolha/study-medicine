@@ -45,10 +45,12 @@ export async function POST(req: Request) {
       from: RESEND_FROM_EMAIL,
       to: CONTACT_EMAIL,
       subject: `Site message from ${email}`,
-      text: [
-        email,
-        Object.entries(rest).map(([key, value]) => `${key}: ${value}`),
-      ].join('\n\r'),
+      html: [
+        `<strong>Email:</strong> ${email}`,
+        ...Object.entries(rest).map(
+          ([key, value]) => `<strong>${key}:</strong> ${value}`,
+        ),
+      ].join('<br />'),
       reply_to: email,
     }),
   });

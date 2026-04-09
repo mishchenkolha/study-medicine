@@ -9,7 +9,7 @@ const generateNode = (
   priority = 0.5,
   changeFrequency = 'monthly' as TChangeFrequesncy,
 ) => ({
-  url: `${DOMAIN_URL}${url}`,
+  url: `${DOMAIN_URL}/${url}`,
   lastModified: new Date(),
   changeFrequency,
   priority,

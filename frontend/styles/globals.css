@@ -69,6 +69,79 @@
     @apply !border-red-500 !ring-2 !ring-red-500/10 !outline-red-500;
   }
 
+  .text-format {
+    p {
+      margin: 1.5rem auto;
+      @media (max-width: 1023px) {
+        margin: 16px auto;
+      }
+    }
+    p:first-child {
+      margin-top: 0;
+    }
+    p:last-child {
+      margin-bottom: 0;
+    }
+    ul,
+    ol {
+      margin-left: 16px;
+    }
+    ul li,
+    ol li {
+      & {
+        margin-bottom: 0.5rem;
+        margin-left: 0;
+      }
+      @media (max-width: 1023px) {
+        & {
+          margin-bottom: 0.25rem;
+        }
+      }
+    }
+    ol li {
+      display: list-item;
+    }
+    ol,
+    ol li {
+      list-style-type: decimal;
+      list-style: decimal;
+    }
+
+    ul li {
+      list-style: disc;
+    }
+    li ol li {
+      list-style: decimal;
+    }
+    li ul,
+    li ol {
+      margin-top: 0.5rem;
+      margin-left: 1rem;
+    }
+    a {
+      @apply whitespace-nowrap text-blue-800;
+    }
+    a:hover {
+      @apply text-blue-800/80;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      padding: 0;
+    }
+    div h1:first-child,
+    div h2:first-child,
+    div h3:first-child,
+    div h4:first-child,
+    div h5:first-child,
+    div h6:first-child {
+      padding-top: 0;
+    }
+  }
+
   /* --- Responsive typography and classes --- */
 
   /* h0 */

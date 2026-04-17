@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import rehypeRaw from 'rehype-raw';
 import ReactMarkdown from 'react-markdown';
+import { cn } from '@/utils';
 
 interface IProps {
   className?: string;
@@ -11,7 +12,7 @@ const REHYPE_PLUGINS = [rehypeRaw];
 export const HTMLBlock: FC<IProps> = ({ className = '', content }) => {
   if (className) {
     return (
-      <div className={className}>
+      <div className={cn('text-format', className)}>
         <ReactMarkdown rehypePlugins={REHYPE_PLUGINS}>{content}</ReactMarkdown>
       </div>
     );

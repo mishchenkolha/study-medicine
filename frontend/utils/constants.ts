@@ -14,13 +14,15 @@ export const DEFAULT_QUESTIONS = 20;
 export const SESSION_TIME = Number(
   process.env.NEXT_PUBLIC_USER_SESSION_TIME || 60 * 60,
 ); // 1h
-export const NO_CACHE = { cache: 'no-cache' };
+export const NO_CACHE: { cache: RequestCache } = { cache: 'no-cache' };
 export const IS_PROD = process.env.NODE_ENV === 'production';
 
 export const RESEND_API_KEY = process.env.RESEND_API_KEY ?? '';
 export const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL ?? '';
 export const CONTACT_EMAIL = process.env.CONTACT_EMAIL ?? '';
 export const SECRET_KEY = process.env.FORM_SECRET || '';
+
+export const INTERNAL_API_KEY = process.env.INTERNAL_API_KEY || '';
 
 export const CLOUDFLARE_SITE_KEY =
   process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY || '';

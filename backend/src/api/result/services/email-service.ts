@@ -1,6 +1,10 @@
 async function getFileBufferFromUrl(fileUrl) {
   try {
-    const response = await fetch(fileUrl);
+    const response = await fetch(fileUrl, {
+      headers: {
+        'x-internal-secret': process.env.INTERNAL_API_KEY as string,
+      },
+    });
     if (!response.ok) {
       throw new Error(`Failed to fetch file: ${response.statusText}`);
     }

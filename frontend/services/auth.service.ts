@@ -50,3 +50,13 @@ export const getUser = async (): Promise<IUser | null> => {
 
   return JSON.parse(user);
 };
+
+export const isAuth = async (): Promise<any> => {
+  try {
+    const responce = await strapiAuthService().me();
+    return responce?.confirmed && !responce?.blocked;
+  } catch (e) {
+    console.error(e);
+    return 0;
+  }
+};

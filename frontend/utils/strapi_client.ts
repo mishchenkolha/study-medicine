@@ -97,7 +97,7 @@ async function fetchFromStrapi<TResponse, TBody = unknown>(
         method,
         headers: finalHeaders,
         cache: !isRedisConnected ? cache : 'no-store',
-        next: !isRedisConnected ? { tags } : undefined, // fallback Next.js tag cache, якщо getCached не спрацював
+        next: !isRedisConnected && cache !== 'no-cache' ? { tags } : undefined, // fallback Next.js tag cache, якщо getCached не спрацював
       });
 
       const data: any = await res.json();

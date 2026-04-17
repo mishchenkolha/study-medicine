@@ -1,4 +1,5 @@
 export default [
+  'global::block-private-folder',
   'strapi::logger',
   'strapi::errors',
   'strapi::security',

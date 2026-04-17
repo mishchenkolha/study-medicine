@@ -9,7 +9,21 @@ export default {
         where: { user: userId },
         populate: {
           courses: {
-            populate: ['image', 'bg_image', 'page.image', 'quiz', 'courses'],
+            populate: {
+              image: true, // Поле самого курсу
+              bg_image: true, // Поле самого курсу
+              page: {
+                populate: {
+                  image: true, // Поле всередині сторінки
+                },
+              },
+              quiz: true, // Зв'язок курсу з квізом
+              attachments: {
+                populate: {
+                  files: true,
+                },
+              },
+            },
           },
         },
       });

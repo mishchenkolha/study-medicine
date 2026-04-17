@@ -53,6 +53,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::quiz.quiz"
+    },
+    "attachments": {
+      "type": "component",
+      "component": "llist.files",
+      "repeatable": false
     }
   }
 }

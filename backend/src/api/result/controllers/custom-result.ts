@@ -1,5 +1,3 @@
-import certificate from '../../certificate/controllers/certificate';
-
 const resultsContentApiName = 'api::result.result';
 export default {
   async submit(ctx) {

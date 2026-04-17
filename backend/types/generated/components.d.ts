@@ -218,6 +218,17 @@ export interface LlistFaqs extends Struct.ComponentSchema {
   };
 }
 
+export interface LlistFiles extends Struct.ComponentSchema {
+  collectionName: 'components_llist_files';
+  info: {
+    displayName: 'files';
+  };
+  attributes: {
+    files: Schema.Attribute.Media<'files', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface LlistSelect extends Struct.ComponentSchema {
   collectionName: 'components_llist_selects';
   info: {
@@ -300,6 +311,7 @@ declare module '@strapi/strapi' {
       'form.option': FormOption;
       'llist.cards': LlistCards;
       'llist.faqs': LlistFaqs;
+      'llist.files': LlistFiles;
       'llist.select': LlistSelect;
       'shared.open-graph': SharedOpenGraph;
       'shared.seo': SharedSeo;

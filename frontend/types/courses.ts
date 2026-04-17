@@ -22,6 +22,10 @@ export interface IPrivateCourse extends IBaseCourse {
   page: IPublicPage;
   duration_hours: number;
   quiz: IQuiz;
+  attachments: {
+    title: string;
+    files: IImage[] | null;
+  };
 }
 
 export interface ICategoryIds {

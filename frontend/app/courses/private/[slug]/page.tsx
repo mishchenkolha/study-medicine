@@ -1,3 +1,4 @@
+import Attachments from '@/components/attachments';
 import { getUser } from '@/services/auth.service';
 import {
   checkPassedQuiz,
@@ -44,32 +45,44 @@ export default async function PrivateCousePage({ params }: IPageProps) {
       redirect(`${ROUTES.COURSES}/private/${slug}/result`);
     }
   }
+  const attachments = currentCourse?.attachments?.files?.map((file) => ({
+    name: file.name,
+    url: file.url,
+  }));
+
   return (
-    <>
-      <h1 className="header1 pb-4 md:pb-5 xl:pb-6 animate-fade-in-up">
-        {currentCourse.title}
-      </h1>
+    <div className="pb-10">
+      <div className="flex w-full justify-between">
+        <h1 className="header1 animate-fade-in-up pb-4 md:pb-5 xl:pb-6">
+          {currentCourse.title}
+        </h1>
+        <div className="w-auto pt-2 pb-4">
+          {isPassedQuiz ? (
+            <Button
+              href={`${ROUTES.COURSES}/private/${slug}/result`}
+              variant={VARIANTS.SUCCESS}
+            >
+              {dictionary.check_result}
+            </Button>
+          ) : (
+            <Button
+              href={`${ROUTES.COURSES}/private/${slug}/quiz`}
+              variant={VARIANTS.DANGER}
+            >
+              {dictionary.start_quiz}
+            </Button>
+          )}
+        </div>
+      </div>
       <HTMLBlock
         content={currentCourse.description ?? ''}
         className="py-2 md:py-3 xl:py-4"
       />
-      <div className="w-auto pt-2 pb-4">
-        {isPassedQuiz ? (
-          <Button
-            href={`${ROUTES.COURSES}/private/${slug}/result`}
-            variant={VARIANTS.SUCCESS}
-          >
-            {dictionary.check_result}
-          </Button>
-        ) : (
-          <Button
-            href={`${ROUTES.COURSES}/private/${slug}/quiz`}
-            variant={VARIANTS.DANGER}
-          >
-            {dictionary.start_quiz}
-          </Button>
-        )}
-      </div>
-    </>
+      <Attachments
+        title={currentCourse?.attachments.title}
+        files={attachments}
+        className="pt-6"
+      />
+    </div>
   );
 }

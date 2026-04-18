@@ -15,16 +15,12 @@ export default async function Navbar({
 }) {
   return (
     <header className="fixed top-0 right-0 left-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur">
-      <div className="container mx-auto flex items-center justify-between py-3">
-        <Link
-          href="/"
-          title="logo"
-          className="absolute top-0 left-0 z-60 h-13 w-13 xl:h-[70px] xl:w-[70px]"
-        >
+      <div className="relative container mx-auto flex items-center justify-between">
+        <Link href="/" title="logo" className="relative h-18 w-18">
           <Image
             src={`${DOMAIN_URL}/images/logoMEE-removebg-preview.png`}
             fill
-            style={{ objectFit: 'contain', transform: 'scale(1.3)' }}
+            style={{ objectFit: 'contain' }}
             alt={'Logo'}
             priority
           />

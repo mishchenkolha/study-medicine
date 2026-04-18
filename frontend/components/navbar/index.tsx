@@ -5,6 +5,8 @@ import Image from '@/ui/image';
 import { ILabelObj } from '@/types/dictionary';
 import { DOMAIN_URL } from '@/utils/constants';
 import AuthButtons from '../auth-buttons';
+import { Icon } from '@/ui/icons';
+import { IconType } from '@/ui/icons/IconType';
 
 export default async function Navbar({
   menu,
@@ -32,7 +34,7 @@ export default async function Navbar({
             <div key={item.title} className="group relative">
               <Link
                 href={item.href}
-                className="hover:text-brand flex h-8 items-center whitespace-nowrap"
+                className="hover:text-brand flex h-18 items-center whitespace-nowrap transition-colors"
                 title={item.alt}
               >
                 {item.title}
@@ -69,6 +71,28 @@ export default async function Navbar({
             </div>
           ))}
         </nav>
+
+        {/* Contact Block - NEW */}
+        <div className="hidden items-center space-x-4 px-4 text-sm font-medium text-gray-600 xl:ml-4 xl:flex xl:border-l xl:border-gray-200">
+          <a
+            href={`tel:${dictionary?.phone_number?.replace?.(/[^\d+]/g, '')}`}
+            className="hover:text-brand flex items-center gap-2 transition-colors"
+          >
+            <Icon type={IconType.Phone} className="h-4 w-4 text-gray-400" />
+            <span className="whitespace-nowrap">
+              {dictionary?.phone_number}
+            </span>
+          </a>
+          <a
+            href={`mailto:${dictionary.email_address}`}
+            className="hover:text-brand flex items-center gap-2 transition-colors"
+          >
+            <Icon type={IconType.Email} className="h-4 w-4 text-gray-400" />
+            <span className="whitespace-nowrap">
+              {dictionary.email_address}
+            </span>
+          </a>
+        </div>
 
         <AuthButtons dictionary={dictionary} />
 

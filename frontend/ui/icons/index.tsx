@@ -1,5 +1,6 @@
 'use client';
-import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
+import { useMemo } from 'react';
 export type TIcon = {
   id?: string;
   className?: string;
@@ -12,6 +13,8 @@ interface IIconProps extends TIcon {
   type: string;
 }
 
+const iconCache: Record<string, any> = {};
+
 export const Icon = ({
   type,
   id,
@@ -20,30 +23,22 @@ export const Icon = ({
   width,
   height,
 }: IIconProps) => {
-  const [DynamicComponent, setDynamicComponent] = useState<React.ComponentType<
-    React.SVGProps<SVGSVGElement>
-  > | null>(null);
+  const DynamicIcon = useMemo(() => {
+    if (!type) return null;
 
-  useEffect(() => {
-    let isMounted = true;
-    if (type) {
-      import(`@/ui/icons/icons/${type}`)
-        .then((mod) => {
-          if (isMounted) setDynamicComponent(() => mod.default);
-        })
-        .catch(() => {
-          if (isMounted) setDynamicComponent(null);
-          console.error('Icon not found', type);
-        });
+    if (!iconCache[type]) {
+      iconCache[type] = dynamic(() => import(`@/ui/icons/icons/${type}`), {
+        ssr: true, // Дозволяє серверний рендеринг, щоб текст і іконка з'являлися разом
+        loading: () => <span style={{ width, height }} className={className} />, // Заглушка, щоб не "стрибав" макет
+      });
     }
-    return () => {
-      isMounted = false;
-    };
-  }, [type]);
+    return iconCache[type];
+  }, [type, width, height, className]);
 
-  if (!type || !DynamicComponent) return null;
+  if (!DynamicIcon) return null;
+
   return (
-    <DynamicComponent
+    <DynamicIcon
       id={id}
       className={className}
       style={style}

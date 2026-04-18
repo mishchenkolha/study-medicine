@@ -5,7 +5,8 @@ import { Button, VARIANTS } from '@/ui/button';
 import { ROUTES } from '@/utils/routes';
 
 export default function AuthButtons({ dictionary }: { dictionary: ILabelObj }) {
-  const { user: userData, isLoading }: { user: any; isLoading: boolean } = useUser();
+  const { user: userData, isLoading }: { user: any; isLoading: boolean } =
+    useUser();
   const user = userData?.user || {};
   const { logout } = useLogout();
   const onLogout = () => {
@@ -13,18 +14,21 @@ export default function AuthButtons({ dictionary }: { dictionary: ILabelObj }) {
     setTimeout(() => window.open('/', '_self'), 500);
   };
   if (isLoading) {
-    return <div className="w-40 h-10" />;
+    return <div className="h-10 w-40" />;
   }
 
   return (
     <>
       {!user?.username ? (
         <div className="flex gap-2">
-          <Button className="!hidden xl:!inline-flex" href={ROUTES.LOGIN}>
+          <Button
+            className="!hidden whitespace-nowrap xl:!inline-flex"
+            href={ROUTES.LOGIN}
+          >
             {dictionary.login}
           </Button>
           <Button
-            className="!hidden xl:!inline-flex"
+            className="!hidden whitespace-nowrap xl:!inline-flex"
             href={ROUTES.REGISTER}
             variant={VARIANTS.SECONDARY}
           >
@@ -33,15 +37,18 @@ export default function AuthButtons({ dictionary }: { dictionary: ILabelObj }) {
         </div>
       ) : (
         <div className="flex gap-2">
-          <Button className="!hidden xl:!inline-flex" onClick={onLogout}>
+          <Button
+            className="!hidden whitespace-nowrap xl:!inline-flex"
+            onClick={onLogout}
+          >
             {dictionary.logout}
           </Button>
           <Button
-            className="!hidden xl:!inline-flex"
+            className="!hidden truncate whitespace-nowrap xl:!inline-flex"
             href={ROUTES.PROFILE}
             variant={VARIANTS.SECONDARY}
           >
-            {dictionary.greeting} {user?.username}
+            {dictionary.profile}
           </Button>
         </div>
       )}

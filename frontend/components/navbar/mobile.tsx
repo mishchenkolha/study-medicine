@@ -5,6 +5,8 @@ import { IMenu } from '@/types/navbar';
 import Link from '@/ui/link';
 import { ILabelObj } from '@/types/dictionary';
 import AuthButtons from '../auth-buttons';
+import { Icon } from '@/ui/icons';
+import { IconType } from '@/ui/icons/IconType';
 
 export default function MobileMenu({
   menu,
@@ -14,17 +16,18 @@ export default function MobileMenu({
   dictionary: ILabelObj;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
-
     return () => {
       document.body.style.overflow = '';
     };
   }, [isOpen]);
+
   const onClose = useCallback(() => setIsOpen(false), []);
   const onOpen = useCallback(() => setIsOpen(true), []);
 
@@ -32,37 +35,41 @@ export default function MobileMenu({
     <>
       {/* Burger button */}
       <button
-        className="xl:hidden flex flex-col justify-between w-6 h-5 focus:outline-none"
+        className="flex h-5 w-6 flex-col justify-between focus:outline-none xl:hidden"
         onClick={onOpen}
         aria-label="Open menu"
       >
-        <span className="block h-0.5 bg-gray-800 rounded"></span>
-        <span className="block h-0.5 bg-gray-800 rounded"></span>
-        <span className="block h-0.5 bg-gray-800 rounded"></span>
+        <span className="block h-0.5 rounded bg-gray-800"></span>
+        <span className="block h-0.5 rounded bg-gray-800"></span>
+        <span className="block h-0.5 rounded bg-gray-800"></span>
       </button>
 
       {/* Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black/50 z-40" onClick={onClose} />
+        <div className="fixed inset-0 z-40 bg-black/50" onClick={onClose} />
       )}
 
       {/* Slide-in menu */}
       <div
-        className={`fixed top-0 right-0 w-full h-14 bg-white z-50 shadow-lg transform transition-transform duration-300 ${
+        className={`fixed top-0 right-0 z-50 flex h-screen w-full transform flex-col bg-white shadow-lg transition-transform duration-300 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        {/* Close button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 w-6 h-6 focus:outline-none"
-          aria-label="Close menu"
-        >
-          <span className="absolute w-6 h-0.5 bg-gray-800 rotate-45 top-1/2 left-0 translate-y-[-50%]" />
-          <span className="absolute w-6 h-0.5 bg-gray-800 -rotate-45 top-1/2 left-0 translate-y-[-50%]" />
-        </button>
+        {/* Header - фіксована частина, що не скролиться */}
+        <div className="flex h-14 shrink-0 items-center justify-between border-b border-gray-100 px-4">
+          <span className="font-bold text-gray-800">{dictionary.menu}</span>
+          <button
+            onClick={onClose}
+            className="relative h-6 w-6 focus:outline-none"
+            aria-label="Close menu"
+          >
+            <span className="absolute top-1/2 left-0 h-0.5 w-6 translate-y-[-50%] rotate-45 bg-gray-800" />
+            <span className="absolute top-1/2 left-0 h-0.5 w-6 translate-y-[-50%] -rotate-45 bg-gray-800" />
+          </button>
+        </div>
 
-        <nav className="max-h-[calc(100vh-46px)] overflow-y-auto bg-white rounded-br-md rounded-bl-md p-2 shadow mt-12 flex flex-col space-y-4 text-gray-700 font-medium">
+        {/* Scrollable Area - скролиться тільки цей блок */}
+        <nav className="flex flex-1 flex-col space-y-4 overflow-y-auto bg-white p-4 font-medium text-gray-700">
           {menu.map((item) => (
             <div key={item.title} className="flex flex-col space-y-2">
               <Link href={item.href} onClick={onClose} title={item.alt}>
@@ -102,7 +109,23 @@ export default function MobileMenu({
               )}
             </div>
           ))}
-          <AuthButtons dictionary={dictionary} />
+          {/* Contact Block */}
+          <div className="mt-auto flex flex-col space-y-4 border-t border-gray-100 pt-6 pb-6 text-sm">
+            <a
+              href={`tel:${dictionary?.phone_number?.replace?.(/[^\d+]/g, '')}`}
+              className="hover:text-brand flex items-center gap-3 transition-colors"
+            >
+              <Icon type={IconType.Phone} className="h-5 w-5 text-gray-400" />
+              <span>{dictionary?.phone_number}</span>
+            </a>
+            <a
+              href={`mailto:${dictionary.email_address}`}
+              className="hover:text-brand flex items-center gap-3 transition-colors"
+            >
+              <Icon type={IconType.Email} className="h-5 w-5 text-gray-400" />
+              <span className="break-all">{dictionary.email_address}</span>
+            </a>
+          </div>
         </nav>
       </div>
     </>

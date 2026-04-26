@@ -18,17 +18,17 @@ export default function AuthButtons({ dictionary }: { dictionary: ILabelObj }) {
   }
 
   return (
-    <>
+    <div className="flex flex-col gap-2 xl:flex-row xl:items-center">
       {!user?.username ? (
         <div className="flex gap-2">
           <Button
-            className="!hidden whitespace-nowrap xl:!inline-flex"
+            className="whitespace-nowrap xl:!inline-flex"
             href={ROUTES.LOGIN}
           >
             {dictionary.login}
           </Button>
           <Button
-            className="!hidden whitespace-nowrap xl:!inline-flex"
+            className="whitespace-nowrap xl:!inline-flex"
             href={ROUTES.REGISTER}
             variant={VARIANTS.SECONDARY}
           >
@@ -38,13 +38,13 @@ export default function AuthButtons({ dictionary }: { dictionary: ILabelObj }) {
       ) : (
         <div className="flex gap-2">
           <Button
-            className="!hidden whitespace-nowrap xl:!inline-flex"
+            className="whitespace-nowrap xl:!inline-flex"
             onClick={onLogout}
           >
             {dictionary.logout}
           </Button>
           <Button
-            className="!hidden truncate whitespace-nowrap xl:!inline-flex"
+            className="truncate whitespace-nowrap xl:!inline-flex"
             href={ROUTES.PROFILE}
             variant={VARIANTS.SECONDARY}
           >
@@ -52,6 +52,6 @@ export default function AuthButtons({ dictionary }: { dictionary: ILabelObj }) {
           </Button>
         </div>
       )}
-    </>
+    </div>
   );
 }

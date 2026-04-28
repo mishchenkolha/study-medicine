@@ -94,7 +94,7 @@ export default async function PrivateCousePage({ params }: IPageProps) {
 
   return (
     <>
-      <h1 className="header1 pb-4 md:pb-5 xl:pb-6 animate-fade-in-up">
+      <h1 className="header1 animate-fade-in-up pb-4 md:pb-5 xl:pb-6">
         {currentCourse?.title ?? ''}
       </h1>
       <HTMLBlock content={infoText ?? ''} className="py-2 md:py-3 xl:py-4" />

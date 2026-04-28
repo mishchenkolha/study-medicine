@@ -3,6 +3,7 @@ import { strapiService } from '@/utils/strapi_client';
 import { ROUTES } from '@/utils/routes';
 import { stringify } from 'qs';
 import { getImageURL } from '@/utils';
+import { INTERNAL_API_KEY } from '@/utils/constants';
 
 // export const runtime = 'nodejs';
 
@@ -67,7 +68,11 @@ export async function GET(
   // 2) Завантажуємо PDF із Strapi
   const absoluteUrl = getImageURL(fileUrl);
 
-  const fileRes = await fetch(absoluteUrl);
+  const fileRes = await fetch(absoluteUrl, {
+    headers: {
+      'x-internal-secret': INTERNAL_API_KEY as string,
+    },
+  });
   if (!fileRes.ok || !fileRes.body) {
     return NextResponse.json({ error: 'Cannot fetch file' }, { status: 500 });
   }

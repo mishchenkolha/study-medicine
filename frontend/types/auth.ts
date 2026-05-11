@@ -8,6 +8,7 @@ export type RegisterBody = {
   username: string;
   email: string;
   password: string;
+  phone: string;
 };
 
 export type LoginBody = {

@@ -1,16 +1,25 @@
 import { NextResponse } from 'next/server';
 import { register } from '@/services/auth.service';
+import { capitalizeFirstLetter } from '@/utils';
 
 type Body = {
-  username: string;
+  firstname: string;
+  lastname: string;
   password: string;
   email: string;
+  phone: string;
 };
 
 export async function POST(req: Request) {
-  const { username, email, password } = (await req.json()) as Partial<Body>;
+  const {
+    firstname = '',
+    lastname = '',
+    email,
+    password,
+    phone,
+  } = (await req.json()) as Partial<Body>;
 
-  if (!username || !password || !email) {
+  if (!firstname || !lastname || !email || !password || !phone) {
     return NextResponse.json(
       { message: 'Missing required fields' },
       { status: 400 },
@@ -19,9 +28,10 @@ export async function POST(req: Request) {
 
   return NextResponse.json(
     await register({
-      username,
+      username: `${capitalizeFirstLetter(firstname.trim().toLowerCase())} ${capitalizeFirstLetter(lastname.trim().toLowerCase())}`,
       email,
       password,
+      phone,
     }),
   );
 }

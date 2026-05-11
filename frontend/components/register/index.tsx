@@ -30,8 +30,10 @@ export default function RegisterForm({
 }) {
   const router = useRouter();
   const [form, setForm] = useState({
-    username: '',
+    firstname: '',
+    lastname: '',
     email: '',
+    phone: '',
     password: '',
     password2: '',
   });
@@ -40,6 +42,12 @@ export default function RegisterForm({
   const validations = validatePassword(form.password, form.password2);
   const allValid = Object.values(validations).every(Boolean);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.name === 'phone') {
+      const value = e.target.value.replace(/\D/g, '');
+      if (value.length > 15) return;
+      setForm((prev) => ({ ...prev, [e.target.name]: value }));
+      return;
+    }
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -50,7 +58,14 @@ export default function RegisterForm({
     try {
       await fetcher('/api/register', 'POST', form);
       success(dictionary.register_success);
-      setForm({ username: '', email: '', password: '', password2: '' });
+      setForm({
+        firstname: '',
+        lastname: '',
+        email: '',
+        phone: '',
+        password: '',
+        password2: '',
+      });
       setTimeout(() => {
         router.push(ROUTES.LOGIN);
       }, AUTO_CLOSE_TOAST);
@@ -71,10 +86,24 @@ export default function RegisterForm({
   ] as const;
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-sm mx-auto space-y-4 p-4">
+    <form onSubmit={handleSubmit} className="mx-auto max-w-sm space-y-4 p-4">
       <Input
-        name="username"
-        placeholder={dictionary.username}
+        name="firstname"
+        placeholder={dictionary.firstname}
+        onChange={handleChange}
+        required
+      />
+      <Input
+        name="lastname"
+        placeholder={dictionary.lastname}
+        onChange={handleChange}
+        required
+      />
+      <Input
+        name="phone"
+        value={form.phone}
+        type="tel"
+        placeholder={dictionary.phone}
         onChange={handleChange}
         required
       />
@@ -99,13 +128,13 @@ export default function RegisterForm({
         onChange={handleChange}
         required
       />
-      <ul className="space-y-0.5 text-xs list-none pl-0.5">
+      <ul className="list-none space-y-0.5 pl-0.5 text-xs">
         {rules.map((rule) => {
           const ok = validations[rule.key];
           return (
             <li
               key={rule.key}
-              className={`flex items-center gap-2 before:content-[''] before:inline-block before:w-3 before:h-3 before:rounded-full ${
+              className={`flex items-center gap-2 before:inline-block before:h-3 before:w-3 before:rounded-full before:content-[''] ${
                 ok
                   ? 'text-green-600 before:bg-green-600'
                   : 'text-gray-400 before:border before:border-gray-400'
@@ -120,7 +149,9 @@ export default function RegisterForm({
         type="submit"
         disabled={
           loading ||
-          !form.username ||
+          !form.firstname ||
+          !form.lastname ||
+          !form.phone ||
           !form.email ||
           !form.password ||
           !isValidEmail(form.email) ||

@@ -28,7 +28,7 @@ export default {
     try {
       // Виклик логіки з сервісу
       const updatedUser = await strapi
-        .service('api::user-extra.user-extra')
+        .service('api::user-check.user-check')
         .updatePhone(id, phone);
 
       if (!updatedUser) {

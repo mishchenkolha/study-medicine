@@ -56,19 +56,23 @@ export default function RegisterForm({
     setLoading(true);
 
     try {
-      await fetcher('/api/register', 'POST', form);
-      success(dictionary.register_success);
-      setForm({
-        firstname: '',
-        lastname: '',
-        email: '',
-        phone: '',
-        password: '',
-        password2: '',
-      });
-      setTimeout(() => {
-        router.push(ROUTES.LOGIN);
-      }, AUTO_CLOSE_TOAST);
+      const result = await fetcher('/api/register', 'POST', form);
+      if (!result?.error) {
+        success(dictionary.register_success);
+        setForm({
+          firstname: '',
+          lastname: '',
+          email: '',
+          phone: '',
+          password: '',
+          password2: '',
+        });
+        setTimeout(() => {
+          router.push(ROUTES.LOGIN);
+        }, AUTO_CLOSE_TOAST);
+      } else {
+        error(result.error || dictionary.register_failed);
+      }
     } catch (e: unknown) {
       error((e as Error).message ?? dictionary.server_error);
     } finally {

@@ -3,7 +3,7 @@ export default () => ({
     const user = await strapi.db
       .query('plugin::users-permissions.user')
       .findOne({
-        where: { username: { $iLike: username } }, // $iLike for case-insensitive check
+        where: { username: { $eqi: username.trim() } }, // $eqi for case-insensitive check
       });
 
     return !user; // Returns true if no user was found

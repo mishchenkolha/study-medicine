@@ -2,7 +2,7 @@ export default {
   routes: [
     {
       method: 'GET',
-      path: '/user-check/is-unique',
+      path: '/user-check',
       handler: 'user-check.checkUsername',
       config: {
         auth: false, // Set to false so guests can check availability during registration
@@ -10,7 +10,7 @@ export default {
     },
     {
       method: 'POST',
-      path: '/user/update-phone',
+      path: '/user-check',
       handler: 'user-check.updatePhone',
       config: {
         auth: false, // Ми захистимо його внутрішнім токеном або перевіркою, якщо треба

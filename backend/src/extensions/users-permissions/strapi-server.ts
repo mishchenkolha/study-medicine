@@ -1,30 +1,14 @@
 export default (plugin) => {
-  // --- 1. Handle Saving the Phone Field ---
-  const originalRegister = plugin.controllers.auth.register;
-
-  plugin.controllers.auth.register = async (ctx) => {
-    // We don't need to manually inject 'phone' here because Strapi 5's
-    // default register controller actually uses ctx.request.body.
-    // HOWEVER, it only saves fields that exist in the User Content-Type.
-    // AS LONG AS you added 'phone' in the Admin Panel, the originalRegister will save it.
-
-    return await originalRegister(ctx);
-  };
-
-  // --- 2. Handle Post-Confirmation Emails ---
   const originalEmailConfirmation = plugin.controllers.auth.emailConfirmation;
 
   plugin.controllers.auth.emailConfirmation = async (ctx) => {
-    // Store the token from the query before the original controller consumes it
     const { confirmation: confirmationToken } = ctx.query;
 
-    // Run the original confirmation logic (this updates the user to confirmed: true)
-    await originalEmailConfirmation(ctx);
-
-    // Find the user associated with that token to get their email/username
     const user = await strapi.query('plugin::users-permissions.user').findOne({
       where: { confirmationToken },
     });
+
+    await originalEmailConfirmation(ctx);
 
     if (user) {
       const adminEmail = strapi.config.get('server.customSettings.adminEmail');

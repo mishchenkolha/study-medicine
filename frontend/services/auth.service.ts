@@ -6,6 +6,7 @@ import {
   LoginBody,
   RegisterBody,
   ResetPasswordBody,
+  UpdatePhoneBody,
 } from '@/types/auth';
 import { strapiAuthService } from '@/utils/strapi_auth_client';
 import { strapiService } from '@/utils/strapi_client';
@@ -13,6 +14,12 @@ import { cookies } from 'next/headers';
 
 export const register = async (data: RegisterBody) =>
   strapiService.post<AuthResponse, RegisterBody>('/auth/local/register', data);
+
+export const isUniqueUser = async (username: string) =>
+  strapiService.get<{ unique: boolean }>(`/user-check?username=${username}`);
+
+export const updatePhone = async (data: UpdatePhoneBody) =>
+  strapiService.post<unknown, UpdatePhoneBody>('/user-check', data);
 
 export const login = async (data: LoginBody) =>
   strapiService.post<AuthResponse, LoginBody>('/auth/local', data);

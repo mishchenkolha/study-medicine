@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { register } from '@/services/auth.service';
+import { isUniqueUser, register, updatePhone } from '@/services/auth.service';
 import { capitalizeFirstLetter } from '@/utils';
 
 type Body = {
@@ -26,12 +26,39 @@ export async function POST(req: Request) {
     );
   }
 
-  return NextResponse.json(
-    await register({
-      username: `${capitalizeFirstLetter(firstname.trim().toLowerCase())} ${capitalizeFirstLetter(lastname.trim().toLowerCase())}`,
+  try {
+    const username = `${capitalizeFirstLetter(firstname.trim().toLowerCase())} ${capitalizeFirstLetter(lastname.trim().toLowerCase())}`;
+    const isUnique = await isUniqueUser(username);
+    if (!isUnique) {
+      return NextResponse.json(
+        { message: 'Username is already taken' },
+        { status: 400 },
+      );
+    }
+    // 2. Реєстрація (відправляємо тільки стандартні поля)
+    const authData = await register({
+      username,
       email,
       password,
-      phone,
-    }),
-  );
+    });
+    const userId = authData?.user?.id;
+
+    if (userId && phone) {
+      // 3. Оновлюємо телефон окремим запитом
+      // Використовуємо внутрішній сервіс або окремий ендпоінт
+      const registerResponse = await updatePhone({ id: userId, phone });
+
+      return NextResponse.json(registerResponse);
+    }
+
+    return NextResponse.json(
+      { message: 'Missed UserId or phone' },
+      { status: 400 },
+    );
+  } catch (e: any) {
+    return NextResponse.json(
+      { message: e.message || 'Registration failed' },
+      { status: 500 },
+    );
+  }
 }

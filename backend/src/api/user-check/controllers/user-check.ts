@@ -17,4 +17,31 @@ export default {
       unique: isUnique,
     };
   },
+  async updatePhone(ctx) {
+    const { id, phone } = ctx.request.body;
+
+    // Валідація вхідних даних
+    if (!id || !phone) {
+      return ctx.badRequest('ID and phone are required');
+    }
+
+    try {
+      // Виклик логіки з сервісу
+      const updatedUser = await strapi
+        .service('api::user-extra.user-extra')
+        .updatePhone(id, phone);
+
+      if (!updatedUser) {
+        return ctx.notFound('User not found');
+      }
+
+      return {
+        ok: true,
+        phone: updatedUser.phone,
+      };
+    } catch (err) {
+      strapi.log.error('Помилка при оновленні телефону:', err);
+      return ctx.internalServerError('Database error');
+    }
+  },
 };

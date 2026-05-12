@@ -134,7 +134,7 @@ async function fetchFromStrapi<TResponse, TBody = unknown>(
   }
 
   // --- для POST/PUT/DELETE або GET без TTL ---
-  console.log({ url });
+  // console.log({ url });
   const res = await fetch(url, {
     method,
     headers: finalHeaders,

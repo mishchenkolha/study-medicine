@@ -135,16 +135,16 @@ export default function RegisterForm({
         onChange={handleChange}
         required
       />
-      <p>
+      <div className="text-sm font-bold text-gray-600">
         {dictionary.disclaimer}{' '}
         <Link
           href={`/${ROUTES.DISCLAIMER}`}
           target="_blank"
           className="text-blue-500 hover:underline"
         >
-          {dictionary.terms}
+          {ROUTES.DISCLAIMER}
         </Link>
-      </p>
+      </div>
       <ul className="list-none space-y-0.5 pl-0.5 text-xs">
         {rules.map((rule) => {
           const ok = validations[rule.key];

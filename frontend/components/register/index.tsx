@@ -8,6 +8,7 @@ import { AUTO_CLOSE_TOAST, error, success } from '@/utils/toast';
 import { fetcher, isValidEmail } from '@/utils';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/utils/routes';
+import Link from '@/ui/link/link';
 
 function validatePassword(password: string, password2: string) {
   return {
@@ -58,7 +59,7 @@ export default function RegisterForm({
     try {
       const result = await fetcher('/api/register', 'POST', form);
       if (!result?.error) {
-        success(dictionary.register_success);
+        success(dictionary.register_success, { autoClose: false });
         setForm({
           firstname: '',
           lastname: '',
@@ -71,10 +72,12 @@ export default function RegisterForm({
           router.push(ROUTES.LOGIN);
         }, AUTO_CLOSE_TOAST);
       } else {
-        error(result.error || dictionary.register_failed);
+        error(result.error || dictionary.register_failed, { autoClose: false });
       }
     } catch (e: unknown) {
-      error((e as Error).message ?? dictionary.server_error);
+      error((e as Error).message ?? dictionary.server_error, {
+        autoClose: false,
+      });
     } finally {
       setLoading(false);
     }
@@ -132,6 +135,16 @@ export default function RegisterForm({
         onChange={handleChange}
         required
       />
+      <p>
+        {dictionary.disclaimer}{' '}
+        <Link
+          href={`/${ROUTES.DISCLAIMER}`}
+          target="_blank"
+          className="text-blue-500 hover:underline"
+        >
+          {dictionary.terms}
+        </Link>
+      </p>
       <ul className="list-none space-y-0.5 pl-0.5 text-xs">
         {rules.map((rule) => {
           const ok = validations[rule.key];

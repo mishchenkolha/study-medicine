@@ -40,7 +40,7 @@ export default {
                 to: result.email,
                 from: fromEmail,
                 subject: 'Welcome! Your email is confirmed',
-                text: `Hi ${result.username}, thanks for joining us! We will contact to you soon to provide detailed information about joining the course.`,
+                text: `Hello ${result.username}! Thank you for registering with us. We will contact you within 24 hours for further instructions.`,
               }),
               // Email 2: To the Admin
               strapi.plugins['email'].services.email.send({

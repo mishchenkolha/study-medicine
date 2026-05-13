@@ -11,11 +11,14 @@ const baseSettings: ToastOptions = {
   progress: undefined,
   theme: 'colored',
 };
-export const success = (msg: string) => toast.success(msg, baseSettings);
+export const success = (msg: string, settings?: Partial<typeof baseSettings>) =>
+  toast.success(msg, { ...baseSettings, ...settings });
 
-export const error = (msg: string) => toast.error(msg, baseSettings);
+export const error = (msg: string, settings?: Partial<typeof baseSettings>) =>
+  toast.error(msg, { ...baseSettings, ...settings });
 
-export const info = (msg: string) => toast.info(msg, baseSettings);
+export const info = (msg: string, settings?: Partial<typeof baseSettings>) =>
+  toast.info(msg, { ...baseSettings, ...settings });
 
 export const custom = (
   component: React.ReactNode,

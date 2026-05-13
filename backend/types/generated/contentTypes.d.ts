@@ -693,6 +693,42 @@ export interface ApiDictionaryDictionary extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiDisclaimerDisclaimer extends Struct.SingleTypeSchema {
+  collectionName: 'disclaimers';
+  info: {
+    displayName: 'disclaimer';
+    pluralName: 'disclaimers';
+    singularName: 'disclaimer';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbarBalloon';
+        }
+      >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::disclaimer.disclaimer'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
   collectionName: 'homepages';
   info: {
@@ -1534,6 +1570,7 @@ declare module '@strapi/strapi' {
       'api::contact.contact': ApiContactContact;
       'api::course.course': ApiCourseCourse;
       'api::dictionary.dictionary': ApiDictionaryDictionary;
+      'api::disclaimer.disclaimer': ApiDisclaimerDisclaimer;
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::navbar.navbar': ApiNavbarNavbar;
       'api::page.page': ApiPagePage;

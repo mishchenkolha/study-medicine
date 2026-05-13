@@ -10,6 +10,7 @@ export const SINGLE_TYPES = {
   CONSULTING_AND_NETWORKING: 'consulting-and-networking',
   CONTACT: 'contact',
   DICTIONARY: 'dictionary',
+  DISCLAIMER: 'disclaimer',
   HOME: 'homepage',
   TESTIMONIAL: 'testimonial',
 };
@@ -40,6 +41,7 @@ export const ROUTES = {
   ALL_COURSES: `${SINGLE_TYPES.ALL_COURSES}`,
   HOME: `${SINGLE_TYPES.HOME}`,
   DICTIONARY: `${SINGLE_TYPES.DICTIONARY}`,
+  DISCLAIMER: `${SINGLE_TYPES.DISCLAIMER}`,
   // collection types
   COURSES: '/courses',
   QUESTIONS: '/questions',

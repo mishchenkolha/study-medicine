@@ -5,7 +5,7 @@ import { Input } from '@/ui/input';
 import { Button } from '@/ui/button';
 import { ILabelObj } from '@/types/dictionary';
 import { AUTO_CLOSE_TOAST, error, success } from '@/utils/toast';
-import { fetcher, isValidEmail } from '@/utils';
+import { capitalizeFirstLetter, fetcher, isValidEmail } from '@/utils';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/utils/routes';
 import Link from '@/ui/link/link';
@@ -142,7 +142,7 @@ export default function RegisterForm({
           target="_blank"
           className="text-blue-500 hover:underline"
         >
-          {ROUTES.DISCLAIMER}
+          {capitalizeFirstLetter(ROUTES.DISCLAIMER)}
         </Link>
       </div>
       <ul className="list-none space-y-0.5 pl-0.5 text-xs">

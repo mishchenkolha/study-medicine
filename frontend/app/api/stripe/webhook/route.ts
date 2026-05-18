@@ -1,10 +1,9 @@
+import { getStripe } from '@/utils/stripe';
 import Stripe from 'stripe';
 
 export const runtime = 'nodejs';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: (process.env.STRIPE_VERSION || '2026-04-22.dahlia') as any,
-});
+const stripe = getStripe();
 
 export async function POST(req: Request) {
   const body = await req.text();

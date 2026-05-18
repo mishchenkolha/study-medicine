@@ -9,6 +9,11 @@ declare global {
     trimChar(char?: string): string;
   }
 }
+declare global {
+  interface Window {
+    fbq: any;
+  }
+}
 
 export const trimChar = function (str: string, char?: string): string {
   if (!char) {

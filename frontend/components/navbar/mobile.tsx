@@ -7,6 +7,7 @@ import { ILabelObj } from '@/types/dictionary';
 import AuthButtons from '../auth-buttons';
 import { Icon } from '@/ui/icons';
 import { IconType } from '@/ui/icons/IconType';
+import ContactInfo from './contact-info';
 
 export default function MobileMenu({
   menu,
@@ -111,20 +112,7 @@ export default function MobileMenu({
           ))}
           {/* Contact Block */}
           <div className="mt-auto flex flex-col space-y-4 border-t border-gray-100 pt-6 pb-6 text-sm">
-            <a
-              href={`tel:${dictionary?.phone_number?.replace?.(/[^\d+]/g, '')}`}
-              className="hover:text-brand flex items-center gap-3 transition-colors"
-            >
-              <Icon type={IconType.Phone} className="h-5 w-5 text-gray-400" />
-              <span>{dictionary?.phone_number}</span>
-            </a>
-            <a
-              href={`mailto:${dictionary.email_address}`}
-              className="hover:text-brand flex items-center gap-3 transition-colors"
-            >
-              <Icon type={IconType.Email} className="h-5 w-5 text-gray-400" />
-              <span className="break-all">{dictionary.email_address}</span>
-            </a>
+            <ContactInfo dictionary={dictionary} />
           </div>
         </nav>
       </div>

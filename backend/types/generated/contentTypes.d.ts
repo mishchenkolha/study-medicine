@@ -655,6 +655,7 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
+    price: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
     quiz: Schema.Attribute.Relation<'oneToOne', 'api::quiz.quiz'>;
     slug: Schema.Attribute.UID<'title'>;
@@ -1042,6 +1043,44 @@ export interface ApiUserCourseUserCourse extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface ApiUserTransactionUserTransaction
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'user_transactions';
+  info: {
+    displayName: 'user_transaction';
+    pluralName: 'user-transactions';
+    singularName: 'user-transaction';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    amount: Schema.Attribute.Decimal;
+    course: Schema.Attribute.Relation<'oneToOne', 'api::course.course'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-transaction.user-transaction'
+    > &
+      Schema.Attribute.Private;
+    payment_status: Schema.Attribute.Enumeration<
+      ['paid', 'refunded', 'failed']
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    transaction_id: Schema.Attribute.String & Schema.Attribute.Unique;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1579,6 +1618,7 @@ declare module '@strapi/strapi' {
       'api::result.result': ApiResultResult;
       'api::testimonial.testimonial': ApiTestimonialTestimonial;
       'api::user-course.user-course': ApiUserCourseUserCourse;
+      'api::user-transaction.user-transaction': ApiUserTransactionUserTransaction;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

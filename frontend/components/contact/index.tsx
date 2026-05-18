@@ -11,6 +11,7 @@ import { IconType } from '@/ui/icons/IconType';
 import Image from '@/ui/image';
 import { IImage } from '@/types/strapi';
 import { CLOUDFLARE_SITE_KEY } from '@/utils/constants';
+import { sendAnalyticsEvent } from '../analytics';
 
 interface ContactSectionProps {
   dictionary: ILabelObj;
@@ -104,6 +105,8 @@ export default function ContactSection({
     if (!captchaToken) {
       return;
     }
+
+    sendAnalyticsEvent('Lead');
 
     setLoading(true);
     try {

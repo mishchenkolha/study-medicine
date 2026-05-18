@@ -5,8 +5,7 @@ import Image from '@/ui/image';
 import { ILabelObj } from '@/types/dictionary';
 import { DOMAIN_URL } from '@/utils/constants';
 import AuthButtons from '../auth-buttons';
-import { Icon } from '@/ui/icons';
-import { IconType } from '@/ui/icons/IconType';
+import ContactInfo from './contact-info';
 
 export default async function Navbar({
   menu,
@@ -74,26 +73,8 @@ export default async function Navbar({
 
         {/* Contact Block - NEW */}
         <div className="hidden items-center space-x-4 px-4 text-sm font-medium text-gray-600 xl:ml-4 xl:flex xl:border-l xl:border-gray-200">
-          <a
-            href={`tel:${dictionary?.phone_number?.replace?.(/[^\d+]/g, '')}`}
-            className="hover:text-brand flex items-center gap-2 transition-colors"
-          >
-            <Icon type={IconType.Phone} className="h-4 w-4 text-gray-400" />
-            <span className="whitespace-nowrap">
-              {dictionary?.phone_number}
-            </span>
-          </a>
-          <a
-            href={`mailto:${dictionary.email_address}`}
-            className="hover:text-brand flex items-center gap-2 transition-colors"
-          >
-            <Icon type={IconType.Email} className="h-4 w-4 text-gray-400" />
-            <span className="whitespace-nowrap">
-              {dictionary.email_address}
-            </span>
-          </a>
+          <ContactInfo dictionary={dictionary} />
         </div>
-
         <AuthButtons dictionary={dictionary} />
 
         {/* Burger + mobile menu */}

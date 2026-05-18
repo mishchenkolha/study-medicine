@@ -20,6 +20,7 @@ export interface IPrivateCourse extends IBaseCourse {
   image: IImage | null;
   bgImage: IImage | null;
   page: IPublicPage;
+  price: number;
   duration_hours: number;
   quiz: IQuiz;
   attachments: {

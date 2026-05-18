@@ -9,7 +9,7 @@ export const STRAPI_URL =
 export const MEDIA_LIBRARY_URL =
   process.env.NEXT_PUBLIC_MEDIA_LIBRARY_URL ??
   'https://worthy-agreement-b851614a2f.media.strapiapp.com';
-export const STRAPI_LIMIT = 10000;
+export const STRAPI_LIMIT = 100;
 export const DEFAULT_QUESTIONS = 20;
 export const SESSION_TIME = Number(
   process.env.NEXT_PUBLIC_USER_SESSION_TIME || 60 * 60,

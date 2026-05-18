@@ -7,6 +7,7 @@ import { normalizeMenu } from '@/utils/menu';
 import Footer from '@/components/footer';
 import { getDictionary } from '@/services/dictionary.service';
 import { ToastContainer } from 'react-toastify';
+import Script from 'next/script';
 
 export const dynamic = 'force-dynamic';
 
@@ -42,6 +43,27 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        {/* Next.js сам перенесе цей скрипт у head завдяки стратегії beforeInteractive */}
+        <Script
+          id="fb-pixel"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              !function(f,b,e,v,n,t,s)
+              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+              n.queue=[];t=b.createElement(e);t.async=!0;
+              t.src=v;s=b.getElementsByTagName(e)[0];
+              s.parentNode.insertBefore(t,s)}(window, document,'script',
+              'https://connect.facebook.net/en_US/fbevents.js');
+              fbq('init', '1319595660118995');
+              fbq('track', 'PageView');
+            `,
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

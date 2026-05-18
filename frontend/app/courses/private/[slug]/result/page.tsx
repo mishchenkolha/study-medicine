@@ -138,6 +138,7 @@ export default async function PrivateCousePage({ params }: IPageProps) {
                 <BuyCourse
                   name={currentCourse?.title ?? ''}
                   dictionary={dictionary}
+                  price={0}
                 />
               )}
             </div>

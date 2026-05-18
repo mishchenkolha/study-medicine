@@ -2,7 +2,7 @@
 import { getCoursePage } from '@/services/pages.services';
 import { getMeta } from '@/services/meta.service';
 import { ROUTES } from '@/utils/routes';
-import { IPublicPage } from '@/types/pages';
+import { IBlockCard, IPublicPage } from '@/types/pages';
 import { HTMLBlock } from '@/ui/html-block/html-block';
 import { Metadata } from 'next';
 import { IPageProps } from '@/types/page';
@@ -37,6 +37,7 @@ export default async function CousePage({ params }: IPageProps) {
   const userCoursesPromise = getUserCourses();
   const userCourses = await userCoursesPromise;
   const userPageCourse = userCourses.find((item) => item?.page?.slug === slug);
+  const price = Number(userPageCourse?.price) || 0;
 
   return (
     <div className="pb-10">
@@ -53,7 +54,11 @@ export default async function CousePage({ params }: IPageProps) {
         ) : (
           <div className="w-auto">
             {user?.email ? (
-              <BuyCourse name={coursePage.title} dictionary={dictionary} />
+              <BuyCourse
+                name={coursePage.title}
+                dictionary={dictionary}
+                price={price}
+              />
             ) : (
               <Button className="!hidden xl:!inline-flex" href={ROUTES.LOGIN}>
                 {dictionary.login}

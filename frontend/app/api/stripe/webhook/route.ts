@@ -3,8 +3,6 @@ import Stripe from 'stripe';
 
 export const runtime = 'nodejs';
 
-const stripe = getStripe();
-
 export async function POST(req: Request) {
   const body = await req.text();
   const signature = req.headers.get('stripe-signature');
@@ -12,6 +10,8 @@ export async function POST(req: Request) {
   if (!signature) {
     return new Response('No signature', { status: 400 });
   }
+
+  const stripe = getStripe();
 
   let event: Stripe.Event;
 

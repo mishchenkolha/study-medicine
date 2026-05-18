@@ -1,8 +1,6 @@
 import { getStripe } from '@/utils/stripe';
 import { NextResponse } from 'next/server';
 
-const stripe = getStripe();
-
 export async function POST(req: Request) {
   try {
     const { name, price, referrerUrl } = await req.json();
@@ -14,6 +12,9 @@ export async function POST(req: Request) {
       console.error('Name too long:', name);
       return NextResponse.json({ error: 'Name too long' }, { status: 500 });
     }
+
+    const stripe = getStripe();
+
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       payment_method_types: ['card'],

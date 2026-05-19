@@ -3,7 +3,19 @@ import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
   try {
-    const { name, price, referrerUrl } = await req.json();
+    const { name, price, referrerUrl, userId, slug } = await req.json();
+
+    if (!userId || !slug || !name || !price) {
+      return NextResponse.json(
+        {
+          error: 'Missing fields',
+        },
+        {
+          status: 400,
+        },
+      );
+    }
+
     if (!price) {
       console.error('Invalid price:', price);
       return NextResponse.json({ error: 'Invalid price' }, { status: 500 });
@@ -31,7 +43,10 @@ export async function POST(req: Request) {
           quantity: 1,
         },
       ],
-
+      metadata: {
+        userId: String(userId),
+        slug: String(slug),
+      },
       success_url: `${referrerUrl}/?success=true`,
       cancel_url: `${referrerUrl}/?success=false`,
     });

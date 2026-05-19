@@ -655,7 +655,6 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
-    price: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
     quiz: Schema.Attribute.Relation<'oneToOne', 'api::quiz.quiz'>;
     slug: Schema.Attribute.UID<'title'>;

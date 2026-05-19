@@ -1,3 +1,4 @@
+import { INTERNAL_API_KEY, STRAPI_URL } from '@/utils/constants';
 import { getStripe } from '@/utils/stripe';
 import Stripe from 'stripe';
 
@@ -30,18 +31,25 @@ export async function POST(req: Request) {
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object as Stripe.Checkout.Session;
 
-      await fetch(`${process.env.STRAPI_URL}/api/payment/confirm`, {
+      const response = await fetch(`${STRAPI_URL}/api/payment/confirm`, {
         method: 'POST',
 
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${process.env.INTERNAL_API_KEY}`,
+          Authorization: `Bearer ${INTERNAL_API_KEY}`,
         },
 
         body: JSON.stringify({
           stripeSessionId: session.id,
         }),
       });
+
+      if (!response.ok) {
+        console.error('Failed to confirm payment:', await response.text());
+        return new Response('Payment confirmation failed', {
+          status: response.status,
+        });
+      }
     }
 
     return Response.json({ received: true });

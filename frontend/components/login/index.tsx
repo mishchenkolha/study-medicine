@@ -39,7 +39,7 @@ export default function LoginForm({ dictionary }: { dictionary: ILabelObj }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-sm mx-auto space-y-4 p-4">
+    <form onSubmit={handleSubmit} className="mx-auto max-w-sm space-y-4 p-4">
       <Input
         name="identifier"
         placeholder={dictionary.email_or_username}
@@ -53,7 +53,7 @@ export default function LoginForm({ dictionary }: { dictionary: ILabelObj }) {
         onChange={handleChange}
         required
       />
-      <div className="flex gap-3 w-full justify-between">
+      <div className="flex w-full justify-between gap-3">
         <Button type="submit" disabled={loading}>
           {loading ? dictionary.logging_in : dictionary.login}
         </Button>

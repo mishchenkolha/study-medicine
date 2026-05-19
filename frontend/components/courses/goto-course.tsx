@@ -1,6 +1,6 @@
 'use client';
 import { ILabelObj } from '@/types/dictionary';
-import { Button, VARIANTS } from '@/ui/button';
+import { Button } from '@/ui/button';
 import { setTemplateData } from '@/utils';
 import { Modal } from '../modal';
 import { useState } from 'react';
@@ -8,55 +8,23 @@ import { useSearchParams } from 'next/navigation';
 import { DOMAIN_URL } from '@/utils/constants';
 import { ROUTES } from '@/utils/routes';
 
-export default function BuyCourse({
-  name,
-  price,
+export default function GotoCourse({
   dictionary,
-  userId,
   slug,
+  name,
 }: {
-  name: string;
-  price: number;
   dictionary: ILabelObj;
-  userId: number;
   slug: string;
+  name: string;
 }) {
-  const url = `${DOMAIN_URL}${ROUTES.COURSES}/${slug}`;
+  const url = `${DOMAIN_URL}${ROUTES.COURSES}/private/${slug}`;
   const searchParams = useSearchParams();
   const isSuccess = searchParams.get('success');
-  const [showModal, setShowModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(isSuccess === 'false');
   const [showSuccessModal, setShowSuccessModal] = useState(
     isSuccess === 'true',
   );
 
-  const onShowModal = async () => {
-    if (!price) {
-      setShowModal(true);
-      return;
-    }
-    try {
-      const res = await fetch('/api/stripe/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json', // Обов'язково вказуємо тип контенту
-        },
-        body: JSON.stringify({
-          name,
-          price,
-          referrerUrl: url, // Передаємо поточну адресу
-          userId,
-          slug,
-        }),
-      });
-
-      const data = await res.json();
-
-      window.location.href = data.url;
-    } catch (error) {
-      setShowErrorModal(true);
-    }
-  };
   const onCloseErrorModal = () => {
     setShowErrorModal(false);
     window.history.replaceState({}, '', url);
@@ -65,23 +33,9 @@ export default function BuyCourse({
     setShowSuccessModal(false);
     window.history.replaceState({}, '', url);
   };
-  const onCloseModal = () => {
-    setShowModal(false);
-  };
 
   return (
     <>
-      {showModal && (
-        <Modal
-          title={dictionary.buy_course}
-          message={
-            <div className="pt-2">
-              {setTemplateData(dictionary.buy_course_details, { name })}
-            </div>
-          }
-          onClose={onCloseModal}
-        />
-      )}
       {showErrorModal && (
         <Modal
           title={dictionary.buy_course_error}
@@ -104,9 +58,7 @@ export default function BuyCourse({
           onClose={onCloseSuccessModal}
         />
       )}
-      <Button onClick={onShowModal} variant={VARIANTS.DANGER}>
-        {dictionary.buy_course}
-      </Button>
+      <Button href={url}>{dictionary.view_private_course}</Button>
     </>
   );
 }

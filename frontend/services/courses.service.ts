@@ -13,8 +13,8 @@ import { getUser } from './auth.service';
 
 export const getCourseBySlug = async (
   slug: string,
-): Promise<IPrivateCourse | void> => {
-  if (!slug) return;
+): Promise<IPrivateCourse> => {
+  if (!slug) return {} as IPrivateCourse;
   const queryString = stringify({
     populate: ['image', 'bg_image', 'post.image', 'quiz'],
     'filters[slug][$eqi]': slug,
@@ -26,7 +26,7 @@ export const getCourseBySlug = async (
     `${ROUTES.COURSES}?${queryString}`,
   );
 
-  return responce?.data?.[0];
+  return responce?.data?.[0] ?? ({} as IPrivateCourse);
 };
 
 export const getUserCourses = async (): Promise<IPrivateCourse[]> => {

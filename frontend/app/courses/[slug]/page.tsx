@@ -8,10 +8,14 @@ import { Metadata } from 'next';
 import { IPageProps } from '@/types/page';
 import { Button } from '@/ui/button';
 import { getDictionary } from '@/services/dictionary.service';
-import { getUserCourses } from '@/services/courses.service';
+import { getCourseBySlug, getUserCourses } from '@/services/courses.service';
 import BuyCourse from '@/components/courses/buy-course';
 import { getUser } from '@/services/auth.service';
 import { noParamsChecker } from '@/utils/not_found';
+import { DOMAIN_URL } from '@/utils/constants';
+import { ICourses } from '@/components/homepage/popular-courses';
+import { IPrivateCourse } from '@/types/courses';
+import GotoCourse from '@/components/courses/goto-course';
 
 export async function generateMetadata({
   params,
@@ -37,7 +41,10 @@ export default async function CousePage({ params }: IPageProps) {
   const userCoursesPromise = getUserCourses();
   const userCourses = await userCoursesPromise;
   const userPageCourse = userCourses.find((item) => item?.page?.slug === slug);
-  const price = Number(userPageCourse?.price) || 0;
+  const price =
+    Number(
+      ((coursePage?.blocks?.[0] as IBlockCard)?.price ?? '').replace(/\D/g, ''),
+    ) || 0;
 
   return (
     <div className="pb-10">
@@ -47,9 +54,11 @@ export default async function CousePage({ params }: IPageProps) {
         </h1>
         {userPageCourse ? (
           <div className="w-auto">
-            <Button href={`${ROUTES.COURSES}/private/${userPageCourse.slug}`}>
-              {dictionary.view_private_course}
-            </Button>
+            <GotoCourse
+              dictionary={dictionary}
+              slug={slug}
+              name={coursePage.title}
+            />
           </div>
         ) : (
           <div className="w-auto">
@@ -58,6 +67,8 @@ export default async function CousePage({ params }: IPageProps) {
                 name={coursePage.title}
                 dictionary={dictionary}
                 price={price}
+                userId={user.id}
+                slug={slug ?? ''}
               />
             ) : (
               <Button className="!hidden xl:!inline-flex" href={ROUTES.LOGIN}>

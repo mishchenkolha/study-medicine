@@ -58,9 +58,6 @@
       "type": "component",
       "component": "llist.files",
       "repeatable": false
-    },
-    "price": {
-      "type": "decimal"
     }
   }
 }

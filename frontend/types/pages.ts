@@ -46,6 +46,7 @@ export interface IBlockLink {
 type TBlock = IBlockCard | IBlockLink;
 export interface IPublicPage {
   id: number;
+  documentId: string;
   title: string;
   description: string;
   slug: string;

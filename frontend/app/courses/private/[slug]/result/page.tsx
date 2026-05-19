@@ -15,6 +15,7 @@ import { IPageProps } from '@/types/page';
 import { Button } from '@/ui/button';
 import { HTMLBlock } from '@/ui/html-block/html-block';
 import { setTemplateData } from '@/utils';
+import { DOMAIN_URL } from '@/utils/constants';
 import { ROUTES } from '@/utils/routes';
 import { redirect } from 'next/navigation';
 
@@ -139,6 +140,8 @@ export default async function PrivateCousePage({ params }: IPageProps) {
                   name={currentCourse?.title ?? ''}
                   dictionary={dictionary}
                   price={0}
+                  userId={user.id}
+                  slug={slug}
                 />
               )}
             </div>

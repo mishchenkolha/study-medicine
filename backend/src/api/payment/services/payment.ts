@@ -38,9 +38,9 @@ export default () => ({
 
     const userId = Number(session.metadata?.userId);
 
-    const courseId = Number(session.metadata?.courseId);
+    const slug = session.metadata?.slug ?? '';
 
-    if (!userId || !courseId) {
+    if (!userId || !slug) {
       throw new Error('Invalid metadata');
     }
 
@@ -88,11 +88,12 @@ export default () => ({
 
     const courses = await strapi.documents('api::course.course').findMany({
       filters: {
-        id: courseId,
+        slug,
       },
     });
 
-    const course = courses?.[0];
+    // Оскільки slug зазвичай унікальний, беремо перший елемент масиву
+    const course = courses.length > 0 ? courses[0] : null;
 
     if (!course) {
       throw new Error('Course not found');
@@ -104,7 +105,7 @@ export default () => ({
 
     const stripeAmount = (session.amount_total || 0) / 100;
 
-    if (Number(course.price) !== stripeAmount) {
+    if (!stripeAmount) {
       throw new Error('Invalid payment amount');
     }
 
@@ -113,16 +114,13 @@ export default () => ({
     // ====================
 
     await strapi.documents('api::user-transaction.user-transaction').create({
+      status: 'published',
       data: {
         transaction_id: stripeSessionId,
-
         payment_status: 'paid',
-
         amount: stripeAmount,
-
         user: userId,
-
-        course: courseId,
+        course: course.id,
       },
     });
 
@@ -152,10 +150,10 @@ export default () => ({
 
     if (!existingRecord) {
       await strapi.documents('api::user-course.user-course').create({
+        status: 'published',
         data: {
           user: userId,
-
-          courses: [courseId],
+          courses: [course.id],
         },
       });
     } else {
@@ -166,18 +164,18 @@ export default () => ({
       const existingCourses =
         existingRecord.courses?.map((course) => course.id) || [];
 
-      const alreadyHasCourse = existingCourses.includes(courseId);
+      const alreadyHasCourse = existingCourses.includes(course.id);
 
       // ====================
       // ADD NEW COURSE
       // ====================
 
       if (!alreadyHasCourse) {
-        const mergedCourses = [...new Set([...existingCourses, courseId])];
+        const mergedCourses = [...new Set([...existingCourses, course.id])];
 
         await strapi.documents('api::user-course.user-course').update({
           documentId: existingRecord.documentId,
-
+          status: 'published',
           data: {
             courses: mergedCourses,
           },
@@ -194,12 +192,8 @@ export default () => ({
       .service('email')
       .send({
         to: user.email,
-
         subject: 'Course Enrollment Successful',
-
-        text: `
-You successfully enrolled in the course "${course.title}".
-        `,
+        text: `You successfully enrolled in the course "${course.title}".`,
       });
 
     // ====================

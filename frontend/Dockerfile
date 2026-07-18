@@ -17,12 +17,6 @@ RUN echo '{"name": "@next/swc-linux-x64-musl", "main": "next-swc.linux-x64-musl.
 
 COPY . .
 
-ARG NEXT_PUBLIC_DOMAIN_URL
-ENV NEXT_PUBLIC_DOMAIN_URL=$NEXT_PUBLIC_DOMAIN_URL
-
-# ВИДАЛЯЄМО experimental-specifier-resolution, він ламає імпорти в TS
-# ENV NODE_OPTIONS="--experimental-specifier-resolution=node" <-- ПРИБРАЛИ
-
 RUN npm run build
 
 EXPOSE 3000

@@ -26,4 +26,5 @@ ENV NEXT_PUBLIC_DOMAIN_URL=$NEXT_PUBLIC_DOMAIN_URL
 RUN npm run build
 
 EXPOSE 3000
-CMD ["npm", "run", "dev"]
+
+CMD ["npm", "run", "start"]
